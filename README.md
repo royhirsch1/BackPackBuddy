@@ -14,9 +14,8 @@ async-
 Sprint1:
 --------------------------------------------
 
-1) Choose suitable format for initial data collection
-+
-Choose and test Recommender Engine 
+* Choose suitable format for initial data collection
+* Choose and test Recommender Engine 
 
 ----------------------------------------
 2) Data Collection + Data extraction from Technion servers
