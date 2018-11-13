@@ -22,9 +22,9 @@ Sprint1:
 
 ----------------------------------------
 
-3) Create very simple GUI
-+
-Backend basic features (create user, report preferences, get recommendations)
+3) 
+*Create very simple GUI
+*Backend basic features (create user, report preferences, get recommendations)
 
 4) plan app GUI
 ----------------------------------------
