@@ -73,7 +73,7 @@
         android:text="Login" />
 
     <Button
-        android:id="@+id/signupButton"
+        android:id="@+id/signupRedirectButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

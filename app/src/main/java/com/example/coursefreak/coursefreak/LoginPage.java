@@ -1,7 +1,10 @@
 package com.example.coursefreak.coursefreak;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +21,14 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
         this.mAuth = FirebaseAuth.getInstance();
+        Button go_to_signup = (Button)findViewById(R.id.signupRedirectButton);
+        go_to_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signupIntent = new Intent(v.getContext(), SignupPage.class);
+                startActivity(signupIntent);
+            }
+        });
     }
 
     @Override
