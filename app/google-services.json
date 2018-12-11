@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "876995660332",
+    "firebase_url": "https://coursefreak-6c777.firebaseio.com",
+    "project_id": "coursefreak-6c777",
+    "storage_bucket": "coursefreak-6c777.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876995660332:android:9237b187d8e5c123",
+        "android_client_info": {
+          "package_name": "com.example.coursefreak.coursefreak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876995660332-adc1bl5mm5k1c5v6h2q4lbputrnum0a7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.coursefreak.coursefreak",
+            "certificate_hash": "3abc8e15a66599e6614d62824f8e4019865e6e9f"
+          }
+        },
+        {
+          "client_id": "876995660332-qsubv6aqq6o8t106r6ljqoqe4t2df749.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd0O5CTRaburo7Q7IZVA3z8qeIVdoa19s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876995660332-qsubv6aqq6o8t106r6ljqoqe4t2df749.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

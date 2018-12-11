@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">CourseFreak</string>
+    <string name="facebookLoginString">Continue with Facebook</string>
+    <string name="googleLoginString">Continue with Google</string>
+    <string name="hintEmailBox">E-mail</string>
+    <string name="hintPasswordBox">Password</string>
+    <string name="loginButtonString">Login</string>
+    <string name="emailSignupString">Sign up with E-mail</string>
+    <string name="guestContinueString">Continue as guest</string>
+    <string name="signupFeaturesString_1">Sign up for course recommendations,</string>
+    <string name="signupFeaturesString_2">reviews, and more!</string>
 </resources>
