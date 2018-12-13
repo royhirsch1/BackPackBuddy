@@ -10,10 +10,15 @@
     <EditText
         android:id="@+id/passwordTextBox"
         android:layout_width="325dp"
-        android:layout_height="43dp"
+        android:layout_height="40dp"
+        android:layout_alignStart="@+id/buttonEmailSign"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="371dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginRight="29dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textEmailAddress"
@@ -25,9 +30,10 @@
         android:id="@+id/buttonLogin"
         style="@style/SignupPageButtons"
         android:layout_width="325dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="191dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="159dp"
         android:background="@color/colorMainButton"
         android:text="Login"
         android:textSize="14sp"
@@ -47,28 +53,31 @@
     <Button
         android:id="@+id/facebookButton"
         style="@style/SignupPageButtons"
+        android:layout_alignStart="@+id/passwordTextBox"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="206dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="158dp"
         android:background="@color/colorFacebook"
         android:text="Continue with facebook" />
 
     <Button
         android:id="@+id/googleButton"
         style="@style/SignupPageButtons"
+        android:layout_alignStart="@+id/passwordTextBox"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="264dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="213dp"
         android:background="@color/colorGoogle"
         android:text="Continue with google" />
 
     <EditText
         android:id="@+id/emailTextBox"
         android:layout_width="325dp"
-        android:layout_height="43dp"
+        android:layout_height="40dp"
+        android:layout_alignStart="@+id/passwordTextBox"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="318dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="270dp"
         android:ems="10"
         android:hint="E-mail"
         android:inputType="textEmailAddress"
@@ -89,8 +98,8 @@
 
     <ImageView
         android:id="@+id/imageAppLogoView"
-        android:layout_width="165dp"
-        android:layout_height="150dp"
+        android:layout_width="169dp"
+        android:layout_height="98dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
@@ -102,6 +111,19 @@
         android:layout_height="26dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="148dp"
+        android:layout_marginBottom="128dp"
         tools:srcCompat="@tools:sample/avatars[2]" />
+
+    <TextView
+        android:id="@+id/debugTitleBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="153dp"
+        android:layout_marginLeft="153dp"
+        android:layout_marginBottom="241dp"
+        android:text="Logged in!"
+        android:textColor="@color/colorMinorButton"/>
 </RelativeLayout>
