@@ -19,6 +19,9 @@
         <activity android:name=".SignupPage">
 
         </activity>
+        <activity android:name=".GuestPage">
+
+        </activity>
     </application>
 
 </manifest>

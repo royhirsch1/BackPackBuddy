@@ -43,6 +43,15 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
+        Button guestViewButton = (Button)findViewById(R.id.buttonGuestView);
+        guestViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent guestIntent = new Intent(v.getContext(), GuestPage.class);
+                startActivity(guestIntent);
+            }
+        });
+
         //ActivateLamlTest();
     }
 

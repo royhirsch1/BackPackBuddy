@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuestCoursesRecyclerAdapter extends RecyclerView.Adapter<GuestCoursesRecyclerAdapter.ViewHolder> {
@@ -41,6 +42,7 @@ public class GuestCoursesRecyclerAdapter extends RecyclerView.Adapter<GuestCours
 
     public GuestCoursesRecyclerAdapter(List<Course> courses, Context ctx) {
         this.courseList = courses;
+        this.views = new ArrayList<>();
         this.context = ctx;
     }
 
@@ -52,7 +54,7 @@ public class GuestCoursesRecyclerAdapter extends RecyclerView.Adapter<GuestCours
     @Override
     public void onBindViewHolder(@NonNull GuestCoursesRecyclerAdapter.ViewHolder viewHolder, int i) {
         Course c = this.courseList.get(i);
-        viewHolder.courseNameTitle.setText(c.course_name);
+        viewHolder.courseNameTitle.setText(c.getName());
         Double percentPositive = getPositiveReviewPercent(c.pos, c.neg);
         viewHolder.percents = percentPositive;
         viewHolder.coursePercentageTitle.setText(percentPositive.toString());
@@ -76,6 +78,9 @@ public class GuestCoursesRecyclerAdapter extends RecyclerView.Adapter<GuestCours
     private static Double getPositiveReviewPercent(Integer pos, Integer neg) {
 //        int p = Integer.getInteger(pos);
 //        int n = Integer.getInteger(neg);
+        if(pos + neg == 0) {
+            return 0.0;
+        }
         return ((double)pos) / (pos + neg);
     }
 
