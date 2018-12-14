@@ -15,7 +15,6 @@
 
     <style name="SignupPageButtons" parent="Widget.Support.CoordinatorLayout">
         <item name="android:layout_width">325dp</item>
-        <item name="android:font">@font/RobotoRegular</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">14dp</item>
         <item name="android:layout_height">43dp</item>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#cbd0cf</color>
+    <color name="colorPrimaryDark">#176087</color>
     <color name="colorAccent">#d81b60</color>
     <color name="colorBackgroundBase">#EFEFEF</color>
     <color name="colorNotificationBar">#176087</color>
@@ -10,4 +10,9 @@
     <color name="colorMainButton">#176087</color>
     <color name="colorMinorButton">#0A2239</color>
     <color name="colorSignupTextHint">#0A2239</color>
+    <color name="colorLightTabBackground">#53A2BE</color>
+    <color name="colorNumberReviews">#D4E0FF</color>
+    <color name="colorReviewPositive">#45A73D</color>
+    <color name="colorReviewNegative">#E31E1E</color>
+    <color name="colorReviewNeutral">#176087</color>
 </resources>

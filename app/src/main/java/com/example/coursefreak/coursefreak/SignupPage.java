@@ -37,21 +37,21 @@ public class SignupPage extends AppCompatActivity {
                 String user_password = ((EditText)findViewById(R.id.passwordTextBox)).getText().toString();
                 if (user_email.length() != 0 && user_password.length() >= 8)
                     mAuth.createUserWithEmailAndPassword(user_email, user_password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()) {
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Toast.makeText(SignupPage.this,
-                                        "Welcome ".concat(user.getEmail()),
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(SignupPage.this,
-                                        task.getException().getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()) {
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Toast.makeText(SignupPage.this,
+                                                "Welcome ".concat(user.getEmail()),
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(SignupPage.this,
+                                                task.getException().getMessage(),
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
             }
         });
 
