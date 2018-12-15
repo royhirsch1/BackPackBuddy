@@ -16,9 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignupPage">
-
-        </activity>
+        <activity android:name=".SignupPage" />
+        <activity android:name=".Courses" />
+        <activity android:name=".Courses_interested"></activity>
     </application>
 
 </manifest>
