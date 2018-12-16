@@ -64,7 +64,7 @@ public class LoginPage extends AppCompatActivity {
         //TestDatabaseUtils1();
         //TestDatabasUtils2();
         //TestDatabaseUtils3();
-        TestDatabaseUtils4();
+        //TestDatabaseUtils4();
     }
 
     @Override
