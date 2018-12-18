@@ -5,7 +5,7 @@ public class UserCourseRating {
     public Integer rating;
 
     public UserCourseRating() {
-        //Default constructor for DataSnapshot
+        //Default constr for Firebase
     }
 
     public UserCourseRating(String course_name, Integer rating) {
