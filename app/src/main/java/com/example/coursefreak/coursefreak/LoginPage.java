@@ -75,7 +75,7 @@ public class LoginPage extends AppCompatActivity {
 //        };
 //        Matrix A = new DenseMatrix(4,4);
 //        /*
-//            Courses:
+//            catalog:
 //            Operating Systems, Computer Architecture, Algorithms, Data Structures
 //            Alice:
 //                Likes Operating Systems, Comp Arch,

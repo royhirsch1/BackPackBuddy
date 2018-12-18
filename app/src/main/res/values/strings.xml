@@ -9,4 +9,12 @@
     <string name="guestContinueString">Continue as guest</string>
     <string name="signupFeaturesString_1">Sign up for course recommendations,</string>
     <string name="signupFeaturesString_2">reviews, and more!</string>
+    <string name="title_activity_courses_tabs">CoursesTabs</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_courses">Courses</string>
+    <string name="tab_text_1">Catalog</string>
+    <string name="tab_text_2">Recommended</string>
+    <string name="tab_text_3">Interested</string>
+    <string name="courses">Courses</string>
 </resources>

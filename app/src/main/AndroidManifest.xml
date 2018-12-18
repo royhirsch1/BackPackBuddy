@@ -17,8 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignupPage" />
-        <activity android:name=".Courses" />
-        <activity android:name=".Courses_interested"></activity>
+        <activity
+            android:name=".Courses"
+            android:label="@string/title_activity_courses"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>
