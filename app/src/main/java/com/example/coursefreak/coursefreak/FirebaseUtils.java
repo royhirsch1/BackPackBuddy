@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public final class FirebaseUtils {
     /*
@@ -28,37 +29,45 @@ public final class FirebaseUtils {
     // Returns list of all courses in the system in Course objects
     // Given the reference to the root of the database.
     // Upon error, returns list with 1 course whose name is the error.
-    public static void allCourses(DatabaseReference mDB, final List<Course> res) {
+    public static void allCourses(DatabaseReference mDB) {
         Log.d("Courses", "In allCourses");
+        final List<Course> res = new ArrayList<>();
         mDB.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
+                    Log.d("Courses", courseSnap.getKey());
                     Course c = courseSnap.getValue(Course.class);
-                    Log.d("Courses", c.getName());
-                    if (c != null)
-                        res.add(c);
-                }
-                String name; Integer pos; Integer rev;
-                if(res.size() > 0 && res.get(0).getPos() == -1) {
-                    Log.d("Courses","ERROR");
-                    Log.d("Courses", res.get(0).getName());
-                    return;
-                }
-                if(res == null || res.size() == 0) {
-                    Log.d("Courses", "Error");
-                    return;
+                    c.parseCatsReqs();
+                    res.add(c);
                 }
                 for(Course c : res) {
-                    name = c.getName(); pos = c.getPos(); rev = c.getReviewNumber();
-                    Log.d("Courses", name.concat(" ").concat(pos.toString()).concat(" ").concat(rev.toString()));
+                    if(c == null) {
+                        Log.d("Courses", "ERROR! Null Course");
+                        break;
+                    }
+                    Log.d("Courses",
+                            c.getName()
+                            .concat(c.getCourseID()).concat(" ")
+                            .concat(c.getName()).concat(" ")
+                            .concat(c.getPoints().toString()).concat(" ")
+                            .concat(c.getNumLikes().toString()).concat(" ")
+                            .concat(c.getAverage().toString()));
+                    Log.d("Courses", "Course Categories:");
+                    for(String s : c.parsedCategories) {
+                        Log.d("Courses", s);
+                    }
+                    Log.d("Courses", "Course Requirements:");
+                    for(String s : c.parsedRequirements) {
+                        Log.d("Courses", s);
+                    }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 res.clear();
-                res.add(new Course(databaseError.getMessage(), -1, -1));
+                Log.d("Courses", "Database Error");
             }
         });
     }
@@ -67,23 +76,24 @@ public final class FirebaseUtils {
     // Given a uid of the user and a database reference.
     // Upon error, returns map with one element whose key is the error and value is -1.
     public static void userRatings(String uid, DatabaseReference mDB) {
-        final Map<String, Integer> res = new HashMap<>();
-        Log.d("AllRate", "In userReatings");
-        Log.d("Ratings", "Ratings for ".concat(uid));
+        final List<String> res = new ArrayList<>();
+        Log.d("UserRates", "In userRatings");
+        Log.d("UserRates", "Ratings for ".concat(uid));
         mDB.child("user_course_ratings").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ratingSnap : dataSnapshot.getChildren()) {
-                    UserCourseRating ucr = ratingSnap.getValue(UserCourseRating.class);
-                    if (ucr != null) {
-                        res.put(ucr.getCourseName(), ucr.rating);
-                        Log.d("AllRate",
-                                "Course: ".concat(ucr.getCourseName())
-                                .concat(" Rating: ").concat(ucr.getRating().toString()));
+                    String cid = ratingSnap.getKey().toString();
+                    if (cid != null && cid.length() > 0) {
+                        res.add(cid);
                     }
                     else {
-                        Log.d("AllRAte", "ERROR: Null");
+                        Log.d("UserRates", "ERROR: Null");
+                        break;
                     }
+                }
+                for(String cid : res) {
+                    Log.d("UserRates", "Liked course: ".concat(cid));
                 }
             }
 
@@ -110,11 +120,10 @@ public final class FirebaseUtils {
     // Assume: The course name is valid.
     public static void userAddPositiveRating(String uid, final String course_name, DatabaseReference mDB) {
         final String resStr = new String();
-        UserCourseRating ucr = new UserCourseRating(course_name, 1);
         mDB.child("user_course_ratings")
                 .child(uid)
                 .child(course_name)
-                .setValue(ucr)
+                .setValue(1)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -146,7 +155,6 @@ public final class FirebaseUtils {
 
     // Returns matrix of all user ratings for the Matrix Recovery algorithm.
     public static double[][] getRatingsMatrix(DatabaseReference mDB) {
-        final String resStr = new String();
         mDB.child("user_course_ratings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -155,16 +163,18 @@ public final class FirebaseUtils {
                 Set<String> all_courses = new TreeSet<>();
                 for(DataSnapshot singleUserData : dataSnapshot.getChildren()) {
                     String user_id = singleUserData.getKey();
+                    //Log.d("Matrix", user_id);
                     all_users.add(user_id);
                     allRatings.put(user_id, new ArrayList<String>());
                     for(DataSnapshot singleCourseRatings : singleUserData.getChildren()) {
-                        UserCourseRating ucr = singleCourseRatings.getValue(UserCourseRating.class);
-                        all_courses.add(ucr.getCourseName());
-                        allRatings.get(user_id).add(ucr.getCourseName());
+                        String cid = singleCourseRatings.getKey();
+                        //Log.d("Matrix", cid);
+                        all_courses.add(cid);
+                        allRatings.get(user_id).add(cid);
                     }
                 }
                 Log.d("Matrix", "Participating courses found: ".concat(Integer.toString(all_courses.size())));
-                Log.d("Matrix", "Users found: ".concat((Integer.toString(all_users.size()))));
+                Log.d("Matrix", "Participating users found: ".concat((Integer.toString(all_users.size()))));
                 Map<String, Integer> coursesIndex = new HashMap<>();
                 Map<Integer, String> coursesReverse = new HashMap<>();
                 Map<String, Integer> usersIndex   = new HashMap<>();
@@ -200,10 +210,72 @@ public final class FirebaseUtils {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                resStr.concat("ERROR");
                 Log.d("Matrix", "Cancellation error");
             }
         });
         return null;
+    }
+
+    public static void addNewCourseReview(String courseID, String uid, String text, DatabaseReference mDB) {
+        Log.d("addRev", "In addNewCourseReview");
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("reviewText", text);
+        data.put("numberHelped", 0);
+        data.put("userID", uid);
+        mDB.child("course_reviews")
+            .child(courseID)
+            .push()
+            .setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(!task.isSuccessful()) {
+                    Log.d("addRev", "ERROR! No Success!");
+                }
+                else {
+                    Log.d("addRev", "Review added!");
+                }
+            }
+        });
+    }
+
+    public static void reviewHelpedSomeone(String reviewID, String courseID, Integer curNumberHelped, DatabaseReference mDB) {
+        Integer nextNum = curNumberHelped + 1;
+        Log.d("helped", "In reviewHelpedSomeone");
+        mDB.child("course_reviews").child(courseID).child(reviewID).child("numberHelped").setValue(nextNum).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(!task.isSuccessful()) {
+                    Log.d("helped", "ERROR! review not updated!");
+                }
+                else {
+                    Log.d("helped", "Review update success!");
+                }
+            }
+        });
+    }
+
+    public static void getCourseReviewsOrdered(final String courseID, DatabaseReference mDB) {
+        Log.d("getRevs", "In getCourseReviewsOrdered");
+        final List<Review> reviewList = new ArrayList<>();
+        mDB.child("course_reviews").child(courseID).orderByChild("numberHelped").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot courseReview : dataSnapshot.getChildren()) {
+                    Review rev = courseReview.getValue(Review.class);
+                    reviewList.add(rev);
+                }
+                for(Review r : reviewList) {
+                    Log.d("getRevs", "Review by ".concat(r.getUserID())
+                            .concat(" says that ").concat(r.getReviewText())
+                            .concat(" and has helped ").concat(r.getNumHelped().toString()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                reviewList.clear();
+                Log.d("getRevs", "Database Cancel Error!");
+            }
+        });
     }
 }

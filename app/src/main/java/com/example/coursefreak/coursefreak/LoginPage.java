@@ -66,6 +66,8 @@ public class LoginPage extends AppCompatActivity {
         //TestDatabaseUtils3();
         //TestDatabaseUtils4();
         //TestDatabaseUtils5();
+        //TestDatabaseUtils6();
+        //TestDatabaseUtils7();
     }
 
     @Override
@@ -149,25 +151,14 @@ public class LoginPage extends AppCompatActivity {
 
 //    private void TestDatabaseUtils1() {
 //        Log.d("Courses", "HELLOOO~~~~");
-//        List<Course> all_courses = new ArrayList<>();
-//        FirebaseUtils.allCourses(mDatabase.getReference(), all_courses);
+//        FirebaseUtils.allCourses(mDatabase.getReference());
 //        Log.d("Courses", "Back from allCourses!");
-//        String name; Integer pos; Integer rev;
-//        if(all_courses.size() > 0 && all_courses.get(0).getPos() == -1) {
-//            Log.d("Courses","ERROR");
-//            Log.d("Courses", all_courses.get(0).getName());
-//            return;
-//        }
-//        for(Course c : all_courses) {
-//            name = c.getName(); pos = c.getPos(); rev = c.getReviewNumber();
-//            Log.d("Courses", name.concat(" ").concat(pos.toString()).concat(" ").concat(rev.toString()));
-//        }
 //    }
 //
 //    private void TestDatabasUtils2() {
 //        Log.d("Rate", "Hello there.");
 //        FirebaseUtils.userAddPositiveRating(mAuth.getUid(),
-//                "234118 - Computer Organization",
+//                "234218",
 //                mDatabase.getReference());
 //        Log.d("Rate", "Right after userAddPositiveRating");
 //    }
@@ -175,7 +166,7 @@ public class LoginPage extends AppCompatActivity {
 //    private void TestDatabaseUtils3() {
 //        Log.d("RemRate", "Hello again.");
 //        FirebaseUtils.userRemoveExistingRating(mAuth.getUid(),
-//                "234141 - Combinatorics",
+//                "234218",
 //                mDatabase.getReference());
 //        Log.d("RemRate","Right after userRemoveRating");
 //    }
@@ -191,5 +182,16 @@ public class LoginPage extends AppCompatActivity {
 //        Log.d("Matrix","Testing matrix...");
 //        FirebaseUtils.getRatingsMatrix(mDatabase.getReference());
 //        Log.d("Matrix", "After getting Matrix");
+//    }
+//    private void TestDatabaseUtils6() {
+//        Log.d("addRev", "Entering addNewCourseReview");
+//        FirebaseUtils.addNewCourseReview("234123", this.mAuth.getUid(), "Easy!", this.mDatabase.getReference());
+//        Log.d("addRev","Finshed addNewREview");
+//    }
+
+//    private void TestDatabaseUtils7() {
+//        Log.d("helped", "Entering reviewHelpedSomeone");
+//        FirebaseUtils.reviewHelpedSomeone("-LU1v7i2isiO-G0gLAFU", "234123", 1, this.mDatabase.getReference());
+//        Log.d("helped", "Finished reviewHelpedSomeone");
 //    }
 }

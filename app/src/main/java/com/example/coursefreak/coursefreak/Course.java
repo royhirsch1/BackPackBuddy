@@ -36,7 +36,9 @@ public class Course {
     }
 
     private void parseCategories() {
-        String[] parts = this.categories.split("$");
+        if(this.categories == null)
+            return;
+        String[] parts = this.categories.split(";");
         this.parsedCategories = new ArrayList<>();
         for(String s : parts) {
             this.parsedCategories.add(s);
@@ -44,7 +46,9 @@ public class Course {
     }
 
     private void parseRequirements() {
-        String[] parts = this.requirements.split("$");
+        if(this.requirements == null)
+            return;
+        String[] parts = this.requirements.split(";");
         this.parsedRequirements = new ArrayList<>();
         for(String s : parts) {
             this.parsedRequirements.add(s);
