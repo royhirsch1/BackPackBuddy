@@ -65,6 +65,7 @@ public class LoginPage extends AppCompatActivity {
         //TestDatabasUtils2();
         //TestDatabaseUtils3();
         //TestDatabaseUtils4();
+        //TestDatabaseUtils5();
     }
 
     @Override
@@ -146,43 +147,49 @@ public class LoginPage extends AppCompatActivity {
 //        }
 //    }
 
-    private void TestDatabaseUtils1() {
-        Log.d("Courses", "HELLOOO~~~~");
-        List<Course> all_courses = new ArrayList<>();
-        FirebaseUtils.allCourses(mDatabase.getReference(), all_courses);
-        Log.d("Courses", "Back from allCourses!");
-        String name; Integer pos; Integer rev;
-        if(all_courses.size() > 0 && all_courses.get(0).getPos() == -1) {
-            Log.d("Courses","ERROR");
-            Log.d("Courses", all_courses.get(0).getName());
-            return;
-        }
-        for(Course c : all_courses) {
-            name = c.getName(); pos = c.getPos(); rev = c.getReviewNumber();
-            Log.d("Courses", name.concat(" ").concat(pos.toString()).concat(" ").concat(rev.toString()));
-        }
-    }
-
-    private void TestDatabasUtils2() {
-        Log.d("Rate", "Hello there.");
-        FirebaseUtils.userAddPositiveRating(mAuth.getUid(),
-                "234118 - Computer Organization",
-                mDatabase.getReference());
-        Log.d("Rate", "Right after userAddPositiveRating");
-    }
-
-    private void TestDatabaseUtils3() {
-        Log.d("RemRate", "Hello again.");
-        FirebaseUtils.userRemoveExistingRating(mAuth.getUid(),
-                "234141 - Combinatorics",
-                mDatabase.getReference());
-        Log.d("RemRate","Right after userRemoveRating");
-    }
-
-    private void TestDatabaseUtils4() {
-        Log.d("AllRate","This is the last time you'll see me.");
-        FirebaseUtils.userRatings(mAuth.getUid(),
-                mDatabase.getReference());
-        Log.d("AllRate", "After userRatings");
-    }
+//    private void TestDatabaseUtils1() {
+//        Log.d("Courses", "HELLOOO~~~~");
+//        List<Course> all_courses = new ArrayList<>();
+//        FirebaseUtils.allCourses(mDatabase.getReference(), all_courses);
+//        Log.d("Courses", "Back from allCourses!");
+//        String name; Integer pos; Integer rev;
+//        if(all_courses.size() > 0 && all_courses.get(0).getPos() == -1) {
+//            Log.d("Courses","ERROR");
+//            Log.d("Courses", all_courses.get(0).getName());
+//            return;
+//        }
+//        for(Course c : all_courses) {
+//            name = c.getName(); pos = c.getPos(); rev = c.getReviewNumber();
+//            Log.d("Courses", name.concat(" ").concat(pos.toString()).concat(" ").concat(rev.toString()));
+//        }
+//    }
+//
+//    private void TestDatabasUtils2() {
+//        Log.d("Rate", "Hello there.");
+//        FirebaseUtils.userAddPositiveRating(mAuth.getUid(),
+//                "234118 - Computer Organization",
+//                mDatabase.getReference());
+//        Log.d("Rate", "Right after userAddPositiveRating");
+//    }
+//
+//    private void TestDatabaseUtils3() {
+//        Log.d("RemRate", "Hello again.");
+//        FirebaseUtils.userRemoveExistingRating(mAuth.getUid(),
+//                "234141 - Combinatorics",
+//                mDatabase.getReference());
+//        Log.d("RemRate","Right after userRemoveRating");
+//    }
+//
+//    private void TestDatabaseUtils4() {
+//        Log.d("AllRate","This is the last time you'll see me.");
+//        FirebaseUtils.userRatings(mAuth.getUid(),
+//                mDatabase.getReference());
+//        Log.d("AllRate", "After userRatings");
+//    }
+//
+//    private void TestDatabaseUtils5() {
+//        Log.d("Matrix","Testing matrix...");
+//        FirebaseUtils.getRatingsMatrix(mDatabase.getReference());
+//        Log.d("Matrix", "After getting Matrix");
+//    }
 }

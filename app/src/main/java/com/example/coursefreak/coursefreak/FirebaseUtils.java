@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public final class FirebaseUtils {
     /*
@@ -140,5 +142,68 @@ public final class FirebaseUtils {
                 }
             }
         });
+    }
+
+    // Returns matrix of all user ratings for the Matrix Recovery algorithm.
+    public static double[][] getRatingsMatrix(DatabaseReference mDB) {
+        final String resStr = new String();
+        mDB.child("user_course_ratings").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Map<String, List<String>> allRatings = new HashMap<>();
+                Set<String> all_users = new TreeSet<>();
+                Set<String> all_courses = new TreeSet<>();
+                for(DataSnapshot singleUserData : dataSnapshot.getChildren()) {
+                    String user_id = singleUserData.getKey();
+                    all_users.add(user_id);
+                    allRatings.put(user_id, new ArrayList<String>());
+                    for(DataSnapshot singleCourseRatings : singleUserData.getChildren()) {
+                        UserCourseRating ucr = singleCourseRatings.getValue(UserCourseRating.class);
+                        all_courses.add(ucr.getCourseName());
+                        allRatings.get(user_id).add(ucr.getCourseName());
+                    }
+                }
+                Log.d("Matrix", "Participating courses found: ".concat(Integer.toString(all_courses.size())));
+                Log.d("Matrix", "Users found: ".concat((Integer.toString(all_users.size()))));
+                Map<String, Integer> coursesIndex = new HashMap<>();
+                Map<Integer, String> coursesReverse = new HashMap<>();
+                Map<String, Integer> usersIndex   = new HashMap<>();
+                Map<Integer, String> usersReverse = new HashMap<>();
+                int i = 0;
+                for(String c : all_courses) {
+                    coursesIndex.put(c, i);
+                    coursesReverse.put(i, c);
+                    i++;
+                }
+                int j = 0;
+                for(String u : all_users) {
+                    usersIndex.put(u, j);
+                    usersReverse.put(j, u);
+                    j++;
+                }
+                double[][] ratingsMatrix = new double[all_users.size()][all_courses.size()];
+                for(String uid : all_users) {
+                    for(String course : allRatings.get(uid)) {
+                        ratingsMatrix[usersIndex.get(uid)][coursesIndex.get(course)] = 1.0;
+                    }
+                }
+                for(int m = 0; m < all_users.size(); m++) {
+                    Log.d("Matrix", usersReverse.get(m).concat(" 's course ratings"));
+                    for(int n = 0; n < all_courses.size(); n++) {
+                        Log.d("Matrix", "Rating for "
+                            .concat(coursesReverse.get(n))
+                            .concat(" is ")
+                            .concat(Double.toString(ratingsMatrix[m][n])));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                resStr.concat("ERROR");
+                Log.d("Matrix", "Cancellation error");
+            }
+        });
+        return null;
     }
 }
