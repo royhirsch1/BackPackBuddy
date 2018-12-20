@@ -1,12 +1,20 @@
 package com.example.coursefreak.coursefreak;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public final class CoursePartners {
     public String courseID;
-    public Set<String> possiblePartners;
+    public Map<String, CoursePartner> possiblePartners;
 
-    public CoursePartners(String courseID, Set<String> possiblePartners) {
+    public CoursePartners(String courseID) {
+        this.courseID = courseID;
+        this.possiblePartners = new HashMap<>();
+    }
+
+    public CoursePartners(String courseID, Map<String, CoursePartner> possiblePartners) {
         this.courseID = courseID;
         this.possiblePartners = possiblePartners;
     }
@@ -15,12 +23,12 @@ public final class CoursePartners {
         return this.courseID;
     }
 
-    public Set<String> getPossiblePartners() {
+    public Map<String, CoursePartner> getPossiblePartners() {
         return this.possiblePartners;
     }
 
-    public void addPossiblePartner(String uid) {
-        this.possiblePartners.add(uid);
+    public void addPossiblePartner(String uid, String name) {
+        this.possiblePartners.put(uid, new CoursePartner(uid, name));
     }
 
     public void removePossiblePartner(String uid) {

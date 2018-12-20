@@ -1,5 +1,6 @@
 package com.example.coursefreak.coursefreak;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -8,53 +9,79 @@ public final class User {
     public String uid;
     public String name;
     public String imagePath; // Path to profile picture
-    public Set<String> friendsList;
-    public Map<String, UserRelatedCourse> relevantCourses;
+    public Map<String, String> friendsList;
+    public Map<String, UserRelatedCourse> related_courses;
+
+    public User() { }
+
+    public User(String uid) {
+        this.uid = uid;
+        this.name = "";
+        this.imagePath = null;
+        this.friendsList = null;
+        this.related_courses = null;
+    }
+
+    public User(String uid, String name) {
+        this.uid = uid;
+        this.name = name;
+        this.imagePath = null;
+        this.friendsList = null;
+        this.related_courses = null;
+    }
 
     public User(String uid, String name, Map<String, UserRelatedCourse> relevantCourses) {
         this.uid = uid;
         this.name = name;
         this.imagePath = null;
         this.friendsList = null;
-        this.relevantCourses = relevantCourses;
-    }
-
-    public User(String uid, String name, Set<String> friendsList, Map<String, UserRelatedCourse> relevantCourses) {
-        this.uid = uid;
-        this.name = name;
-        this.imagePath = null;
-        this.friendsList = friendsList;
-        this.relevantCourses = relevantCourses;
+        this.related_courses = relevantCourses;
     }
 
     public String getUid() {
         return this.uid;
     }
 
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
     public String getName() {
         return this.name;
     }
 
-    public Set<String> getFriendsList() {
-        return this.friendsList;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void addFriend(String uid) {
+    public Collection<String> getFriendsList() {
+        return this.friendsList.values();
+    }
+
+    public void addFriend(String key, String uid) {
         if(this.friendsList != null)
-            this.friendsList.add(uid);
+            this.friendsList.put(key, uid);
     }
 
     public void removeFriend(String uid) {
         if(this.friendsList != null)
-            this.friendsList.remove(uid);
+            for(Map.Entry<String, String> e : this.friendsList.entrySet()) {
+                if(e.getValue().equals(uid)) {
+                    this.friendsList.remove(e.getKey());
+                }
+            }
     }
 
-    public Map<String, UserRelatedCourse> getRelevantCourses() {
-        return this.relevantCourses;
+    public Map<String, UserRelatedCourse> getRelated_courses() {
+        return this.related_courses;
+    }
+
+    public void setRelevantCourses(Map<String, UserRelatedCourse> relevantCourses) {
+        this.related_courses = relevantCourses;
     }
 
     public void relateNewCourse(String courseID, UserRelatedCourse data) {
-        this.relevantCourses.put(courseID, data);
+        this.related_courses.put(courseID, data);
     }
 
     public void updateExistingCourse(String courseID, UserRelatedCourse data) {
@@ -62,6 +89,6 @@ public final class User {
     }
 
     public void removeRelatedCourse(String courseID) {
-        this.relevantCourses.remove(courseID);
+        this.related_courses.remove(courseID);
     }
 }

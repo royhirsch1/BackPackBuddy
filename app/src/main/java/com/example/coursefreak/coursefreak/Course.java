@@ -8,6 +8,7 @@ public class Course {
     public String name;
     public Double points;
     public Integer numLikes;
+    public Integer numCompleted;
     public Double average;
     public String categories;
     public List<String> parsedCategories;
@@ -87,6 +88,14 @@ public class Course {
         this.numLikes = numLikes;
     }
 
+    public Integer getNumCompleted() {
+        return this.numCompleted;
+    }
+
+    public void setNumCompleted(Integer n) {
+        this.numCompleted = n;
+    }
+
     public Double getAverage() {
         return this.average;
     }
@@ -112,4 +121,8 @@ public class Course {
         this.requirements = s;
         this.parseRequirements();
     }
+
+    public List<String> getParsedCategories() { return this.parsedCategories; }
+
+    public List<String> getParsedRequirements() { return this.parsedRequirements; }
 }

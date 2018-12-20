@@ -1,6 +1,7 @@
 package com.example.coursefreak.coursefreak;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import static ml.utils.Time.tic;
 import static ml.utils.Time.toc;
 
 import com.example.coursefreak.coursefreak.FirebaseUtils;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -60,6 +62,8 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
+
+
         //ActivateLamlTest();
         //TestDatabaseUtils1();
         //TestDatabasUtils2();
@@ -68,7 +72,24 @@ public class LoginPage extends AppCompatActivity {
         //TestDatabaseUtils5();
         //TestDatabaseUtils6();
         //TestDatabaseUtils7();
+        //TestDatabaseUtils8();
+        //TestDatabaseUtils9();
+        //TestDatabaseUtils10();
+        //TestDatabaseUtils11();
+        //TestDatabaseUtils12();
+        //TestDatabaseUtils13();
+        //TestDatabaseUtils14();
+        //TestDatabaseUtils15();
+        //TestDatabaseUtils16();
+        //TestDatabaseUtils18();
+        //ActivatePredictionsTest();
     }
+//    private class GetAllCourses extends AsyncTask<DatabaseReference, Integer, Long> {
+//        public List<String> arr;
+//        protected Long doInBackground(DatabaseReference... mDB) {
+//            return new Long(0);
+//        }
+//    }
 
     @Override
     public void onStart() {
@@ -79,6 +100,36 @@ public class LoginPage extends AppCompatActivity {
             title.setText("Welcome ".concat(currentUser.getEmail()));
         }
     }
+
+//    private void ActivatePredictionsTest() {
+//        double[][] data = new double[][] {
+//                {1,  1,  0,  -1},
+//                {1,  0,  -1,  0},
+//                {-1,  -1,  0,  1},
+//                {0,  -1,  0,  1},
+//                {0,  0,   1,  1},
+//                {-1, 0, 1, 1},
+//        };
+//
+//        Recommender.Pair<double[][], double[][]> pUV = Recommender.myRecommender(data, 4, 0.5, 0.5);
+//        double[][] predictions = Recommender.PredictRating(pUV.getFirst(), pUV.getSecond());
+//
+//        String[] names = new String[] {
+//        "Alice", "Bob", "Kevin", "Jane", "Leonid", "Dummy"
+//        };
+//        for(int i = 0; i < 6; i++) {
+//            Log.d("Completion", "Results for ".concat(names[i]));
+//            for(int j = 0; j < 4; j++) {
+//                Log.d("Completion", "Input Value: ".concat((new Double(data[i][j]).toString())));
+//                if(data[i][j] != 0) {
+//                    Log.d("Completion", "New Value: ".concat(new Double(data[i][j]).toString()));
+//                } else {
+//                    Log.d("Completion", "New Value: ".concat(new Double(predictions[i][j]).toString()));
+//                }
+//
+//            }
+//        }
+//    }
 
 //    private void ActivateLamlTest() {
 //        Log.d("Completion", "OVER HERE");
@@ -193,5 +244,61 @@ public class LoginPage extends AppCompatActivity {
 //        Log.d("helped", "Entering reviewHelpedSomeone");
 //        FirebaseUtils.reviewHelpedSomeone("-LU1v7i2isiO-G0gLAFU", "234123", 1, this.mDatabase.getReference());
 //        Log.d("helped", "Finished reviewHelpedSomeone");
+//    }
+
+//    private void TestDatabaseUtils8() {
+//        Log.d("getRevs", "Entering getCourseReviewsOrdered");
+//        FirebaseUtils.getCourseReviewsOrdered("234123", this.mDatabase.getReference());
+//        Log.d("getRevs","Finished getCourseReviewsOrdered");
+//    }
+
+//    private void TestDatabaseUtils9() {
+//        FirebaseUtils.addReviewComment(
+//                "-LU1v7i2isiO-G0gLAFU",
+//                1,
+//                "This other comment is so true",
+//                "dum1",
+//                "Dummy 1",
+//                this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils10() {
+//        Log.d("getCs", "Entering getReviewcomments");
+//        FirebaseUtils.getReviewcomments("-LU1v7i2isiO-G0gLAFU", this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils11() {
+//        Log.d("partner", "Entering add partner");
+//        FirebaseUtils.addUserToPartners("dum2", "234218", this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils12() {
+//        Log.d("partner", "getting partners in 234218");
+//        FirebaseUtils.getCoursePossiblePartners("234218", this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils13() {
+//        Log.d("partner", "removing dum2 from 234218");
+//        FirebaseUtils.removeUserFromPartners("dum2", "234218", this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils14() {
+//        Log.d("user", "adding dum1");
+//        FirebaseUtils.addNewUserData("dum1", "Dummy 1", this.mDatabase.getReference());
+//    }
+
+//    private void TestDatabaseUtils15() {
+//        Log.d("user", "adding related course");
+//        UserRelatedCourse data = new UserRelatedCourse(true, false, false);
+//        FirebaseUtils.addUserRelatedCourse("dum1", "234123", data, this.mDatabase.getReference());
+//    }
+
+//    private void TestDatabaseUtils16() {
+//        Log.d("user", "getting user");
+//        FirebaseUtils.getUserData("dum1", this.mDatabase.getReference());
+//    }
+
+//    private void TestDatabaseUtils17() {
+//        Log.d("addf", "adding friend");
+//        FirebaseUtils.userAddNewFriend("dum1", "dum2", this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils18() {
+//        Log.d("recoms", "getting recommendations...");
+//        FirebaseUtils.recGetNewUserRecommendations("dum2", this.mDatabase.getReference());
 //    }
 }
