@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import la.matrix.DenseMatrix;
 import la.matrix.Matrix;
 import ml.recovery.MatrixCompletion;
-
 public final class FirebaseUtils {
     /*
         This class is for different database utils for

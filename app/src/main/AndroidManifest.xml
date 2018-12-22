@@ -16,9 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignupPage">
+        <activity android:name=".SignupPage"></activity>
+        <activity
+            android:name=".CourseView"
+            android:label="@string/title_activity_course_view"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
 
-        </activity>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
