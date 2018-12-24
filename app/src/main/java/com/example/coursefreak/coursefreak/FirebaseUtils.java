@@ -13,17 +13,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
-
-import la.matrix.DenseMatrix;
-import la.matrix.Matrix;
-import ml.recovery.MatrixCompletion;
 public final class FirebaseUtils {
     /*
         This class is for different database utils for
@@ -338,12 +331,13 @@ public final class FirebaseUtils {
         });
     }
 
-    public static void addUserToPartners(String uid, String courseID, DatabaseReference mDB) {
+    public static void addUserToPartners(String uid, String email, String name, String courseID, DatabaseReference mDB) {
         Log.d("addP", "In addP");
+        CoursePartner cp = new CoursePartner(uid, name, email);
         mDB.child("course_partners")
                 .child(courseID)
                 .child(uid)
-                .setValue(1)
+                .setValue(cp)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -383,12 +377,12 @@ public final class FirebaseUtils {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot partnerSnapshot : dataSnapshot.getChildren()) {
-                    String uid = partnerSnapshot.getKey();
+                    CoursePartner cp = partnerSnapshot.getValue(CoursePartner.class);
                     //Log.d("partner", "adding ".concat(uid));
-                    partners.addPossiblePartner(uid, uid);
+                    partners.addPossiblePartner(cp);
                 }
                 for(CoursePartner s : partners.getPossiblePartners().values()) {
-                    Log.d("allP", "Possible partner ID: ".concat(s.getName()));
+                    Log.d("allP", "Possible partner: ".concat(s.getName()).concat(" ").concat(s.getEmail()));
                 }
             }
 
