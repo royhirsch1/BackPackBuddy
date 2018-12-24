@@ -3,16 +3,21 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#176087</color>
     <color name="colorAccent">#d81b60</color>
-    <color name="colorBackgroundBase">#EFEFEF</color>
+    <color name="colorBackgroundBase">#efefef</color>
     <color name="colorNotificationBar">#176087</color>
     <color name="colorFacebook">#3B5998</color>
     <color name="colorGoogle">#E3554A</color>
     <color name="colorMainButton">#176087</color>
-    <color name="colorMinorButton">#0A2239</color>
+    <color name="colorMinorButton">#0a2239</color>
     <color name="colorSignupTextHint">#0A2239</color>
     <color name="colorLightTabBackground">#53A2BE</color>
     <color name="colorNumberReviews">#D4E0FF</color>
     <color name="colorReviewPositive">#45A73D</color>
     <color name="colorReviewNegative">#E31E1E</color>
     <color name="colorReviewNeutral">#176087</color>
+    <color name="colorBlueLight">#53A2BE</color>
+    <color name="colorBlueMid">#1d84b5</color>
+    <color name="colorBlueDark">#132e32</color>
+    <color name="colorSignupText">#0A2239</color>
+    <color name="colorError">#B00020</color>
 </resources>

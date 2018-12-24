@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackgroundBase"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".CourseView"
+            tools:showIn="@layout/activity_course_view">
+
+
+            <ImageView
+                android:id="@+id/shapeBlueBox"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/textView_CourseTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:text="@string/course_name"
+                android:textColor="@color/colorBackgroundBase"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/shapeBlueBox" />
+
+            <TextView
+                android:id="@+id/textView_creditAU"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:text="@string/course_credit"
+                android:textColor="@color/colorBackgroundBase"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgCubesIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.023"
+                app:layout_constraintStart_toEndOf="@+id/imgCubesIcon"
+                app:layout_constraintTop_toTopOf="@+id/imgCubesIcon"
+                app:layout_constraintVertical_bias="0.2" />
+
+            <ImageView
+                android:id="@+id/imgCubesIcon"
+                android:layout_width="36dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginBottom="12dp"
+                android:contentDescription="AU"
+                app:layout_constraintBottom_toBottomOf="@+id/shapeBlueBox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/cubes" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="105dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shapeBlueBox">
+
+                <ImageButton
+                    android:id="@+id/button_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorBackgroundBase"
+                    app:srcCompat="@drawable/icon_share" />
+
+                <ImageButton
+                    android:id="@+id/button_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorBackgroundBase"
+                    app:srcCompat="@drawable/icon_message" />
+
+                <ImageButton
+                    android:id="@+id/button_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorBackgroundBase"
+                    app:srcCompat="@drawable/icon_link" />
+
+                <ImageButton
+                    android:id="@+id/button_partner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorBackgroundBase"
+                    app:srcCompat="@drawable/icon_hands" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_average_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:fontFamily="@font/arima_madurai_bold"
+                        android:text="@string/grade_avg"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgCubesIcon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.021"
+                        app:layout_constraintStart_toEndOf="@+id/imgCubesIcon"
+                        app:layout_constraintTop_toTopOf="@+id/imgCubesIcon"
+                        app:layout_constraintVertical_bias="0.5" />
+
+                    <TextView
+                        android:id="@+id/textView_average_number"
+                        android:layout_width="11dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/arima_madurai_bold"
+                        android:gravity="right"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgCubesIcon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imgCubesIcon"
+                        app:layout_constraintTop_toTopOf="@+id/imgCubesIcon"
+                        app:layout_constraintVertical_bias="0.5" />
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar_avg"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <LinearLayout
+                    android:id="@+id/layout_popularity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_popularity_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:fontFamily="@font/arima_madurai_bold"
+                        android:text="@string/label_popularity"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgCubesIcon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.021"
+                        app:layout_constraintStart_toEndOf="@+id/imgCubesIcon"
+                        app:layout_constraintTop_toTopOf="@+id/imgCubesIcon"
+                        app:layout_constraintVertical_bias="0.5" />
+
+                    <TextView
+                        android:id="@+id/textView_popularity_number"
+                        android:layout_width="11dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/arima_madurai_bold"
+                        android:gravity="right"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgCubesIcon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imgCubesIcon"
+                        app:layout_constraintTop_toTopOf="@+id/imgCubesIcon"
+                        app:layout_constraintVertical_bias="0.5" />
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar_pop"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp">
+
+                        <ImageButton
+                            android:id="@+id/imageButton6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorBackgroundBase"
+                            app:srcCompat="@drawable/icon_check" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            style="@style/CourseViewText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/label_exam" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="50dp">
+
+                        <ImageButton
+                            android:id="@+id/imageButton7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorBackgroundBase"
+                            app:srcCompat="@drawable/icon_check" />
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            style="@style/CourseViewText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/label_HW" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="146dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="40dp">
+
+                        <ImageButton
+                            android:id="@+id/imageButton8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorBackgroundBase"
+                            app:srcCompat="@drawable/icon_check" />
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            style="@style/CourseViewText"
+                            android:layout_width="105dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/label_partners" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/listView_review"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+
+                    android:layout_marginTop="20dp" >
+
+                </ListView>
+
+                <TextView
+                    android:id="@+id/textView_popularity_label7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:text="@string/label_popularity"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgCubesIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.021"
+                    app:layout_constraintStart_toEndOf="@+id/imgCubesIcon"
+                    app:layout_constraintTop_toTopOf="@+id/imgCubesIcon"
+                    app:layout_constraintVertical_bias="0.5" />
+
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>
+
