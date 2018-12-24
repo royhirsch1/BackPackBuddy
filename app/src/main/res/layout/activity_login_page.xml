@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPage"
-    android:background="@color/colorBackgroundBase">
+    android:background="@color/colorBackgroundBase"
+    tools:context=".LoginPage">
+
 
     <EditText
         android:id="@+id/passwordTextBox"
         android:layout_width="325dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_alignStart="@+id/buttonEmailSign"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginRight="29dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
-        android:hint="Password"
-        android:inputType="textEmailAddress"
+        android:hint="@string/hintPasswordBox"
+        android:inputType="textPassword"
         android:textColor="@color/colorSignupTextHint"
         android:textColorHint="@color/colorSignupTextHint"
-        android:textSize="12dp" />
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailTextBox" />
 
     <Button
         android:id="@+id/buttonLogin"
@@ -32,43 +37,38 @@
         android:layout_width="325dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="159dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:background="@color/colorMainButton"
-        android:text="Login"
+        android:text="@string/loginButtonString"
+        android:textColor="@color/colorNumberReviews"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextBox" />
 
     <Button
         android:id="@+id/buttonEmailSign"
         style="@style/SignupPageButtons"
         android:layout_width="325dp"
+        android:layout_alignStart="@+id/buttonLogin"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="74dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:background="@color/colorMainButton"
-        android:text="Sign Up with Email"
-        android:textSize="14sp" />
-
-    <Button
-        android:id="@+id/facebookButton"
-        style="@style/SignupPageButtons"
-        android:layout_alignStart="@+id/passwordTextBox"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="158dp"
-        android:background="@color/colorFacebook"
-        android:text="Continue with facebook" />
-
-    <Button
-        android:id="@+id/googleButton"
-        style="@style/SignupPageButtons"
-        android:layout_alignStart="@+id/passwordTextBox"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="213dp"
-        android:background="@color/colorGoogle"
-        android:text="Continue with google" />
+        android:text="@string/emailSignupString"
+        android:textColor="@color/colorNumberReviews"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/emailTextBox"
@@ -76,55 +76,75 @@
         android:layout_height="40dp"
         android:layout_alignStart="@+id/passwordTextBox"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress"
+        android:hint="@string/hintEmailBox"
+        android:inputType="textEmailAddress|textVisiblePassword"
         android:textColor="@color/colorSignupTextHint"
         android:textColorHint="@color/colorSignupTextHint"
-        android:textSize="12dp" />
-
-    <Button
-        android:id="@+id/buttonGuestView"
-        style="@style/SignupPageButtons"
-        android:layout_width="325dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:background="@color/colorMinorButton"
-        android:text="Continue as guest"
-        android:textSize="14sp" />
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appMotoText" />
 
     <ImageView
         android:id="@+id/imageAppLogoView"
-        android:layout_width="169dp"
-        android:layout_height="98dp"
+        android:layout_width="185dp"
+        android:layout_height="148dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:contentDescription="@string/logoImageDesc"
+        android:src="@mipmap/logo2"
         android:visibility="visible"
-        tools:srcCompat="@tools:sample/avatars[11]" />
-
-    <ImageView
-        android:id="@+id/imageNoAccountYetView"
-        android:layout_width="75dp"
-        android:layout_height="26dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="128dp"
-        tools:srcCompat="@tools:sample/avatars[2]" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/debugTitleBox"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
+        android:layout_alignEnd="@+id/buttonLogin"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="153dp"
-        android:layout_marginLeft="153dp"
-        android:layout_marginBottom="241dp"
-        android:text="Logged in!"
-        android:textColor="@color/colorMinorButton"/>
-</RelativeLayout>
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:fontFamily="monospace"
+        android:text="@string/notSignUpString"
+        android:textColor="@color/colorLightTabBackground"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+        tools:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/appMotoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_toStartOf="@+id/imageAppLogoView"
+        android:text="@string/appMoto"
+        android:textColor="@color/colorMainButton"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageAppLogoView" />
+
+</android.support.constraint.ConstraintLayout>

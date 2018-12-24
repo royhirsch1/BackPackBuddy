@@ -53,14 +53,14 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
-        Button guestViewButton = (Button)findViewById(R.id.buttonGuestView);
-        guestViewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent guestIntent = new Intent(v.getContext(), GuestPage.class);
-//                startActivity(guestIntent);
-            }
-        });
+//        Button guestViewButton = (Button)findViewById(R.id.buttonGuestView);
+//        guestViewButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent guestIntent = new Intent(v.getContext(), GuestPage.class);
+////                startActivity(guestIntent);
+//            }
+//        });
 
 
 
@@ -94,11 +94,11 @@ public class LoginPage extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        TextView title = (TextView)findViewById(R.id.debugTitleBox);
-        if(currentUser != null) {
-            title.setText("Welcome ".concat(currentUser.getEmail()));
-        }
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        TextView title = (TextView)findViewById(R.id.debugTitleBox);
+//        if(currentUser != null) {
+//            title.setText("Welcome ".concat(currentUser.getEmail()));
+//        }
     }
 
 //    private void ActivatePredictionsTest() {
