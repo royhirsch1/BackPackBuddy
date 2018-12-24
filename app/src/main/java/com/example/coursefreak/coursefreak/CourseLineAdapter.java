@@ -1,6 +1,8 @@
 package com.example.coursefreak.coursefreak;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,10 +28,13 @@ import java.util.Random;
 
 public class CourseLineAdapter extends ArrayAdapter<Course> {
     private FirebaseAuth mAuth;
+    private Context contex;
+    private String choice;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     public CourseLineAdapter(Context context, ArrayList<Course> courses) {
         super(context, 0, courses);
+        this.contex=context;
     }
 
     @Override
@@ -43,7 +50,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         final CheckBox cb = convertView.findViewById(R.id.checkBoxDone);
         this.mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        String uid;
+        final String uid;
         if(currentUser != null){
             uid = currentUser.getUid();
         }else{
@@ -73,6 +80,64 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                 Log.d("Courses", "Database Error");
             }
         });
+        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                boolean checked = ((CheckBox) buttonView).isChecked();
+                if (checked == true) {
+                    AlertDialog.Builder builderSingle = new AlertDialog.Builder(contex);
+                    builderSingle.setTitle("Select One Name:-");
+
+                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(contex, android.R.layout.select_dialog_singlechoice);
+                    arrayAdapter.add("Like");
+                    arrayAdapter.add("Dislike");
+                    builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            choice = arrayAdapter.getItem(which);
+                            AlertDialog.Builder builderInner = new AlertDialog.Builder(contex);
+                            builderInner.setTitle("Thank You");
+                            builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            builderInner.show();
+                        }
+                    });
+                    builderSingle.show();
+                    myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User u = dataSnapshot.getValue(User.class);
+                            if(u == null)
+                                Log.d("user", "ERROR");
+                            else {
+                                if(u.related_courses.containsKey(course.getCourseID())) {
+                                    u.related_courses.get(course.getCourseID()).completed = true;
+                                }else{
+                                    boolean like=false;
+                                    if(choice=="Like"){
+                                        like=true;
+                                    }
+                                    UserRelatedCourse data = new UserRelatedCourse(false,true,like);
+                                    u.relateNewCourse(course.getCourseID(),data);
+                                }
+
+                            }
+
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.d("Courses", "Database Error");
+                        }
+                    });
+
+            }else{
+                    
+                }
+        }});
         courseName.setText(course.getName()+"-"+course.getCourseID());
 
         return convertView;
