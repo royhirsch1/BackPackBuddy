@@ -8,11 +8,13 @@
     <color name="colorFacebook">#3B5998</color>
     <color name="colorGoogle">#E3554A</color>
     <color name="colorMainButton">#176087</color>
-    <color name="colorMinorButton">#0A2239</color>
-    <color name="colorSignupTextHint">#0A2239</color>
-    <color name="colorLightTabBackground">#53A2BE</color>
-    <color name="colorNumberReviews">#D4E0FF</color>
+    <color name="colorMinorButton">#0a2239</color>
+    <color name="colorSignupTextHint">#808080</color>
+    <color name="colorSignupText">#0A2239</color>
+    <color name="colorLightTabBackground">#53a2be</color>
+    <color name="colorNumberReviews">#d4e0ff</color>
     <color name="colorReviewPositive">#45A73D</color>
     <color name="colorReviewNegative">#E31E1E</color>
     <color name="colorReviewNeutral">#176087</color>
+    <color name="colorError">#B00020</color>
 </resources>
