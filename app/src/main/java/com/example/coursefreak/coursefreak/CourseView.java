@@ -1,9 +1,12 @@
 package com.example.coursefreak.coursefreak;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -53,14 +56,62 @@ public class CourseView extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener partner_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(CourseView.this);
+            //builderSingle.setIcon(R.drawable.icon_fox);
+            builderSingle.setTitle("Also looking for a partner:");
+
+            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(CourseView.this, android.R.layout.simple_list_item_1);
+            arrayAdapter.add("Hardik");
+            arrayAdapter.add("Archit");
+            arrayAdapter.add("Jignesh");
+            arrayAdapter.add("Umang");
+            arrayAdapter.add("Gatti");
+
+            builderSingle.setNegativeButton("close", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String strName = arrayAdapter.getItem(which);
+                    AlertDialog.Builder builderInner = new AlertDialog.Builder(CourseView.this);
+                    builderInner.setMessage(strName);
+                    builderInner.setTitle("Your Selected Item is");
+                    builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog,int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builderInner.show();
+                }
+            });
+            builderSingle.show();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_view);
 
+        Course course;
 
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if(extras != null){
+            course = (Course)extras.get("course");
+        }else{
+            course = new Course("234123","Error",3.5,64,90,58.6,"later","later");
+        }
 
-        final Course course = new Course("234123","Course Name",3.5,64,90,58.6,"later","later");
         final int popularity_rate = (course.getNumLikes())*100/(course.getNumCompleted());
         final int course_avg = course.getAverage().intValue();
 
@@ -77,7 +128,7 @@ public class CourseView extends AppCompatActivity {
         but_share.setOnClickListener(na_OnClickListener);
         but_comment.setOnClickListener(na_OnClickListener);
         but_link.setOnClickListener(na_OnClickListener);
-        but_partner.setOnClickListener(na_OnClickListener);
+        but_partner.setOnClickListener(partner_OnClickListener);
 
         //Get reviews from DB
         String courseIDtemp="234123";

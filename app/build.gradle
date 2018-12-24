@@ -34,5 +34,4 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.google.firebase:firebase-database:16.0.3'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
-    implementation files('libs/LAML-1.6.5.jar')
 }
