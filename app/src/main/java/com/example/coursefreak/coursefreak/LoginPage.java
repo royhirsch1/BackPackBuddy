@@ -2,18 +2,24 @@ package com.example.coursefreak.coursefreak;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import la.matrix.DenseMatrix;
 import la.matrix.Matrix;
 import la.matrix.SparseMatrix;
 import ml.recovery.MatrixCompletion;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -50,6 +56,30 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent signupIntent = new Intent(v.getContext(), SignupPage.class);
                 startActivity(signupIntent);
+            }
+        });
+
+        Button sign_in_button = (Button)findViewById(R.id.buttonLogin);
+        sign_in_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String user_email = ((EditText)findViewById(R.id.emailTextBox)).getText().toString();
+                String user_password = ((EditText)findViewById(R.id.passwordTextBox)).getText().toString();
+                mAuth.signInWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(!task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), R.string.badLoginInfo, Toast.LENGTH_LONG );
+                        }
+                        else {
+//                            Intent intent = new Intent(catalouge.class);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            startActivity(intent);
+//                            Go to main page activity
+                        }
+                    }
+                });
             }
         });
 
@@ -91,15 +121,18 @@ public class LoginPage extends AppCompatActivity {
 //        }
 //    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        TextView title = (TextView)findViewById(R.id.debugTitleBox);
-//        if(currentUser != null) {
-//            title.setText("Welcome ".concat(currentUser.getEmail()));
-//        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+////        FirebaseUser currentUser = mAuth.getCurrentUser();
+////        TextView title = (TextView)findViewById(R.id.debugTitleBox);
+////        if(currentUser != null) {
+////                Intent intent = new Intent(catalouge.class);
+////                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+////                startActivity(intent);
+////        }
+//    }
 
 //    private void ActivatePredictionsTest() {
 //        double[][] data = new double[][] {

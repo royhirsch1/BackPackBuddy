@@ -17,4 +17,5 @@
     <string name="badPasswordMatchString">Passwords do not match!</string>
     <string name="badPasswordTooShort">Password is too short!</string>
     <string name="badEmailNotValid">E-mail address is not valid!</string>
+    <string name="badLoginInfo">Email or password were incorrect.</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.coursefreak.coursefreak;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,16 +30,19 @@ public class SignupPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_page);
         this.mAuth = FirebaseAuth.getInstance();
-        errorTextNotify = (TextView)findViewById(R.id.mismatchErrorTitle);
+        errorTextNotify = findViewById(R.id.mismatchErrorTitle);
 
         // ----- Setup signup button
-        Button sign_up_button = (Button)findViewById(R.id.buttonEmailSign);
+        Button sign_up_button = findViewById(R.id.buttonEmailSign);
         sign_up_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String user_email = ((EditText)findViewById(R.id.emailTextBox)).getText().toString();
                 String user_password = ((EditText)findViewById(R.id.passwordTextBox)).getText().toString();
                 String confirm_password = ((EditText)findViewById(R.id.confirmPasswordBox)).getText().toString();
+                if(errorTextNotify.getVisibility() != View.GONE) {
+                    return;
+                }
                 if(user_password.equals(confirm_password) == false) {
                     errorTextNotify.setText(R.string.badPasswordMatchString);
                     errorTextNotify.setVisibility(View.VISIBLE);
@@ -55,26 +59,30 @@ public class SignupPage extends AppCompatActivity {
                     return;
                 }
                 else {
-//                    mAuth.createUserWithEmailAndPassword(user_email, user_password)
-//                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<AuthResult> task) {
-//                                    if(task.isSuccessful()) {
-//                                        FirebaseUser user = mAuth.getCurrentUser();
-//                                        Toast.makeText(SignupPage.this,
-//                                                "Welcome ".concat(user.getEmail()),
-//                                                Toast.LENGTH_SHORT).show();
-//                                    } else {
-//                                        Toast.makeText(SignupPage.this,
-//                                                task.getException().getMessage(),
-//                                                Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//                            });
-                    errorTextNotify.setVisibility(View.GONE);
-                    Toast.makeText(SignupPage.this,
-                        "Welcome ".concat(user_email),
-                        Toast.LENGTH_SHORT).show();
+                    mAuth.createUserWithEmailAndPassword(user_email, user_password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()) {
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Toast.makeText(SignupPage.this,
+                                                "Welcome ".concat(user.getEmail()),
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(SignupPage.this,
+                                                task.getException().getMessage(),
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+//                    Intent intent = new Intent(catalog.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(intent);
+//                    errorTextNotify.setVisibility(View.GONE);
+//                    Toast.makeText(SignupPage.this,
+//                        "Welcome ".concat(user_email),
+//                        Toast.LENGTH_SHORT).show();
                 }
 
             }
