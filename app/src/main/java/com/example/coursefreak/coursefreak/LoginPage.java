@@ -267,7 +267,7 @@ public class LoginPage extends AppCompatActivity {
 //    }
 //    private void TestDatabaseUtils11() {
 //        Log.d("partner", "Entering add partner");
-//        FirebaseUtils.addUserToPartners("dum2", "234218", this.mDatabase.getReference());
+//        FirebaseUtils.addUserToPartners("dum2", "dum2@gmail.com", "Dum 2", "234218", this.mDatabase.getReference());
 //    }
 //    private void TestDatabaseUtils12() {
 //        Log.d("partner", "getting partners in 234218");
