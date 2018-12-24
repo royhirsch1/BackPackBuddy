@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".LoginPage">
+        <activity android:name=".Courses">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".SignupPage" />
         <activity
-            android:name=".Courses"
+            android:name=".LoginPage"
             android:label="@string/title_activity_courses"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
