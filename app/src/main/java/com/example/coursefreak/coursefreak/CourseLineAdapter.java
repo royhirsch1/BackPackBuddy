@@ -3,6 +3,7 @@ package com.example.coursefreak.coursefreak;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +48,12 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         }
         // Lookup view for data population
         final TextView courseName = (TextView) convertView.findViewById(R.id.textViewCourseName);
+        courseName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(contex,CourseView.class);
+            }
+        });
         final CheckBox cb = convertView.findViewById(R.id.checkBoxDone);
         this.mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -135,7 +142,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     });
 
             }else{
-                    
+
                 }
         }});
         courseName.setText(course.getName()+"-"+course.getCourseID());
