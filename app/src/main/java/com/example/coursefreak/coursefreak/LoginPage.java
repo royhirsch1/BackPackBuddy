@@ -9,29 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import la.matrix.DenseMatrix;
-import la.matrix.Matrix;
-import la.matrix.SparseMatrix;
-import ml.recovery.MatrixCompletion;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.w3c.dom.Text;
-
-import static ml.utils.ArrayOperator.colon;
-import static ml.utils.ArrayOperator.minusAssign;
-import static ml.utils.Matlab.linearIndexing;
-import static ml.utils.Matlab.linearIndexingAssignment;
-import static ml.utils.Time.tic;
-import static ml.utils.Time.toc;
-
-import com.example.coursefreak.coursefreak.FirebaseUtils;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LoginPage extends AppCompatActivity {
 
