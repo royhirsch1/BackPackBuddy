@@ -15,6 +15,12 @@ public class Course {
     public String requirements;
     public List<String> parsedRequirements;
 
+    /*
+        required
+        A_list
+
+     */
+
     public Course() {
         // Default constructor required.
     }

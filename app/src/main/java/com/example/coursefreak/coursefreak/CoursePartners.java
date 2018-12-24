@@ -27,8 +27,12 @@ public final class CoursePartners {
         return this.possiblePartners;
     }
 
-    public void addPossiblePartner(String uid, String name) {
-        this.possiblePartners.put(uid, new CoursePartner(uid, name));
+    public void addPossiblePartner(String uid, String name, String email) {
+        this.possiblePartners.put(uid, new CoursePartner(uid, name, email));
+    }
+
+    public void addPossiblePartner(CoursePartner cp) {
+        this.possiblePartners.put(cp.getUid(), cp);
     }
 
     public void removePossiblePartner(String uid) {
