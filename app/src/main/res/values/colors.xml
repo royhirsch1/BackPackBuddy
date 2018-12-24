@@ -16,4 +16,5 @@
     <color name="colorReviewPositive">#45A73D</color>
     <color name="colorReviewNegative">#E31E1E</color>
     <color name="colorReviewNeutral">#176087</color>
+    <color name="colorError">#B00020</color>
 </resources>

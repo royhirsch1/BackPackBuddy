@@ -12,4 +12,9 @@
     <string name="notSignUpString">Not signed up?</string>
     <string name="logoImageDesc">App logo</string>
     <string name="appMoto">CourseFreak, your academic assistant</string>
+    <string name="hintConfirmPassword">Confirm Password</string>
+    <string name="signupButtonText">Sign up!</string>
+    <string name="badPasswordMatchString">Passwords do not match!</string>
+    <string name="badPasswordTooShort">Password is too short!</string>
+    <string name="badEmailNotValid">E-mail address is not valid!</string>
 </resources>
