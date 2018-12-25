@@ -62,7 +62,8 @@ public class CourseView extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent linkIntent = new Intent(v.getContext(), UGView.class);
-            linkIntent.putExtra("course",course.getCourseID());
+            linkIntent.putExtra("course_id",course.getCourseID());
+            linkIntent.putExtra("course_name",course.getName());
             startActivity(linkIntent);
         }
     };
@@ -71,6 +72,8 @@ public class CourseView extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent partnerIntent = new Intent(v.getContext(), PartnerView.class);
+            partnerIntent.putExtra("course_id",course.getCourseID());
+            partnerIntent.putExtra("course_name",course.getName());
             startActivity(partnerIntent);
         }
     };
@@ -83,7 +86,7 @@ public class CourseView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        course = new Course("234123","Course Name!",2.8,6,8,76.8,"no","hw;pairs");
+        course = new Course("234218","name of 234218",2.8,6,8,76.8,"no","hw;pairs");
         Intent intent = getIntent();
         if(intent != null && intent.getSerializableExtra("course") != null){
             course = (Course)intent.getSerializableExtra("course");

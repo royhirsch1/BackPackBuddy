@@ -1,5 +1,6 @@
 package com.example.coursefreak.coursefreak;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,13 +30,20 @@ import java.util.Map;
 public class PartnerView extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private String courseID;
-    private CoursePartner me = new CoursePartner("my_uid", "Roy", "roy.hirsch@gmail.com");
+    //TODO replace with: FirebaseAuth.getInstance().getUid()
+    private CoursePartner me = new CoursePartner("my_uid", "Roy", "myEmail");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partner_view);
-        courseID="234218";
+
+        Intent intent = getIntent();
+        String course_name = intent.getStringExtra("course_name");
+        TextView course_title = findViewById(R.id.textView_partner);
+        course_title.setText(course_name);
+        courseID = intent.getStringExtra("course_id");
+
 
         this.mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference mDB = mDatabase.getReference();
@@ -54,7 +63,7 @@ public class PartnerView extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot partnerSnapshot : dataSnapshot.getChildren()) {
                     CoursePartner cp = partnerSnapshot.getValue(CoursePartner.class);
-                    if(cp.getUid()==FirebaseAuth.getInstance().getUid()){
+                    if(cp.getUid().equals(me.getUid())){
                         switch_partner.setChecked(true);
                     }
                     Log.d("partner", "adding ".concat(cp.getName()));
@@ -68,7 +77,7 @@ public class PartnerView extends AppCompatActivity {
                 switch_partner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        Snackbar.make(buttonView, "Updating Data...", Snackbar.LENGTH_LONG)
+                        Snackbar.make(buttonView, "Request Accepted", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                         if(isChecked){
                             mDB.child("course_partners")
@@ -85,6 +94,22 @@ public class PartnerView extends AppCompatActivity {
                                             }
                                         }
                                     });
+                        }else{
+                                mDB.child("course_partners")
+                                        .child(courseID)
+                                        .child(me.getUid())
+                                        .removeValue()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(!task.isSuccessful()) {
+                                                    Log.d("removeP", "Database Error!");
+                                                } else {
+                                                    Log.d("removeP", "Success adding possible partner");
+                                                }
+                                            }
+                                        });
+
                         }
 
                     }
