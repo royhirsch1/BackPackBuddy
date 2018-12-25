@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class recommended extends Fragment {
+    private static View rootView;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     private FirebaseAuth mAuth;
@@ -48,9 +50,22 @@ public class recommended extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (rootView != null) {
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null)
+                parent.removeView(rootView);
+        }
+        try {
+            rootView = inflater.inflate(R.layout.recommended, null);
+        } catch (InflateException e) {
+            /* map is already there, just return view as it is */
+        }
         final Set<String> nontrivialPredictions = new TreeSet<>();
-        View rootView = inflater.inflate(R.layout.interested, container, false);
-        final ListView lv = (ListView) rootView.findViewById(R.id.course_list);
+        if(rootView.getParent()!=null){
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            parent.removeAllViews();
+        }
+        final ListView lv = (ListView) rootView.findViewById(R.id.course_list3);
         final ArrayList<Course> res = new ArrayList<>();
         this.mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -168,6 +183,6 @@ public class recommended extends Fragment {
                 Log.d("Matrix", "Cancellation error");
             }
         });
-        return lv;
+        return rootView;
     }
 }

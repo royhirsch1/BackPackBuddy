@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class interested extends Fragment {
-
+    private static View rootView;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     private FirebaseAuth mAuth;
@@ -41,8 +42,21 @@ public class interested extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.interested, container, false);
-        final ListView lv = (ListView) rootView.findViewById(R.id.course_list);
+        if (rootView != null) {
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null)
+                parent.removeView(rootView);
+        }
+        try {
+            rootView = inflater.inflate(R.layout.interested, null);
+        } catch (InflateException e) {
+            /* map is already there, just return view as it is */
+        }
+        if(rootView.getParent()!=null){
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            parent.removeAllViews();
+        }
+        final ListView lv = (ListView) rootView.findViewById(R.id.course_list2);
         final ArrayList<Course> res = new ArrayList<>();
         this.mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -83,6 +97,6 @@ public class interested extends Fragment {
 
             }
         });
-        return lv;
+        return rootView;
     }
 }

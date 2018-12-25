@@ -21,7 +21,7 @@
         tools:layout_constraintTop_creator="1"
         />
     <ListView
-        android:id="@+id/course_list"
+        android:id="@+id/course_list2"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

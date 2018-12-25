@@ -1,5 +1,6 @@
 package com.example.coursefreak.coursefreak;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,20 +36,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class catalog extends Fragment {
+    private static View rootView;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     public catalog() {}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.catalog, container, false);
+        if (rootView != null) {
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null)
+                parent.removeView(rootView);
+        }
+        try {
+            rootView = inflater.inflate(R.layout.catalog, container, false);
+        } catch (InflateException e) {
+            /* map is already there, just return view as it is */
+        }
         final ListView lv = (ListView) rootView.findViewById(R.id.course_list);
         final ArrayList<Course> res = new ArrayList<>();
         myRef.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (@NonNull DataSnapshot dataSnapshot){
                 for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
-                    Log.d("Courses", courseSnap.getKey());
                     Course c = courseSnap.getValue(Course.class);
                     c.parseCatsReqs();
                     res.add(c);
@@ -62,7 +73,7 @@ public class catalog extends Fragment {
             }
         });
 
-        return lv;
+        return rootView;
     }
 
 }

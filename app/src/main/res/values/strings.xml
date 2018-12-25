@@ -17,4 +17,23 @@
     <string name="tab_text_2">Recommended</string>
     <string name="tab_text_3">Interested</string>
     <string name="courses">Courses</string>
+    <string name="notSignUpString">Not signed up?</string>
+    <string name="logoImageDesc">App logo</string>
+    <string name="appMoto">CourseFreak, your academic assistant</string>
+    <string name="hintConfirmPassword">Confirm Password</string>
+    <string name="signupButtonText">Sign up!</string>
+    <string name="badPasswordMatchString">Passwords do not match!</string>
+    <string name="badPasswordTooShort">Password is too short!</string>
+    <string name="badEmailNotValid">E-mail address is not valid!</string>
+    <string name="badLoginInfo">Email or password were incorrect.</string>
+    <string name="title_activity_course_view">Course View</string>
+    <string name="course_name">Algorithms 1</string>
+    <string name="course_credit">3.0</string>
+    <string name="courseView_spinner_title">Catalog categories</string>
+    <string name="grade_avg">Grade Average</string>
+    <string name="label_popularity">Popularity</string>
+    <string name="label_exam">Exam</string>
+    <string name="label_HW">Homework</string>
+    <string name="label_partners">Pair Work</string>
 </resources>
+

@@ -45,7 +45,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         final Course course = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.single_course, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.single_course, null);
         }
         // Lookup view for data population
         final TextView courseName = (TextView) convertView.findViewById(R.id.textViewCourseName);
@@ -53,9 +53,10 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(contex,CourseView.class);
-                intent.putExtra("course",course.getCourseID());
+                intent.putExtra("course",course);
             }
         });
+        final Switch interested_switch=convertView.findViewById(R.id.switchInterested);
         final CheckBox cb = convertView.findViewById(R.id.checkBoxDone);
         this.mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -75,6 +76,9 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     if(u.related_courses.containsKey(course.getCourseID())){
                         if(u.related_courses.get(course.getCourseID()).completed){
                             cb.setChecked(true);
+                            if(u.getRelated_courses().get(course.getCourseID()).getInterested()) {
+                                interested_switch.setChecked(true);
+                            }
                         }else {
                             cb.setChecked(false);
                         }
@@ -172,7 +176,6 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     });
                 }
         }});
-        final Switch interested_switch=convertView.findViewById(R.id.switchInterested);
         interested_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
 
             @Override

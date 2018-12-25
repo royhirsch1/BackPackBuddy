@@ -20,10 +20,12 @@
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1"
         />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
-        android:scrollbars="vertical"
+    <ListView
+        android:id="@+id/course_list3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+
+        />
+
 
 </android.support.constraint.ConstraintLayout>
