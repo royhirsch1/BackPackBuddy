@@ -159,6 +159,7 @@ public class recommended extends Fragment {
                     @Override
                     public void onDataChange (@NonNull DataSnapshot dataSnapshot){
                         for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
+                            res.clear();
                             Log.d("Courses", courseSnap.getKey());
                             Course c = courseSnap.getValue(Course.class);
                             c.parseCatsReqs();
