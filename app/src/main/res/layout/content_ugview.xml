@@ -35,7 +35,6 @@
         android:fontFamily="@font/arima_madurai_bold"
         android:text="@string/course_name"
         android:textColor="@color/colorBackgroundBase"
-        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/shapeBlueBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
