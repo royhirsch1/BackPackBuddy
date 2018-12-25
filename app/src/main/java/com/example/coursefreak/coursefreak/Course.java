@@ -1,9 +1,10 @@
 package com.example.coursefreak.coursefreak;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course {
+public class Course implements Serializable {
     public String courseID;
     public String name;
     public Double points;
@@ -15,22 +16,18 @@ public class Course {
     public String requirements;
     public List<String> parsedRequirements;
 
-    /*
-        required
-        A_list
-
-     */
 
     public Course() {
         // Default constructor required.
     }
     public Course(String courseID, String name, Double points,
-                  Integer numLikes, Double average, String categories,
+                  Integer numLikes, Integer numCompleted, Double average, String categories,
                   String requirements) {
         this.courseID = courseID;
         this.name = name;
         this.points = points;
         this.numLikes = numLikes;
+        this.numCompleted = numCompleted;
         this.average = average;
         this.categories = categories;
         this.requirements = requirements;

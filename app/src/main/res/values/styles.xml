@@ -20,4 +20,14 @@
         <item name="android:layout_height">43dp</item>
     </style>
 
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CourseViewText" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>

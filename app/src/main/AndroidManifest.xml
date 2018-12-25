@@ -16,9 +16,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignupPage">
+        <activity android:name=".SignupPage" />
+        <activity
+            android:name=".CourseView"
+            android:exported="true"
+            android:label="@string/title_activity_courseview"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-        </activity>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".PartnerView"
+            android:exported="true"
+            android:label="@string/title_activity_partner_view"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".UGView"
+            android:label="@string/title_activity_ugview"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>
