@@ -35,5 +35,11 @@
     <string name="label_exam">Exam</string>
     <string name="label_HW">Homework</string>
     <string name="label_partners">Pair Work</string>
+    <string name="title_activity_partner_view">Partners</string>
+    <string name="title_activity_courseview">Course Info</string>
+    <string name="partner_switch_label">I\'m Looking For A Partner</string>
+    <string name="title_activity_ugview">UG Website</string>
+
+>>>>>>> 56e1591d79163cf6620b81c1ae2bc16246768d82
 </resources>
 

@@ -19,17 +19,17 @@
         android:src="@drawable/roy_profile"
         app:civ_border_color="@color/colorPrimaryDark"
         app:civ_border_width="1dp" />
-<!--
-    <ImageView
-        android:id="@+id/user_img"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="6dip"
-        android:contentDescription="TODO"
-        android:src="@drawable/icon_panda" />
-        -->
+    <!--
+        <ImageView
+            android:id="@+id/user_img"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="6dip"
+            android:contentDescription="TODO"
+            android:src="@drawable/icon_panda" />
+            -->
 
     <TextView
         android:id="@+id/partner_email"
@@ -44,7 +44,7 @@
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/textView_review"
+        android:id="@+id/partner_name"
         style="@style/CourseViewText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

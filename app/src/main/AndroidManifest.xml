@@ -20,7 +20,27 @@
         <activity
             android:name=".Courses"
             android:label="@string/title_activity_courses"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".CourseView"
+            android:exported="true"
+            android:label="@string/title_activity_courseview"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".PartnerView"
+            android:exported="true"
+            android:label="@string/title_activity_partner_view"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".UGView"
+            android:label="@string/title_activity_ugview"></activity>
     </application>
 
 </manifest>

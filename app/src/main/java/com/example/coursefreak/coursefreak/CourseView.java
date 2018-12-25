@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +41,7 @@ public class CourseView extends AppCompatActivity {
     private Handler mBarHandler_pop = new Handler();
     private TextView textViewAverage;
     private TextView textViewPopularity;
-
+    private Course course;
 
     private TextView textViewReview;
 
@@ -56,44 +58,23 @@ public class CourseView extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener link_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent linkIntent = new Intent(v.getContext(), UGView.class);
+            linkIntent.putExtra("course_id",course.getCourseID());
+            linkIntent.putExtra("course_name",course.getName());
+            startActivity(linkIntent);
+        }
+    };
+
     private View.OnClickListener partner_OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            AlertDialog.Builder builderSingle = new AlertDialog.Builder(CourseView.this);
-            //builderSingle.setIcon(R.drawable.icon_fox);
-            builderSingle.setTitle("Also looking for a partner:");
-
-            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(CourseView.this, android.R.layout.simple_list_item_1);
-            arrayAdapter.add("Hardik");
-            arrayAdapter.add("Archit");
-            arrayAdapter.add("Jignesh");
-            arrayAdapter.add("Umang");
-            arrayAdapter.add("Gatti");
-
-            builderSingle.setNegativeButton("close", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-
-            builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String strName = arrayAdapter.getItem(which);
-                    AlertDialog.Builder builderInner = new AlertDialog.Builder(CourseView.this);
-                    builderInner.setMessage(strName);
-                    builderInner.setTitle("Your Selected Item is");
-                    builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog,int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builderInner.show();
-                }
-            });
-            builderSingle.show();
+            Intent partnerIntent = new Intent(v.getContext(), PartnerView.class);
+            partnerIntent.putExtra("course_id",course.getCourseID());
+            partnerIntent.putExtra("course_name",course.getName());
+            startActivity(partnerIntent);
         }
     };
 
@@ -102,15 +83,16 @@ public class CourseView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_view);
 
-        Course course;
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        course = new Course("234218","name of 234218",2.8,6,8,76.8,"no","hw;pairs");
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if(extras != null){
-            course = (Course)extras.get("course");
-        }else{
-            course = new Course("234123","Error",3.5,64,90,58.6,"later","later");
+        if(intent != null && intent.getSerializableExtra("course") != null){
+            course = (Course)intent.getSerializableExtra("course");
         }
+        this.mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mDB = mDatabase.getReference();
 
         final int popularity_rate = (course.getNumLikes())*100/(course.getNumCompleted());
         final int course_avg = course.getAverage().intValue();
@@ -127,18 +109,15 @@ public class CourseView extends AppCompatActivity {
         final ImageButton but_partner = findViewById(R.id.button_partner);
         but_share.setOnClickListener(na_OnClickListener);
         but_comment.setOnClickListener(na_OnClickListener);
-        but_link.setOnClickListener(na_OnClickListener);
+        but_link.setOnClickListener(link_OnClickListener);
         but_partner.setOnClickListener(partner_OnClickListener);
 
         //Get reviews from DB
-        String courseIDtemp="234123";
-        this.mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference mDB = mDatabase.getReference();
 
         Log.d("getRevs", "In getCourseReviewsOrdered");
         final ArrayList<Review> reviewList = new ArrayList<>();
         mDB.child("course_reviews")
-                .child(courseIDtemp)
+                .child(course.getCourseID())
                 .orderByChild("numberHelped")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -244,6 +223,25 @@ public class CourseView extends AppCompatActivity {
 
 
         // -- End Of Progress Bar Popularity -- //
+
+        //Requirements//
+
+        ImageButton homework_img = findViewById(R.id.icon_homework);
+        ImageButton exam_img = findViewById(R.id.icon_exam);
+        ImageButton pairwork_img = findViewById(R.id.icon_pairwork);
+
+        List<String> req_list = course.getParsedRequirements();
+        if(req_list.contains("hw")){
+            homework_img.setBackground(ContextCompat.getDrawable(getBaseContext(),R.drawable.icon_v));
+        }
+        if(req_list.contains("exam")){
+            exam_img.setBackground(ContextCompat.getDrawable(getBaseContext(),R.drawable.icon_v));
+        }
+        if(req_list.contains("pairs")){
+            pairwork_img.setBackground(ContextCompat.getDrawable(getBaseContext(),R.drawable.icon_v));
+        }
+
+
 
     }
 
