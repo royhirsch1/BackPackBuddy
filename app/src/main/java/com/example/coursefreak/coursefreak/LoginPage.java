@@ -297,8 +297,8 @@ public class LoginPage extends AppCompatActivity {
 //        FirebaseUtils.removeUserFromPartners("dum2", "234218", this.mDatabase.getReference());
 //    }
 //    private void TestDatabaseUtils14() {
-//        Log.d("user", "adding dum1");
-//        FirebaseUtils.addNewUserData("dum1", "Dummy 1", this.mDatabase.getReference());
+//        Log.d("user", "adding dum3");
+//        FirebaseUtils.addNewUserData("dum3", "Dummy 1", this.mDatabase.getReference());
 //    }
 
 //    private void TestDatabaseUtils15() {
