@@ -18,4 +18,6 @@
     <string name="badPasswordTooShort">Password is too short!</string>
     <string name="badEmailNotValid">E-mail address is not valid!</string>
     <string name="badLoginInfo">Email or password were incorrect.</string>
+    <string name="aboutButtonDesc">Credits</string>
+    <string name="aboutContentList">https://icons8.com/\nhttp://www.ourclipart.com/\nhttps://www.freepik.com/\nde.hdodenhof\n</string>
 </resources>
