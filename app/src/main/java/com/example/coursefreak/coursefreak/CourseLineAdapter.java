@@ -45,11 +45,14 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         // Get the data item for this position
         final Course course = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
+        View ret=null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.single_course, null);
+            ret = LayoutInflater.from(getContext()).inflate(R.layout.single_course, null);
+        }else{
+            ret=convertView;
         }
         // Lookup view for data population
-        final TextView courseName = (TextView) convertView.findViewById(R.id.textViewCourseName);
+        final TextView courseName = (TextView) ret.findViewById(R.id.textViewCourseName);
         courseName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,8 +60,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                 intent.putExtra("course",course);
             }
         });
-        final Switch interested_switch=convertView.findViewById(R.id.switchInterested);
-        final CheckBox cb = convertView.findViewById(R.id.checkBoxDone);
+        final Switch interested_switch=ret.findViewById(R.id.switchInterested);
+        final CheckBox cb = ret.findViewById(R.id.checkBoxDone);
         this.mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         final String uid;
@@ -70,6 +73,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                onPage=true;
                 User u = dataSnapshot.getValue(User.class);
                 if(u == null)
                     Log.d("user", "ERROR");
@@ -105,7 +109,6 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                 if (checked == true) {
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(contex);
                     builderSingle.setTitle("how did you feel about the course?");
-
                     final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(contex, android.R.layout.select_dialog_singlechoice);
                     arrayAdapter.add("Like");
                     arrayAdapter.add("Dislike");
@@ -207,6 +210,9 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(onPage==true){
+                                return;
+                            }
                             User u = dataSnapshot.getValue(User.class);
                             if (u == null)
                                 Log.d("user", "ERROR");
@@ -246,6 +252,6 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         });
         courseName.setText(course.getName()+"-"+course.getCourseID());
 
-        return convertView;
+        return ret;
     }
 }

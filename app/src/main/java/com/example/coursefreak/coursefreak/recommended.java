@@ -180,6 +180,7 @@ public class recommended extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                res.clear();
                 Log.d("Matrix", "Cancellation error");
             }
         });
