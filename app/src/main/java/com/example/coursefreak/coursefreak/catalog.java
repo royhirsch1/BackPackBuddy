@@ -39,6 +39,7 @@ public class catalog extends Fragment {
     private static View rootView;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
+    final ArrayList<Course> res = new ArrayList<>();
     public catalog() {}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,15 +55,16 @@ public class catalog extends Fragment {
             /* map is already there, just return view as it is */
         }
         final ListView lv = (ListView) rootView.findViewById(R.id.course_list);
-        final ArrayList<Course> res = new ArrayList<>();
         myRef.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (@NonNull DataSnapshot dataSnapshot){
+                res.clear();
                 for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
                     Course c = courseSnap.getValue(Course.class);
                     c.parseCatsReqs();
                     res.add(c);
                 }
+
                 CourseLineAdapter cla= new CourseLineAdapter(getContext(),res);
                 lv.setAdapter(cla);
             }
