@@ -127,12 +127,17 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                             if(u == null)
                                 Log.d("user", "ERROR");
                             else {
-                                if(u.related_courses.containsKey(course.getCourseID())) {
-                                    u.related_courses.get(course.getCourseID()).completed = true;
-                                    //FireBaseUtils
+                                if(u.getRelated_courses().containsKey(course.getCourseID())) {
+                                    u.getRelated_courses().get(course.getCourseID()).completed = true;
+                                    course.numCompleted++;
+                                    FirebaseUtils.updateCourseNumCompleted(course.getCourseID(),course.getNumCompleted(),myRef);
+
                                     if(choice=="Like"){
                                         course.numLikes++;
                                         FirebaseUtils.userAddPositiveRating(uid,course.getName(),myRef);
+                                        UserRelatedCourse data = new UserRelatedCourse(false, true, true);
+                                        FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
+
                                     }
                                 }else{
                                     boolean like=false;
@@ -140,11 +145,15 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                         like=true;
                                         course.numLikes++;
                                         FirebaseUtils.userAddPositiveRating(uid,course.getName(),myRef);
+                                        UserRelatedCourse data = new UserRelatedCourse(false, true, true);
+                                        FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
                                     }
                                     UserRelatedCourse data = new UserRelatedCourse(false,true,like);
                                     u.relateNewCourse(course.getCourseID(),data);
                                     FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
                                 }
+                                course.numCompleted++;
+                                FirebaseUtils.updateCourseNumCompleted(course.getCourseID(),course.getNumCompleted(),myRef);
 
                             }
 
@@ -164,15 +173,18 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                 Log.d("user", "ERROR");
                             else {
                                 boolean liked=u.getRelated_courses().get(course.getCourseID()).getLiked();
-                                u.related_courses.get(course.getCourseID()).completed = false;
-                                //FirebaseUtils
+                                u.getRelated_courses().get(course.getCourseID()).completed = false;
+                                course.numCompleted--;
+                                FirebaseUtils.updateCourseNumCompleted(course.getCourseID(),course.getNumCompleted(),myRef);
                                 if(liked){
                                     course.numLikes--;
                                     FirebaseUtils.userRemoveExistingRating(uid,course.getName(),myRef);
+                                    FirebaseUtils.updateCourseNumLikes(course.getCourseID(),course.getNumLikes(),myRef);
                                 }
                                 if(u.getRelated_courses().get(course.getCourseID()).getInterested()==false){
                                     u.getRelated_courses().remove(course.getCourseID());
-                                    //FirebaseUtils
+                                    UserRelatedCourse uc = new UserRelatedCourse(false, false, false);
+                                    FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
                                 }
                             }
                         }
@@ -198,7 +210,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                 if (isChecked) {
                                     if (u.getRelated_courses().containsKey(course.getCourseID())) {
                                         u.getRelated_courses().get(course.getCourseID()).interested = true;
-                                        //FirebaseUtils
+                                        UserRelatedCourse uc = new UserRelatedCourse(true, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
+                                        FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
 
                                     } else {
                                         UserRelatedCourse data = new UserRelatedCourse(true, false, false);
@@ -208,10 +221,13 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
 
                                 }else{
                                     u.getRelated_courses().get(course.getCourseID()).interested = false;
-                                    //FirebaseUtils
                                     if(u.getRelated_courses().get(course.getCourseID()).getCompleted()==false){
                                         u.getRelated_courses().remove(course.getCourseID());
-                                        //FirebaseUtils
+                                        UserRelatedCourse uc = new UserRelatedCourse(false, false, false);
+                                        FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
+                                    }else{
+                                        UserRelatedCourse uc = new UserRelatedCourse(false, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
+                                        FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
                                     }
                                 }
                             }
