@@ -135,7 +135,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             User u = dataSnapshot.getValue(User.class);
                             if(u == null)
-                                Log.d("user", "ERROR");
+                                Log.d("userRates", "ERROR");
                             else {
                                 if(u.getRelated_courses().containsKey(course.getCourseID())) {
                                     u.getRelated_courses().get(course.getCourseID()).completed = true;
@@ -154,7 +154,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                     if(choice=="Like"){
                                         like=true;
                                         course.numLikes++;
-                                        FirebaseUtils.userAddPositiveRating(uid,course.getName(),myRef);
+                                        FirebaseUtils.userAddPositiveRating(uid,course.getCourseID(),myRef);
                                         UserRelatedCourse data = new UserRelatedCourse(false, true, true);
                                         FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
                                     }
