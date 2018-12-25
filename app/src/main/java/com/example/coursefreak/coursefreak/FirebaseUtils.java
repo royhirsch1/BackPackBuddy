@@ -1,5 +1,6 @@
 package com.example.coursefreak.coursefreak;
 
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -434,6 +435,32 @@ public final class FirebaseUtils {
                     Log.d("user", "ERROR");
                 } else {
                     Log.d("user", "success");
+                }
+            }
+        });
+    }
+
+    public static void updateCourseNumLikes(String courseID, Integer u, DatabaseReference mDB) {
+        mDB.child("courses").child(courseID).child("numLikes").setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(!task.isSuccessful()) {
+                    Log.d("course", "Connection Error");
+                } else {
+                    Log.d("course", "updated 1!");
+                }
+            }
+        });
+    }
+
+    public static void updateCourseNumCompleted(String courseID, Integer u, DatabaseReference mDB) {
+        mDB.child("courses").child(courseID).child("numCompleted").setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(!task.isSuccessful()) {
+                    Log.d("course", "Database Connection Error");
+                } else {
+                    Log.d("course", "updated 2!");
                 }
             }
         });

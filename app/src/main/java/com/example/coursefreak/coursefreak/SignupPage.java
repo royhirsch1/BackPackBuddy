@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,12 +39,9 @@ public class SignupPage extends AppCompatActivity {
         sign_up_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user_email = ((EditText)findViewById(R.id.emailTextBox)).getText().toString();
+                final String user_email = ((EditText)findViewById(R.id.emailTextBox)).getText().toString();
                 String user_password = ((EditText)findViewById(R.id.passwordTextBox)).getText().toString();
                 String confirm_password = ((EditText)findViewById(R.id.confirmPasswordBox)).getText().toString();
-                if(errorTextNotify.getVisibility() != View.GONE) {
-                    return;
-                }
                 if(user_password.equals(confirm_password) == false) {
                     errorTextNotify.setText(R.string.badPasswordMatchString);
                     errorTextNotify.setVisibility(View.VISIBLE);
@@ -64,10 +63,24 @@ public class SignupPage extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()) {
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        Toast.makeText(SignupPage.this,
-                                                "Welcome ".concat(user.getEmail()),
-                                                Toast.LENGTH_SHORT).show();
+                                        final FirebaseUser user = mAuth.getCurrentUser();
+                                        DatabaseReference mDB = FirebaseDatabase.getInstance().getReference();
+                                        if(mDB == null)
+                                            Toast.makeText(SignupPage.this, "Connection Error", Toast.LENGTH_LONG).show();
+                                        User u = new User(user.getUid(), user_email);
+                                        mDB.child("users").child(u.getUid()).setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(!task.isSuccessful()) {
+                                                    //Toast.makeText(SignupPage.this, "Connection Error", Toast.LENGTH_LONG).show();
+                                                } else {
+//                                                    Toast.makeText(SignupPage.this,
+//                                                            "Welcome ".concat(user.getEmail()),
+//                                                            Toast.LENGTH_SHORT).show();
+                                                    gotoWelcome();
+                                                }
+                                            }
+                                        });
                                     } else {
                                         Toast.makeText(SignupPage.this,
                                                 task.getException().getMessage(),
@@ -75,11 +88,8 @@ public class SignupPage extends AppCompatActivity {
                                     }
                                 }
                             });
-//                    Intent intent = new Intent(catalog.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    startActivity(intent);
-//                    errorTextNotify.setVisibility(View.GONE);
+
+                    errorTextNotify.setVisibility(View.GONE);
 //                    Toast.makeText(SignupPage.this,
 //                        "Welcome ".concat(user_email),
 //                        Toast.LENGTH_SHORT).show();
@@ -88,6 +98,14 @@ public class SignupPage extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    public void gotoWelcome() {
+        Intent intent = new Intent(this, Courses.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     public static boolean isEmailValid(String email) {

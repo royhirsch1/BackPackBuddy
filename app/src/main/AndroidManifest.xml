@@ -18,6 +18,10 @@
         </activity>
         <activity android:name=".SignupPage" />
         <activity
+            android:name=".Courses"
+            android:label="@string/title_activity_courses"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
             android:name=".CourseView"
             android:exported="true"
             android:label="@string/title_activity_courseview"
@@ -36,8 +40,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".UGView"
-            android:label="@string/title_activity_ugview"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:label="@string/title_activity_ugview"></activity>
     </application>
 
 </manifest>

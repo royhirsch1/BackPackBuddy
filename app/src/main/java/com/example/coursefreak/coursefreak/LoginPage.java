@@ -53,11 +53,7 @@ public class LoginPage extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), R.string.badLoginInfo, Toast.LENGTH_LONG );
                         }
                         else {
-//                            Intent intent = new Intent(catalouge.class);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                            startActivity(intent);
-//                            Go to main page activity
+                            gotoWelcome();
                         }
                     }
                 });
@@ -93,7 +89,16 @@ public class LoginPage extends AppCompatActivity {
         //TestDatabaseUtils15();
         //TestDatabaseUtils16();
         //TestDatabaseUtils18();
+        //TestDatabaseUtils19();
+        //TestDatabaseUtils20();
         //ActivatePredictionsTest();
+    }
+
+    public void gotoWelcome() {
+        Intent intent = new Intent(this, Courses.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 //    private class GetAllCourses extends AsyncTask<DatabaseReference, Integer, Long> {
 //        public List<String> arr;
@@ -155,7 +160,7 @@ public class LoginPage extends AppCompatActivity {
 //        };
 //        Matrix A = new DenseMatrix(4,4);
 //        /*
-//            Courses:
+//            catalog:
 //            Operating Systems, Computer Architecture, Algorithms, Data Structures
 //            Alice:
 //                Likes Operating Systems, Comp Arch,
@@ -314,5 +319,11 @@ public class LoginPage extends AppCompatActivity {
 //    private void TestDatabaseUtils18() {
 //        Log.d("recoms", "getting recommendations...");
 //        FirebaseUtils.recGetNewUserRecommendations("dum2", this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils19() {
+//        FirebaseUtils.updateCourseNumLikes("234118", 1, this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils20() {
+//        FirebaseUtils.updateCourseNumCompleted("234118", 2, this.mDatabase.getReference());
 //    }
 }

@@ -9,15 +9,14 @@
     <string name="guestContinueString">Continue as guest</string>
     <string name="signupFeaturesString_1">Sign up for course recommendations,</string>
     <string name="signupFeaturesString_2">reviews, and more!</string>
-    <string name="title_activity_course_view">Course Info</string>
-    <string name="course_name">Algorithms 1</string>
-    <string name="course_credit">3.0</string>
-    <string name="courseView_spinner_title">Catalog categories</string>
-    <string name="grade_avg">Grade Average</string>
-    <string name="label_popularity">Popularity</string>
-    <string name="label_exam">Exam</string>
-    <string name="label_HW">Homework</string>
-    <string name="label_partners">Pair Work</string>
+    <string name="title_activity_courses_tabs">CoursesTabs</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_courses">Courses</string>
+    <string name="tab_text_1">Catalog</string>
+    <string name="tab_text_2">Recommended</string>
+    <string name="tab_text_3">Interested</string>
+    <string name="courses">Courses</string>
     <string name="notSignUpString">Not signed up?</string>
     <string name="logoImageDesc">App logo</string>
     <string name="appMoto">CourseFreak, your academic assistant</string>
@@ -27,9 +26,20 @@
     <string name="badPasswordTooShort">Password is too short!</string>
     <string name="badEmailNotValid">E-mail address is not valid!</string>
     <string name="badLoginInfo">Email or password were incorrect.</string>
+    <string name="title_activity_course_view">Course View</string>
+    <string name="course_name">Algorithms 1</string>
+    <string name="course_credit">3.0</string>
+    <string name="courseView_spinner_title">Catalog categories</string>
+    <string name="grade_avg">Grade Average</string>
+    <string name="label_popularity">Popularity</string>
+    <string name="label_exam">Exam</string>
+    <string name="label_HW">Homework</string>
+    <string name="label_partners">Pair Work</string>
     <string name="title_activity_partner_view">Partners</string>
     <string name="title_activity_courseview">Course Info</string>
     <string name="partner_switch_label">I\'m Looking For A Partner</string>
     <string name="title_activity_ugview">UG Website</string>
 
+>>>>>>> 56e1591d79163cf6620b81c1ae2bc16246768d82
 </resources>
+
