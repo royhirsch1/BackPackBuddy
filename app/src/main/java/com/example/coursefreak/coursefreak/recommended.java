@@ -167,6 +167,8 @@ public class recommended extends Fragment {
                                 }
                             }
                         }
+                        CourseLineAdapter cla= new CourseLineAdapter(getContext(),res);
+                        lv.setAdapter(cla);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -174,8 +176,7 @@ public class recommended extends Fragment {
                         Log.d("Courses", "Database Error");
                     }
                 });
-                CourseLineAdapter cla= new CourseLineAdapter(getContext(),res);
-                lv.setAdapter(cla);
+
             }
 
             @Override

@@ -58,11 +58,13 @@ public class catalog extends Fragment {
         myRef.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (@NonNull DataSnapshot dataSnapshot){
+                res.clear();
                 for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
                     Course c = courseSnap.getValue(Course.class);
                     c.parseCatsReqs();
                     res.add(c);
                 }
+
                 CourseLineAdapter cla= new CourseLineAdapter(getContext(),res);
                 lv.setAdapter(cla);
             }
