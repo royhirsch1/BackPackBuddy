@@ -89,6 +89,8 @@ public class LoginPage extends AppCompatActivity {
         //TestDatabaseUtils15();
         //TestDatabaseUtils16();
         //TestDatabaseUtils18();
+        //TestDatabaseUtils19();
+        //TestDatabaseUtils20();
         //ActivatePredictionsTest();
     }
 
@@ -317,5 +319,11 @@ public class LoginPage extends AppCompatActivity {
 //    private void TestDatabaseUtils18() {
 //        Log.d("recoms", "getting recommendations...");
 //        FirebaseUtils.recGetNewUserRecommendations("dum2", this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils19() {
+//        FirebaseUtils.updateCourseNumLikes("234118", 1, this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils20() {
+//        FirebaseUtils.updateCourseNumCompleted("234118", 2, this.mDatabase.getReference());
 //    }
 }
