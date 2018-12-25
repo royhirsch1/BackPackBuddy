@@ -33,6 +33,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.google.firebase:firebase-database:16.0.3'
-    implementation files('libs/LAML-1.6.5.jar')
     implementation 'com.android.support:recyclerview-v7:28.0.0'
 }

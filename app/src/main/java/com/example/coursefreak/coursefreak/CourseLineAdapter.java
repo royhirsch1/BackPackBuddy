@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(contex,CourseView.class);
+                intent.putExtra("course",course.getCourseID());
             }
         });
         final CheckBox cb = convertView.findViewById(R.id.checkBoxDone);
@@ -93,7 +95,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                 boolean checked = ((CheckBox) buttonView).isChecked();
                 if (checked == true) {
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(contex);
-                    builderSingle.setTitle("Select One Name:-");
+                    builderSingle.setTitle("how did you feel about the course?");
 
                     final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(contex, android.R.layout.select_dialog_singlechoice);
                     arrayAdapter.add("Like");
@@ -123,10 +125,14 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                             else {
                                 if(u.related_courses.containsKey(course.getCourseID())) {
                                     u.related_courses.get(course.getCourseID()).completed = true;
+                                    if(choice=="Like"){
+                                        course.numLikes++;
+                                    }
                                 }else{
                                     boolean like=false;
                                     if(choice=="Like"){
                                         like=true;
+                                        course.numLikes++;
                                     }
                                     UserRelatedCourse data = new UserRelatedCourse(false,true,like);
                                     u.relateNewCourse(course.getCourseID(),data);
@@ -142,9 +148,67 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     });
 
             }else{
-
+                    myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User u = dataSnapshot.getValue(User.class);
+                            if (u == null)
+                                Log.d("user", "ERROR");
+                            else {
+                                boolean liked=u.getRelated_courses().get(course.getCourseID()).getLiked();
+                                u.related_courses.get(course.getCourseID()).completed = false;
+                                if(liked){
+                                    course.numLikes--;
+                                }
+                                if(u.getRelated_courses().get(course.getCourseID()).getInterested()==false){
+                                    u.getRelated_courses().remove(course.getCourseID());
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.d("Courses", "Database Error");
+                        }
+                    });
                 }
         }});
+        final Switch interested_switch=convertView.findViewById(R.id.switchInterested);
+        interested_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+                    myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User u = dataSnapshot.getValue(User.class);
+                            if (u == null)
+                                Log.d("user", "ERROR");
+
+                            else {
+                                if (isChecked) {
+                                    if (u.getRelated_courses().containsKey(course.getCourseID())) {
+                                        u.getRelated_courses().get(course.getCourseID()).interested = true;
+
+                                    } else {
+                                        UserRelatedCourse data = new UserRelatedCourse(true, false, false);
+                                        u.relateNewCourse(course.getCourseID(), data);
+                                    }
+
+                                }else{
+                                    u.getRelated_courses().get(course.getCourseID()).interested = false;
+                                    if(u.getRelated_courses().get(course.getCourseID()).getCompleted()==false){
+                                        u.getRelated_courses().remove(course.getCourseID());
+                                    }
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.d("Courses", "Database Error");
+                        }
+                });
+            }
+        });
         courseName.setText(course.getName()+"-"+course.getCourseID());
 
         return convertView;
