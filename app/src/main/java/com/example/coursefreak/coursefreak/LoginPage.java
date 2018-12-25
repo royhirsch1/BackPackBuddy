@@ -225,13 +225,14 @@ public class LoginPage extends AppCompatActivity {
 //        Log.d("Courses", "Back from allCourses!");
 //    }
 //
-//    private void TestDatabasUtils2() {
-//        Log.d("Rate", "Hello there.");
-//        FirebaseUtils.userAddPositiveRating(mAuth.getUid(),
-//                "234218",
-//                mDatabase.getReference());
-//        Log.d("Rate", "Right after userAddPositiveRating");
-//    }
+    private void TestDatabasUtils2() {
+        Log.d("Rate", "Hello there.");
+        FirebaseUtils.userAddPositiveRating(
+                "rfZdLx1CxJM5lCCQ0po7JmG4UMn1",
+                "234218",
+                mDatabase.getReference());
+        Log.d("Rate", "Right after userAddPositiveRating");
+    }
 //
 //    private void TestDatabaseUtils3() {
 //        Log.d("RemRate", "Hello again.");

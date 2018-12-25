@@ -118,6 +118,59 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             choice = arrayAdapter.getItem(which);
+                            myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    User u = dataSnapshot.getValue(User.class);
+                                    if(u == null) {
+                                        Log.d("userRates", "ERROR");
+                                    }
+
+                                    else {
+                                        if(u.getRelated_courses().containsKey(course.getCourseID())) {
+                                            Log.d("wtf", "1");
+                                            u.getRelated_courses().get(course.getCourseID()).completed = true;
+                                            course.numCompleted++;
+                                            FirebaseUtils.updateCourseNumCompleted(course.getCourseID(),course.getNumCompleted(),myRef);
+
+                                            if(choice.equals("Like")){
+                                                Log.d("wtf", "11");
+                                                course.numLikes++;
+                                                FirebaseUtils.userAddPositiveRating(uid,course.getCourseID(),myRef);
+                                                UserRelatedCourse data = new UserRelatedCourse(false, true, true);
+                                                FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
+                                                recommended.reloadRecommended();
+                                            }
+                                        }
+                                        else{
+                                            Log.d("wtf", "2");
+                                            boolean like=false;
+                                            if(choice.equals("Like")){
+                                                Log.d("wtf", "22");
+                                                like=true;
+                                                course.numLikes++;
+                                                Log.d("wtf", "wtf");
+                                                FirebaseUtils.userAddPositiveRating(uid,course.getCourseID(),myRef);
+                                                Log.d("wtf", "wtf");
+                                                UserRelatedCourse data = new UserRelatedCourse(false, true, true);
+                                                FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
+                                                recommended.reloadRecommended();
+                                            }
+                                            UserRelatedCourse data = new UserRelatedCourse(false,true,like);
+                                            u.relateNewCourse(course.getCourseID(),data);
+                                            FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
+                                        }
+                                        course.numCompleted++;
+                                        FirebaseUtils.updateCourseNumCompleted(course.getCourseID(),course.getNumCompleted(),myRef);
+
+                                    }
+
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    Log.d("Courses", "Database Error");
+                                }
+                            });
                             AlertDialog.Builder builderInner = new AlertDialog.Builder(contex);
                             builderInner.setTitle("Thank You");
                             builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -130,49 +183,6 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                         }
                     });
                     builderSingle.show();
-                    myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            User u = dataSnapshot.getValue(User.class);
-                            if(u == null)
-                                Log.d("userRates", "ERROR");
-                            else {
-                                if(u.getRelated_courses().containsKey(course.getCourseID())) {
-                                    u.getRelated_courses().get(course.getCourseID()).completed = true;
-                                    course.numCompleted++;
-                                    FirebaseUtils.updateCourseNumCompleted(course.getCourseID(),course.getNumCompleted(),myRef);
-
-                                    if(choice=="Like"){
-                                        course.numLikes++;
-                                        FirebaseUtils.userAddPositiveRating(uid,course.getName(),myRef);
-                                        UserRelatedCourse data = new UserRelatedCourse(false, true, true);
-                                        FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
-
-                                    }
-                                }else{
-                                    boolean like=false;
-                                    if(choice=="Like"){
-                                        like=true;
-                                        course.numLikes++;
-                                        FirebaseUtils.userAddPositiveRating(uid,course.getCourseID(),myRef);
-                                        UserRelatedCourse data = new UserRelatedCourse(false, true, true);
-                                        FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
-                                    }
-                                    UserRelatedCourse data = new UserRelatedCourse(false,true,like);
-                                    u.relateNewCourse(course.getCourseID(),data);
-                                    FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
-                                }
-                                course.numCompleted++;
-                                FirebaseUtils.updateCourseNumCompleted(course.getCourseID(),course.getNumCompleted(),myRef);
-
-                            }
-
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.d("Courses", "Database Error");
-                        }
-                    });
 
             }else{
                     myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -188,13 +198,15 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                 FirebaseUtils.updateCourseNumCompleted(course.getCourseID(),course.getNumCompleted(),myRef);
                                 if(liked){
                                     course.numLikes--;
-                                    FirebaseUtils.userRemoveExistingRating(uid,course.getName(),myRef);
+                                    FirebaseUtils.userRemoveExistingRating(uid,course.getCourseID(),myRef);
                                     FirebaseUtils.updateCourseNumLikes(course.getCourseID(),course.getNumLikes(),myRef);
+                                    recommended.reloadRecommended();
                                 }
                                 if(u.getRelated_courses().get(course.getCourseID()).getInterested()==false){
                                     u.getRelated_courses().remove(course.getCourseID());
                                     UserRelatedCourse uc = new UserRelatedCourse(false, false, false);
                                     FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
+                                    recommended.reloadRecommended();
                                 }
                             }
                         }
@@ -237,9 +249,11 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                     if(u.getRelated_courses().get(course.getCourseID()).getCompleted()==false){
                                         u.getRelated_courses().remove(course.getCourseID());
                                         UserRelatedCourse uc = new UserRelatedCourse(false, false, false);
+                                        FirebaseUtils.userRemoveExistingRating(uid,course.getCourseID(),myRef);
                                         FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
                                     }else{
                                         UserRelatedCourse uc = new UserRelatedCourse(false, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
+                                        FirebaseUtils.userRemoveExistingRating(uid,course.getCourseID(),myRef);
                                         FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
                                     }
                                 }

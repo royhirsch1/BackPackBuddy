@@ -1,5 +1,6 @@
 package com.example.coursefreak.coursefreak;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,9 +40,12 @@ import java.util.TreeSet;
 public class recommended extends Fragment {
     private static View rootView;
     private static ListView recomList;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference();
+    static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    static DatabaseReference myRef = database.getReference();
     private FirebaseAuth mAuth;
+    final ArrayList<Course> res = new ArrayList<>();
+    static ArrayList<Course> altRes = new ArrayList<>();
+    private static Context ctx;
 
     public recommended() {
     }
@@ -66,8 +70,8 @@ public class recommended extends Fragment {
         }
         final ListView lv = (ListView) rootView.findViewById(R.id.course_list3);
         recomList = lv;
-        final ArrayList<Course> res = new ArrayList<>();
         this.mAuth = FirebaseAuth.getInstance();
+        recommended.ctx = getContext();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         final String uid;
         if (currentUser != null) {
@@ -160,12 +164,14 @@ public class recommended extends Fragment {
                     public void onDataChange (@NonNull DataSnapshot dataSnapshot){
                         for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
                             res.clear();
+                            altRes.clear();
                             Log.d("Courses", courseSnap.getKey());
                             Course c = courseSnap.getValue(Course.class);
                             c.parseCatsReqs();
                             for(String s : nontrivialPredictions) {
                                 if (c.getCourseID().equals(s)) {
                                     res.add(c);
+                                    altRes.add(c);
                                 }
                             }
                             CourseLineAdapter cla= new CourseLineAdapter(lv.getContext(),res);
@@ -179,6 +185,7 @@ public class recommended extends Fragment {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         res.clear();
+                        altRes.clear();
                         Log.d("Courses", "Database Error");
                     }
                 });
@@ -192,19 +199,18 @@ public class recommended extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        reloadRecommended();
-    }
+    //@Override
+//    public void onResume() {
+//        super.onResume();
+//        reloadRecommended();
+//    }
 
-    private void reloadRecommended() {
+    public static void reloadRecommended() {
         final Set<String> nontrivialPredictions = new TreeSet<>();
-        final ArrayList<Course> res = new ArrayList<>();
         myRef.child("user_course_ratings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                altRes.clear();
                 // Setting up participating users and courses,
                 // So that users that have not rated anything will not participate.
                 Map<String, List<String>> allRatings = new HashMap<>();
@@ -224,7 +230,7 @@ public class recommended extends Fragment {
                 String uid = FirebaseAuth.getInstance().getUid();
                 // If the user has not rated anything, cannot predict for him.
                 if (all_users.contains(uid) == false) {
-                    Toast.makeText(getContext(), "No courses rated!", Toast.LENGTH_LONG);
+                    Toast.makeText(ctx, "No courses rated!", Toast.LENGTH_LONG);
                     return;
                 }
 
@@ -289,20 +295,20 @@ public class recommended extends Fragment {
                             c.parseCatsReqs();
                             for(String s : nontrivialPredictions) {
                                 if (c.getCourseID().equals(s)) {
-                                    res.add(c);
+                                    altRes.add(c);
                                 }
                             }
-                            CourseLineAdapter cla= new CourseLineAdapter(recomList.getContext(),res);
+                            CourseLineAdapter cla= new CourseLineAdapter(recomList.getContext(),altRes);
                             recomList.setAdapter(cla);
                             cla.notifyDataSetChanged();
                         }
-                        for(Course c : res) {
+                        for(Course c : altRes) {
                             Log.d("Completion", c.getName());
                         }
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        res.clear();
+                        altRes.clear();
                         Log.d("Courses", "Database Error");
                     }
                 });
