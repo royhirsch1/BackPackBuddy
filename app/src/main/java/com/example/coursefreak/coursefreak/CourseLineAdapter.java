@@ -32,6 +32,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
     private FirebaseAuth mAuth;
     private Context contex;
     private String choice;
+    boolean onPage=true;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     public CourseLineAdapter(Context context, ArrayList<Course> courses) {
@@ -86,6 +87,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                         cb.setChecked(false);
                     }
                 }
+                onPage=false;
 
             }
             @Override
@@ -96,6 +98,9 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(onPage==true){
+                    return;
+                }
                 boolean checked = ((CheckBox) buttonView).isChecked();
                 if (checked == true) {
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(contex);
