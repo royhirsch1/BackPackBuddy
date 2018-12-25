@@ -71,6 +71,7 @@ public class interested extends Fragment {
                 myRef.child("courses").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange (@NonNull DataSnapshot dataSnapshot){
+                        res.clear();
                         for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
                             Log.d("Courses", courseSnap.getKey());
                             Course c = courseSnap.getValue(Course.class);
@@ -79,6 +80,8 @@ public class interested extends Fragment {
                                 if(u.getRelated_courses().get(c.getCourseID()).getInterested()==true)
                                     res.add(c);
                         }
+                        CourseLineAdapter cla= new CourseLineAdapter(getContext(),res);
+                        lv.setAdapter(cla);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -86,8 +89,7 @@ public class interested extends Fragment {
                         Log.d("Courses", "Database Error");
                     }
                 });
-                CourseLineAdapter cla= new CourseLineAdapter(getContext(),res);
-                lv.setAdapter(cla);
+
             }
 
             @Override
