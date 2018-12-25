@@ -396,8 +396,10 @@ public final class FirebaseUtils {
 
     public static void addNewUserData(String uid, String name, DatabaseReference mDB) {
         Log.d("user", "In add new user");
-        User u = new User(uid, name);
-        mDB.child("users").child(uid).setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+        Map<String, Object> user_data = new HashMap<>();
+        user_data.put("name", name);
+        user_data.put("uid", uid);
+        mDB.child("users").child(uid).setValue(user_data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {

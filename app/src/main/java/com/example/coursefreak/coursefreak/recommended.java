@@ -1,9 +1,6 @@
 package com.example.coursefreak.coursefreak;
 
 import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -22,6 +19,7 @@ import android.view.ViewGroup;
 
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -99,6 +97,7 @@ public class recommended extends Fragment {
 
                 // If the user has not rated anything, cannot predict for him.
                 if (all_users.contains(uid) == false) {
+                    Toast.makeText(getContext(), "No courses rated!", Toast.LENGTH_LONG);
                     return;
                 }
 
@@ -166,9 +165,13 @@ public class recommended extends Fragment {
                                     res.add(c);
                                 }
                             }
+                            CourseLineAdapter cla= new CourseLineAdapter(lv.getContext(),res);
+                            lv.setAdapter(cla);
+                            cla.notifyDataSetChanged();
                         }
-                        CourseLineAdapter cla= new CourseLineAdapter(getContext(),res);
-                        lv.setAdapter(cla);
+                        for(Course c : res) {
+                            Log.d("Completion", c.getName());
+                        }
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -176,12 +179,10 @@ public class recommended extends Fragment {
                         Log.d("Courses", "Database Error");
                     }
                 });
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                res.clear();
                 Log.d("Matrix", "Cancellation error");
             }
         });
