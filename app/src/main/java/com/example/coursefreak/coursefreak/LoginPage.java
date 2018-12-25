@@ -53,11 +53,7 @@ public class LoginPage extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), R.string.badLoginInfo, Toast.LENGTH_LONG );
                         }
                         else {
-//                            Intent intent = new Intent(catalouge.class);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                            startActivity(intent);
-//                            Go to main page activity
+                            gotoWelcome();
                         }
                     }
                 });
@@ -94,6 +90,13 @@ public class LoginPage extends AppCompatActivity {
         //TestDatabaseUtils16();
         //TestDatabaseUtils18();
         //ActivatePredictionsTest();
+    }
+
+    public void gotoWelcome() {
+        Intent intent = new Intent(this, Courses.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 //    private class GetAllCourses extends AsyncTask<DatabaseReference, Integer, Long> {
 //        public List<String> arr;
