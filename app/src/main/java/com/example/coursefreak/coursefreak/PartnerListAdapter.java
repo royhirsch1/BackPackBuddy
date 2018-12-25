@@ -27,8 +27,10 @@ public class PartnerListAdapter extends ArrayAdapter<CoursePartner> {
         TextView name = (TextView) convertView.findViewById(R.id.partner_name);
         TextView email = (TextView) convertView.findViewById(R.id.partner_email);
 
-        name.setText(partner.getName());
-        email.setText(partner.getEmail());
+        //TODO reverse order and show name once we add this field
+        name.setText(partner.getEmail());
+        email.setText("");
+        //email.setText(partner.getEmail());
 
         de.hdodenhof.circleimageview.CircleImageView partnerImg = convertView.findViewById(R.id.partner_img);
 

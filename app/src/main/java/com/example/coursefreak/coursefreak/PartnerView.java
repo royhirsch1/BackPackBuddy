@@ -30,8 +30,10 @@ import java.util.Map;
 public class PartnerView extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private String courseID;
-    //TODO replace with: FirebaseAuth.getInstance().getUid()
-    private CoursePartner me = new CoursePartner("my_uid", "Roy", "myEmail");
+    private String my_uid = FirebaseAuth.getInstance().getUid();
+    private String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+    private CoursePartner me = new CoursePartner(my_uid, "null", my_email);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -94,7 +94,7 @@ public class CourseView extends AppCompatActivity {
         this.mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mDB = mDatabase.getReference();
 
-        final int popularity_rate = (course.getNumLikes())*100/(course.getNumCompleted());
+        final int popularity_rate = course.getNumCompleted() > 0 ? (course.getNumLikes())*100/(course.getNumCompleted()) : 0;
         final int course_avg = course.getAverage().intValue();
 
         //Update course data texts
@@ -213,7 +213,12 @@ public class CourseView extends AppCompatActivity {
                 mBarHandler_pop.post(new Runnable() {
                     @Override
                     public void run() {
-                        textViewPopularity.setText(Integer.toString(((int)popularity_rate))+"%");
+                        if(popularity_rate>0){
+                            textViewPopularity.setText(Integer.toString(((int)popularity_rate))+"%");
+                        }else{
+                            textViewPopularity.setText("No Data");
+                        }
+
                         textViewPopularity.setVisibility(View.VISIBLE);
                     }
                 });

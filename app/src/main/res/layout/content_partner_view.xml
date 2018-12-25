@@ -23,12 +23,15 @@
 
     <TextView
         android:id="@+id/textView_partner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center_horizontal"
         android:fontFamily="@font/arima_madurai_bold"
         android:text="@string/course_name"
         android:textColor="@color/colorBackgroundBase"

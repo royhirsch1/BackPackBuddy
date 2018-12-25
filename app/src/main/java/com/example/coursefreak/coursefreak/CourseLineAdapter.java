@@ -55,6 +55,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
             public void onClick(View v) {
                 Intent intent =new Intent(contex,CourseView.class);
                 intent.putExtra("course",course);
+                contex.startActivity(intent);
+
             }
         });
         final Switch interested_switch=convertView.findViewById(R.id.switchInterested);

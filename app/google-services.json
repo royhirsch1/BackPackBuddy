@@ -23,22 +23,6 @@
           }
         },
         {
-          "client_id": "876995660332-8u3trjefl5abpmsfgs5962vmt581fe03.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.coursefreak.coursefreak",
-            "certificate_hash": "0627997f31b2ee45c558b260d188b72e6b9d9ad8"
-          }
-        },
-        {
-          "client_id": "876995660332-s3k887a3rv31do70iss6mcrsk2t26cok.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.coursefreak.coursefreak",
-            "certificate_hash": "0a749955eaba09121526a2f048060d50443d9370"
-          }
-        },
-        {
           "client_id": "876995660332-qsubv6aqq6o8t106r6ljqoqe4t2df749.apps.googleusercontent.com",
           "client_type": 3
         }
