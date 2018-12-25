@@ -10,9 +10,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -20,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,6 +61,41 @@ public class CourseView extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener review_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setTitle("Write a review");
+
+// Set up the input
+            final EditText input = new EditText(v.getContext());
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(input);
+
+// Set up the buttons
+            builder.setPositiveButton("SEND", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String my_review = input.getText().toString();
+                    String my_uid = FirebaseAuth.getInstance().getUid();
+                    FirebaseUtils.addNewCourseReview(course.getCourseID(),my_uid,my_review,mDatabase.getReference());
+
+
+
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
+        }
+    };
+
     private View.OnClickListener link_OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -91,6 +129,7 @@ public class CourseView extends AppCompatActivity {
         if(intent != null && intent.getSerializableExtra("course") != null){
             course = (Course)intent.getSerializableExtra("course");
         }
+        toolbar.setTitle("Course: "+course.getCourseID());
         this.mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mDB = mDatabase.getReference();
 
@@ -108,7 +147,7 @@ public class CourseView extends AppCompatActivity {
         final ImageButton but_link = findViewById(R.id.button_link);
         final ImageButton but_partner = findViewById(R.id.button_partner);
         but_share.setOnClickListener(na_OnClickListener);
-        but_comment.setOnClickListener(na_OnClickListener);
+        but_comment.setOnClickListener(review_OnClickListener);
         but_link.setOnClickListener(link_OnClickListener);
         but_partner.setOnClickListener(partner_OnClickListener);
 
