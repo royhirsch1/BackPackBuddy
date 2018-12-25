@@ -9,7 +9,7 @@
     <string name="guestContinueString">Continue as guest</string>
     <string name="signupFeaturesString_1">Sign up for course recommendations,</string>
     <string name="signupFeaturesString_2">reviews, and more!</string>
-    <string name="title_activity_course_view">Course View</string>
+    <string name="title_activity_course_view">Course Info</string>
     <string name="course_name">Algorithms 1</string>
     <string name="course_credit">3.0</string>
     <string name="courseView_spinner_title">Catalog categories</string>
@@ -27,4 +27,9 @@
     <string name="badPasswordTooShort">Password is too short!</string>
     <string name="badEmailNotValid">E-mail address is not valid!</string>
     <string name="badLoginInfo">Email or password were incorrect.</string>
+    <string name="title_activity_partner_view">Partners</string>
+    <string name="title_activity_courseview">Course Info</string>
+    <string name="partner_switch_label">I\'m Looking For A Partner</string>
+    <string name="title_activity_ugview">UG Website</string>
+
 </resources>

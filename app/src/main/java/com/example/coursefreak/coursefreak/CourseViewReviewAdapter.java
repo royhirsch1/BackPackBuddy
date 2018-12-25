@@ -25,9 +25,9 @@ public class CourseViewReviewAdapter extends ArrayAdapter<Review> {
         }
         // Lookup view for data population
         TextView reviewContent = (TextView) convertView.findViewById(R.id.textView_review);
-        TextView reviewHelpful = (TextView) convertView.findViewById(R.id.textView_helpful);
+        TextView reviewHelpful = (TextView) convertView.findViewById(R.id.partner_email);
 
-        de.hdodenhof.circleimageview.CircleImageView userImg = convertView.findViewById(R.id.user_img);
+        de.hdodenhof.circleimageview.CircleImageView userImg = convertView.findViewById(R.id.partner_img);
 
         // Populate the data into the template view using the data object
         //TODO slice text - whole words only
