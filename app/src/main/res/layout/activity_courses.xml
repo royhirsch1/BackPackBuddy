@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_weight="1"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/PopupOverlay"
             app:title="@string/courses">
@@ -29,8 +29,11 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
+            style="@style/CourseViewText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlueLight"
+            app:tabTextColor="@color/colorMinorButton">
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem"
@@ -57,6 +60,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorBackgroundBase"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

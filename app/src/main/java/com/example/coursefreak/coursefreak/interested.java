@@ -66,6 +66,7 @@ public class interested extends Fragment {
         }else{
             uid="0";
         }
+        Log.d("denis", "UID is ".concat(uid));
         myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
