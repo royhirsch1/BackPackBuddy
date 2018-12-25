@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,8 +69,10 @@ public class SignupPage extends AppCompatActivity {
                                         DatabaseReference mDB = FirebaseDatabase.getInstance().getReference();
                                         if(mDB == null)
                                             Toast.makeText(SignupPage.this, "Connection Error", Toast.LENGTH_LONG).show();
-                                        User u = new User(user.getUid(), user_email);
-                                        mDB.child("users").child(u.getUid()).setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        Map<String, Object> user_data = new HashMap<>();
+                                        user_data.put("name", user_email);
+                                        user_data.put("uid", user.getUid());
+                                        mDB.child("users").child(user.getUid()).setValue(user_data).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if(!task.isSuccessful()) {
