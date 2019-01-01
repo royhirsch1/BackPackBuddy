@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,18 +35,22 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
     private FirebaseAuth mAuth;
     private Context contex;
     private String choice;
+    private recommended recommendFragment;
     boolean onPage=true;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
-    public CourseLineAdapter(Context context, ArrayList<Course> courses) {
+    public CourseLineAdapter(Context context, ArrayList<Course> courses, recommended recommendFragment) {
         super(context, 0, courses);
         this.contex=context;
+        this.recommendFragment = recommendFragment;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         // Get the data item for this position
         final Course course = getItem(position);
+
         // Check if an existing view is being reused, otherwise inflate the view
         View ret=null;
         if (convertView == null) {
@@ -51,6 +58,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         }else{
             ret=convertView;
         }
+
         // Lookup view for data population
         final TextView courseName = (TextView) ret.findViewById(R.id.textViewCourseName);
         courseName.setOnClickListener(new View.OnClickListener() {
@@ -62,16 +70,24 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
 
             }
         });
-        final Switch interested_switch=ret.findViewById(R.id.switchInterested);
+
+        final ImageButton bookmarkButton = ret.findViewById(R.id.bookmarkBtn);
+        bookmarkButton.setTag(R.drawable.bookmark_outline);
+
         final CheckBox cb = ret.findViewById(R.id.checkBoxDone);
+
         this.mAuth = FirebaseAuth.getInstance();
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         final String uid;
+
         if(currentUser != null){
             uid = currentUser.getUid();
-        }else{
+        } else{
             uid="0";
         }
+
         myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -81,10 +97,10 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     Log.d("user", "ERROR");
                 else {
                     if(u.getRelated_courses().containsKey(course.getCourseID())){
-                        if(u.getRelated_courses().get(course.getCourseID()).completed){
+                        if(u.getRelated_courses().get(course.getCourseID()).getCompleted()){
                             cb.setChecked(true);
                             if(u.getRelated_courses().get(course.getCourseID()).getInterested()) {
-                                interested_switch.setChecked(true);
+                                bookmarkButton.setBackgroundResource(R.drawable.bookmark_ribbon);
                             }
                         }else {
                             cb.setChecked(false);
@@ -139,7 +155,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                                 FirebaseUtils.userAddPositiveRating(uid,course.getCourseID(),myRef);
                                                 UserRelatedCourse data = new UserRelatedCourse(false, true, true);
                                                 FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
-                                                recommended.reloadRecommended();
+                                                recommendFragment.reloadRecommended();
                                             }
                                         }
                                         else{
@@ -154,7 +170,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                                 Log.d("wtf", "wtf");
                                                 UserRelatedCourse data = new UserRelatedCourse(false, true, true);
                                                 FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
-                                                recommended.reloadRecommended();
+                                                recommendFragment.reloadRecommended();
                                             }
                                             UserRelatedCourse data = new UserRelatedCourse(false,true,like);
                                             u.relateNewCourse(course.getCourseID(),data);
@@ -192,7 +208,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                             if (u == null)
                                 Log.d("user", "ERROR");
                             else {
-                                boolean liked=u.getRelated_courses().get(course.getCourseID()).getLiked();
+                                boolean liked = u.getRelated_courses().get(course.getCourseID()).getLiked();
                                 u.getRelated_courses().get(course.getCourseID()).completed = false;
                                 course.numCompleted--;
                                 FirebaseUtils.updateCourseNumCompleted(course.getCourseID(),course.getNumCompleted(),myRef);
@@ -200,13 +216,14 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                     course.numLikes--;
                                     FirebaseUtils.userRemoveExistingRating(uid,course.getCourseID(),myRef);
                                     FirebaseUtils.updateCourseNumLikes(course.getCourseID(),course.getNumLikes(),myRef);
-                                    recommended.reloadRecommended();
+                                    recommendFragment.reloadRecommended();
                                 }
+
                                 if(u.getRelated_courses().get(course.getCourseID()).getInterested()==false){
                                     u.getRelated_courses().remove(course.getCourseID());
                                     UserRelatedCourse uc = new UserRelatedCourse(false, false, false);
                                     FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
-                                    recommended.reloadRecommended();
+                                    recommendFragment.reloadRecommended();
                                 }
                             }
                         }
@@ -217,56 +234,66 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     });
                 }
         }});
-        interested_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
 
+        bookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
-                    myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(onPage==true){
-                                return;
-                            }
-                            User u = dataSnapshot.getValue(User.class);
-                            if (u == null)
-                                Log.d("user", "ERROR");
+            public void onClick(View v) {
+                myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(onPage==true){
+                            return;
+                        }
+                        User u = dataSnapshot.getValue(User.class);
+                        if (u == null)
+                            Log.d("user", "ERROR");
 
-                            else {
-                                if (isChecked) {
-                                    if (u.getRelated_courses().containsKey(course.getCourseID())) {
-                                        u.getRelated_courses().get(course.getCourseID()).interested = true;
-                                        UserRelatedCourse uc = new UserRelatedCourse(true, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
-                                        FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
+                        else {
+                            if (bookmarkButton.getTag().equals(R.drawable.bookmark_outline)) {
+                                if (u.getRelated_courses().containsKey(course.getCourseID())) {
+                                    u.getRelated_courses().get(course.getCourseID()).setInterested(true);
+                                    UserRelatedCourse uc = new UserRelatedCourse(true, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
+                                    FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
 
-                                    } else {
-                                        UserRelatedCourse data = new UserRelatedCourse(true, false, false);
-                                        u.relateNewCourse(course.getCourseID(), data);
-                                        FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
-                                    }
-
-                                }else{
-                                    u.getRelated_courses().get(course.getCourseID()).interested = false;
-                                    if(u.getRelated_courses().get(course.getCourseID()).getCompleted()==false){
-                                        u.getRelated_courses().remove(course.getCourseID());
-                                        UserRelatedCourse uc = new UserRelatedCourse(false, false, false);
-                                        FirebaseUtils.userRemoveExistingRating(uid,course.getCourseID(),myRef);
-                                        FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
-                                    }else{
-                                        UserRelatedCourse uc = new UserRelatedCourse(false, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
-                                        FirebaseUtils.userRemoveExistingRating(uid,course.getCourseID(),myRef);
-                                        FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
-                                    }
+                                } else {
+                                    UserRelatedCourse data = new UserRelatedCourse(true, false, false);
+                                    u.relateNewCourse(course.getCourseID(), data);
+                                    FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
                                 }
+                                bookmarkButton.setBackgroundResource(R.drawable.bookmark_ribbon);
+                                bookmarkButton.setTag(R.drawable.bookmark_ribbon);
+                            } else{
+                                u.getRelated_courses().get(course.getCourseID()).setInterested(false);
+                                if(u.getRelated_courses().get(course.getCourseID()).getCompleted()==false){
+                                    u.getRelated_courses().remove(course.getCourseID());
+                                    UserRelatedCourse uc = new UserRelatedCourse(false, false, false);
+                                    FirebaseUtils.userRemoveExistingRating(uid,course.getCourseID(),myRef);
+                                    FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
+                                }else{
+                                    UserRelatedCourse uc = new UserRelatedCourse(false, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
+                                    FirebaseUtils.userRemoveExistingRating(uid,course.getCourseID(),myRef);
+                                    FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
+                                }
+                                bookmarkButton.setBackgroundResource(R.drawable.bookmark_outline);
+                                bookmarkButton.setTag(R.drawable.bookmark_outline);
                             }
                         }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.d("Courses", "Database Error");
-                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.d("Courses", "Database Error");
+                    }
                 });
             }
         });
-        courseName.setText(course.getName()+"-"+course.getCourseID());
+
+        String name = course.getCourseID().concat(" - ").concat(course.getName());
+        if(name.length() > 50) {
+            name = name.substring(0, 50);
+            name.concat("...");
+        }
+
+        courseName.setText(name);
 
         return ret;
     }

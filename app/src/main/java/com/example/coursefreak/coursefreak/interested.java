@@ -34,8 +34,14 @@ public class interested extends Fragment {
     private static View rootView;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
+    private recommended recommendedFragment;
     private FirebaseAuth mAuth;
     public interested() {}
+
+    public void setRecommendedFragment(recommended recommendedFragment) {
+        this.recommendedFragment = recommendedFragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,7 +86,7 @@ public class interested extends Fragment {
                                 if(u.getRelated_courses().get(c.getCourseID()).getInterested()==true)
                                     res.add(c);
                         }
-                        CourseLineAdapter cla= new CourseLineAdapter(getContext(),res);
+                        CourseLineAdapter cla= new CourseLineAdapter(getContext(),res, recommendedFragment);
                         lv.setAdapter(cla);
                     }
                     @Override
