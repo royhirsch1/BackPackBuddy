@@ -53,6 +53,7 @@ public class LoginPage extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), R.string.badLoginInfo, Toast.LENGTH_LONG );
                         }
                         else {
+                            Toast.makeText(getApplicationContext(), "Signing in...", Toast.LENGTH_LONG);
                             gotoWelcome();
                         }
                     }
@@ -327,4 +328,24 @@ public class LoginPage extends AppCompatActivity {
 //    private void TestDatabaseUtils20() {
 //        FirebaseUtils.updateCourseNumCompleted("234118", 2, this.mDatabase.getReference());
 //    }
+//        private Task<String> addMessage(String text){
+//            // Create the arguments to the callable function.
+//            Map<String, Object> data = new HashMap<>();
+//            data.put("text", "rate;amit;234247;p");
+//            data.put("push", true);
+//
+//            return mFunctions
+//                    .getHttpsCallable("addMessage")
+//                    .call(data)
+//                    .continueWith(new Continuation<HttpsCallableResult, String>() {
+//                        @Override
+//                        public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+//                            // This continuation runs on either success or failure, but if the task
+//                            // has failed then getResult() will throw an Exception which will be
+//                            // propagated down.
+//                            String result = (String) task.getResult().getData();
+//                            return result;
+//                        }
+//                    });
+//        }
 }

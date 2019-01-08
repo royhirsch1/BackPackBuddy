@@ -40,15 +40,28 @@ import java.util.TreeSet;
 public class recommended extends Fragment {
     private View rootView;
     private ListView recomList;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     private FirebaseAuth mAuth;
+
     final ArrayList<Course> res = new ArrayList<>();
+
     private recommended recommendedFragment;
+    private interested interestedFragment;
+    private catalog catalogFragment;
     private Context ctx;
 
     public recommended() {
         this.recommendedFragment = this;
+    }
+
+    public void setInterestedFragment(interested interestedFragment) {
+        this.interestedFragment = interestedFragment;
+    }
+
+    public void setCatalogFragment(catalog catalogFragment) {
+        this.catalogFragment = catalogFragment;
     }
 
     @Override
@@ -69,17 +82,12 @@ public class recommended extends Fragment {
             ViewGroup parent = (ViewGroup) rootView.getParent();
             parent.removeAllViews();
         }
-        final ListView lv = (ListView) rootView.findViewById(R.id.course_list3);
+        final ListView lv = rootView.findViewById(R.id.course_list3);
         recomList = lv;
         this.mAuth = FirebaseAuth.getInstance();
         ctx = getContext();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        final String uid;
-        if (currentUser != null) {
-            uid = currentUser.getUid();
-        } else {
-            uid = "0";
-        }
+
         this.reloadRecommended();
 
         return rootView;
@@ -185,7 +193,7 @@ public class recommended extends Fragment {
                                     res.add(c);
                                 }
                             }
-                            CourseLineAdapter cla= new CourseLineAdapter(recomList.getContext(),res, recommendedFragment);
+                            CourseLineAdapter cla = new CourseLineAdapter(recomList.getContext(), res, recommendedFragment, catalogFragment, interestedFragment);
                             recomList.setAdapter(cla);
                             cla.notifyDataSetChanged();
                         }

@@ -17,39 +17,17 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/doneTextTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="12dp"
-            android:text="Done?"
-            android:textColor="@color/colorMainButton"
-            android:textSize="11sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxDone" />
-
-        <CheckBox
-            android:id="@+id/checkBoxDone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="4dp"
-            android:buttonTint="@color/colorMinorButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/textViewCourseName"
-            android:layout_width="250dp"
+            android:layout_width="280dp"
             android:layout_height="48dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:autoText="false"
@@ -57,7 +35,7 @@
             android:text="TextView"
             android:textColor="@android:color/black"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxDone"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -72,10 +50,21 @@
             android:layout_weight="0"
             android:background="@color/colorBackgroundBase"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.757"
-            app:layout_constraintStart_toEndOf="@+id/textViewCourseName"
+            app:layout_constraintStart_toEndOf="@+id/likeCourseButton"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/bookmark_outline" />
+
+        <ImageButton
+            android:id="@+id/likeCourseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorBackgroundBase"
+            app:layout_constraintStart_toEndOf="@+id/textViewCourseName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/heart_outline" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

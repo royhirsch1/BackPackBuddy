@@ -38,11 +38,39 @@ public class catalog extends Fragment {
     DatabaseReference myRef = database.getReference();
     final ArrayList<Course> res = new ArrayList<>();
     private recommended recommendedFragment;
+    private catalog catalogFragment;
+    private interested interestedFragment;
     private ListView courses_list;
-    public catalog() {}
+    public catalog() { this.catalogFragment = this; }
 
     public void setRecommendedFragment(recommended recommendedFragment) {
         this.recommendedFragment = recommendedFragment;
+    }
+
+    public void setInterestedFragment(interested interestedFragment) {
+        this.interestedFragment = interestedFragment;
+    }
+
+    public void updateUserCourses() {
+        myRef.child("courses").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange (@NonNull DataSnapshot dataSnapshot){
+                res.clear();
+                for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
+                    Course c = courseSnap.getValue(Course.class);
+                    c.parseCatsReqs();
+                    res.add(c);
+                }
+
+                CourseLineAdapter cla = new CourseLineAdapter(getContext(),res, recommendedFragment, catalogFragment, interestedFragment);
+                courses_list.setAdapter(cla);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                res.clear();
+                Log.d("Courses", "Database Error");
+            }
+        });
     }
 
     @Override
@@ -58,7 +86,7 @@ public class catalog extends Fragment {
         } catch (InflateException e) {
             /* map is already there, just return view as it is */
         }
-        final ListView lv = (ListView) rootView.findViewById(R.id.catalogCoursesListView);
+        final ListView lv = rootView.findViewById(R.id.catalogCoursesListView);
         this.courses_list = lv;
         myRef.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
@@ -70,7 +98,7 @@ public class catalog extends Fragment {
                     res.add(c);
                 }
 
-                CourseLineAdapter cla= new CourseLineAdapter(getContext(),res, recommendedFragment);
+                CourseLineAdapter cla = new CourseLineAdapter(getContext(),res, recommendedFragment, catalogFragment, interestedFragment);
                 lv.setAdapter(cla);
             }
             @Override
@@ -80,7 +108,7 @@ public class catalog extends Fragment {
             }
         });
 
-        this.courses_list = (ListView)rootView.findViewById(R.id.catalogCoursesListView);
+        this.courses_list = rootView.findViewById(R.id.catalogCoursesListView);
 
         return rootView;
     }

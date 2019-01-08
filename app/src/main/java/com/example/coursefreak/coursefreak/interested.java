@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,17 +30,63 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class interested extends Fragment {
     private static View rootView;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     private recommended recommendedFragment;
+    private catalog catalogFragment;
+    private interested interestedFragment;
+    private ListView bookmarkList;
+    final ArrayList<Course> bookmarkedCourses = new ArrayList<>();
     private FirebaseAuth mAuth;
-    public interested() {}
+    private ListView bookmarkedList;
+    public interested() { this.interestedFragment = this; }
 
     public void setRecommendedFragment(recommended recommendedFragment) {
         this.recommendedFragment = recommendedFragment;
+    }
+
+    public void setCatalogFragment(catalog catalogFragment) { this.catalogFragment = catalogFragment; }
+
+    public void updateInterested() {
+        String uid = mAuth.getUid();
+        myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final User u = dataSnapshot.getValue(User.class);
+                myRef.child("courses").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        bookmarkedCourses.clear();
+                        for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
+                            Log.d("Courses", courseSnap.getKey());
+                            Course c = courseSnap.getValue(Course.class);
+                            c.parseCatsReqs();
+                            if (u.getRelated_courses().containsKey(c.getCourseID()))
+                                if (u.getRelated_courses().get(c.getCourseID()).getInterested() == true)
+                                    bookmarkedCourses.add(c);
+                        }
+                        CourseLineAdapter cla = new CourseLineAdapter(getContext(), bookmarkedCourses, recommendedFragment, catalogFragment, interestedFragment);
+                        bookmarkedList.setAdapter(cla);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        bookmarkedCourses.clear();
+                        Log.d("Courses", "Database Error");
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                bookmarkedCourses.clear();
+                Toast.makeText(rootView.getContext(), "Error getting bookmarks", Toast.LENGTH_LONG);
+            }
+        });
     }
 
     @Override
@@ -59,7 +106,7 @@ public class interested extends Fragment {
             ViewGroup parent = (ViewGroup) rootView.getParent();
             parent.removeAllViews();
         }
-        final ListView lv = (ListView) rootView.findViewById(R.id.course_list2);
+        final ListView lv = rootView.findViewById(R.id.course_list2);
         final ArrayList<Course> res = new ArrayList<>();
         this.mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -83,10 +130,10 @@ public class interested extends Fragment {
                             Course c = courseSnap.getValue(Course.class);
                             c.parseCatsReqs();
                             if(u.getRelated_courses().containsKey(c.getCourseID()))
-                                if(u.getRelated_courses().get(c.getCourseID()).getInterested()==true)
+                                if(u.getRelated_courses().get(c.getCourseID()).getInterested() == true)
                                     res.add(c);
                         }
-                        CourseLineAdapter cla= new CourseLineAdapter(getContext(),res, recommendedFragment);
+                        CourseLineAdapter cla = new CourseLineAdapter(getContext(), res, recommendedFragment, catalogFragment, interestedFragment);
                         lv.setAdapter(cla);
                     }
                     @Override
@@ -95,7 +142,6 @@ public class interested extends Fragment {
                         Log.d("Courses", "Database Error");
                     }
                 });
-
             }
 
             @Override
