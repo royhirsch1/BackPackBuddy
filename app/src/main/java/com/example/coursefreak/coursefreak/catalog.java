@@ -37,41 +37,16 @@ public class catalog extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     final ArrayList<Course> res = new ArrayList<>();
+
     private recommended recommendedFragment;
-    private catalog catalogFragment;
-    private interested interestedFragment;
+
     private ListView courses_list;
-    public catalog() { this.catalogFragment = this; }
+    public catalog() {}
 
     public void setRecommendedFragment(recommended recommendedFragment) {
         this.recommendedFragment = recommendedFragment;
     }
 
-    public void setInterestedFragment(interested interestedFragment) {
-        this.interestedFragment = interestedFragment;
-    }
-
-    public void updateUserCourses() {
-        myRef.child("courses").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange (@NonNull DataSnapshot dataSnapshot){
-                res.clear();
-                for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
-                    Course c = courseSnap.getValue(Course.class);
-                    c.parseCatsReqs();
-                    res.add(c);
-                }
-
-                CourseLineAdapter cla = new CourseLineAdapter(getContext(),res, recommendedFragment, catalogFragment, interestedFragment);
-                courses_list.setAdapter(cla);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                res.clear();
-                Log.d("Courses", "Database Error");
-            }
-        });
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,7 +73,7 @@ public class catalog extends Fragment {
                     res.add(c);
                 }
 
-                CourseLineAdapter cla = new CourseLineAdapter(getContext(),res, recommendedFragment, catalogFragment, interestedFragment);
+                CourseLineAdapter cla = new CourseLineAdapter(getContext(), res, recommendedFragment);
                 lv.setAdapter(cla);
             }
             @Override

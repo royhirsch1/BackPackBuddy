@@ -56,14 +56,6 @@ public class recommended extends Fragment {
         this.recommendedFragment = this;
     }
 
-    public void setInterestedFragment(interested interestedFragment) {
-        this.interestedFragment = interestedFragment;
-    }
-
-    public void setCatalogFragment(catalog catalogFragment) {
-        this.catalogFragment = catalogFragment;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -193,7 +185,7 @@ public class recommended extends Fragment {
                                     res.add(c);
                                 }
                             }
-                            CourseLineAdapter cla = new CourseLineAdapter(recomList.getContext(), res, recommendedFragment, catalogFragment, interestedFragment);
+                            CourseLineAdapter cla = new CourseLineAdapter(recomList.getContext(), res, recommendedFragment);
                             recomList.setAdapter(cla);
                             cla.notifyDataSetChanged();
                         }
