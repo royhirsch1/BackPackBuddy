@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,36 @@ public class recommended extends Fragment {
 
     public recommended() {
         this.recommendedFragment = this;
+    }
+
+    public void updateBookmarkedCourse(String courseID) {
+        for(int i = 0; i < this.recomList.getAdapter().getCount(); i++) {
+            View v = this.recomList.getChildAt(i);
+            if(v == null)
+                continue;
+            String text = ((TextView)v.findViewById(R.id.textViewCourseName)).getText().toString();
+            if(text.contains(courseID)) {
+                ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
+                bookmarkView.setImageResource(R.drawable.bookmark_ribbon);
+                bookmarkView.setTag(R.drawable.bookmark_ribbon);
+                break;
+            }
+        }
+    }
+
+    public void removeBookmarkedCourse(String courseID) {
+        for(int i = 0; i < this.recomList.getAdapter().getCount(); i++) {
+            View v = this.recomList.getChildAt(i);
+            if(v == null)
+                continue;
+            String text = ((TextView)v.findViewById(R.id.textViewCourseName)).getText().toString();
+            if(text.contains(courseID)) {
+                ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
+                bookmarkView.setImageResource(R.drawable.bookmark_outline);
+                bookmarkView.setTag(R.drawable.bookmark_outline);
+                break;
+            }
+        }
     }
 
     @Override

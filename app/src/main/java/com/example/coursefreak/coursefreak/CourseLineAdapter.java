@@ -281,6 +281,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                 }
                                 bookmarkButton.setImageResource(R.drawable.bookmark_ribbon);
                                 bookmarkButton.setTag(R.drawable.bookmark_ribbon);
+                                recommendFragment.updateBookmarkedCourse(course.getCourseID());
                             } else{
                                 u.getRelated_courses().get(course.getCourseID()).setInterested(false);
                                 if(u.getRelated_courses().get(course.getCourseID()).getCompleted()==false){
@@ -295,6 +296,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                 }
                                 bookmarkButton.setImageResource(R.drawable.bookmark_outline);
                                 bookmarkButton.setTag(R.drawable.bookmark_outline);
+                                recommendFragment.removeBookmarkedCourse(course.getCourseID());
                             }
                         }
                     }
