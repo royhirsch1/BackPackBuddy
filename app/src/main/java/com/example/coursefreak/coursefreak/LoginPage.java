@@ -31,6 +31,15 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
         this.mAuth = FirebaseAuth.getInstance();
         this.mDatabase = FirebaseDatabase.getInstance();
+
+        //If user is already signed in:
+        if(mAuth.getCurrentUser() != null) {
+            //Welcome immediately without wait
+            gotoWelcome();
+        }
+
+        //If not signed up, we can start setting up all other buttons and objects.
+
         Button go_to_signup = (Button)findViewById(R.id.buttonEmailSign);
         go_to_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +108,7 @@ public class LoginPage extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 //    private class GetAllCourses extends AsyncTask<DatabaseReference, Integer, Long> {
 //        public List<String> arr;
