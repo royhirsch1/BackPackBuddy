@@ -7,6 +7,15 @@
     android:background="@color/colorBackgroundBase"
     tools:context=".LoginPage">
 
+    <ImageView
+        android:id="@+id/buttonViewAbout"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:contentDescription="@string/aboutButtonDesc"
+        app:srcCompat="@android:drawable/ic_menu_info_details"
+        tools:layout_editor_absoluteX="539dp"
+        tools:layout_editor_absoluteY="24dp" />
+
     <Button
         android:id="@+id/buttonEmailSign"
         style="@style/SignupPageButtons"

@@ -3,12 +3,14 @@ package com.example.coursefreak.coursefreak;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ public class LoginPage extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
+    private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,15 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
         this.mAuth = FirebaseAuth.getInstance();
         this.mDatabase = FirebaseDatabase.getInstance();
+
+        //If user is already signed in:
+        if(mAuth.getCurrentUser() != null) {
+            //Welcome immediately without wait
+            gotoWelcome();
+        }
+
+        //If not signed up, we can start setting up all other buttons and objects.
+
         Button go_to_signup = (Button)findViewById(R.id.buttonEmailSign);
         go_to_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +51,19 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(signupIntent);
             }
         });
+        this.builder = new AlertDialog.Builder(this);
+        this.builder.setTitle(R.string.aboutButtonDesc);
+        this.builder.setCancelable(true);
+        String message = getResources().getString(R.string.aboutContentList);
+        this.builder.setMessage(message);
+        ImageView seeAbout = (ImageView) findViewById(R.id.buttonViewAbout);
+        if(seeAbout != null)
+            seeAbout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    builder.show();
+                }
+            });
 
         Button sign_in_button = (Button)findViewById(R.id.buttonLogin);
         sign_in_button.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +125,7 @@ public class LoginPage extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 //    private class GetAllCourses extends AsyncTask<DatabaseReference, Integer, Long> {
 //        public List<String> arr;
