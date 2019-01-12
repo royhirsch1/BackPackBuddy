@@ -33,11 +33,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class catalog extends Fragment {
-    private static View rootView;
+    private View rootView;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     final ArrayList<Course> res = new ArrayList<>();
+
+    private recommended recommendedFragment;
+
+    private ListView courses_list;
     public catalog() {}
+
+    public void setRecommendedFragment(recommended recommendedFragment) {
+        this.recommendedFragment = recommendedFragment;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,7 +61,8 @@ public class catalog extends Fragment {
         } catch (InflateException e) {
             /* map is already there, just return view as it is */
         }
-        final ListView lv = (ListView) rootView.findViewById(R.id.course_list);
+        final ListView lv = rootView.findViewById(R.id.catalogCoursesListView);
+        this.courses_list = lv;
         myRef.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (@NonNull DataSnapshot dataSnapshot){
@@ -62,7 +73,7 @@ public class catalog extends Fragment {
                     res.add(c);
                 }
 
-                CourseLineAdapter cla= new CourseLineAdapter(getContext(),res);
+                CourseLineAdapter cla = new CourseLineAdapter(getContext(), res, recommendedFragment);
                 lv.setAdapter(cla);
             }
             @Override
@@ -71,6 +82,8 @@ public class catalog extends Fragment {
                 Log.d("Courses", "Database Error");
             }
         });
+
+        this.courses_list = rootView.findViewById(R.id.catalogCoursesListView);
 
         return rootView;
     }

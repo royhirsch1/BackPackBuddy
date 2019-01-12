@@ -24,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.List;
+
 public class Courses extends AppCompatActivity {
 
     /**
@@ -52,6 +54,9 @@ public class Courses extends AppCompatActivity {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        recommended recommendedFragment = mSectionsPagerAdapter.getRecommended();
+        mSectionsPagerAdapter.getCatalog().setRecommendedFragment(recommendedFragment);
+        mSectionsPagerAdapter.getInterested().setRecommendedFragment(recommendedFragment);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -61,8 +66,6 @@ public class Courses extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-
     }
 
 
@@ -99,18 +102,35 @@ public class Courses extends AppCompatActivity {
             super(fm);
         }
 
+        private catalog c;
+        private recommended r;
+        private interested i;
+
+        public catalog getCatalog() {
+            if(this.c == null)
+                this.c = new catalog();
+            return this.c;
+        }
+        public recommended getRecommended() {
+            if(this.r == null)
+                this.r = new recommended();
+            return this.r;
+        }
+        public interested getInterested() {
+            if(this.i == null)
+                this.i = new interested();
+            return this.i;
+        }
+
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    catalog tab1 = new catalog();
-                    return tab1;
+                    return this.getCatalog();
                 case 1:
-                    recommended tab2 = new recommended();
-                    return tab2;
+                    return this.getRecommended();
                 case 2:
-                    interested tab3 = new interested();
-                    return tab3;
+                    return this.getInterested();
                 default:
                     return null;
             }

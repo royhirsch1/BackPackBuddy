@@ -41,5 +41,12 @@
     <string name="title_activity_courseview">Course Info</string>
     <string name="partner_switch_label">I\'m Looking For A Partner</string>
     <string name="title_activity_ugview">UG Website</string>
+    <string-array name="app_credits">
+        <item>https://icons8.com/</item>
+        <item>http://www.ourclipart.com/</item>
+        <item>https://www.freepik.com/</item>
+        <item>de.hdodenhof</item>
+        <item>https://github.com/ShantanuDeshpande/MF-Based-Recommendation</item>
+    </string-array>
 </resources>
 

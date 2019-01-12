@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -54,7 +55,8 @@ public class LoginPage extends AppCompatActivity {
         this.builder = new AlertDialog.Builder(this);
         this.builder.setTitle(R.string.aboutButtonDesc);
         this.builder.setCancelable(true);
-        String message = getResources().getString(R.string.aboutContentList);
+        String[] credits = getResources().getStringArray(R.array.app_credits);
+        String message = TextUtils.join("\n", credits);
         this.builder.setMessage(message);
         ImageView seeAbout = (ImageView) findViewById(R.id.buttonViewAbout);
         if(seeAbout != null)
@@ -78,6 +80,7 @@ public class LoginPage extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), R.string.badLoginInfo, Toast.LENGTH_LONG );
                         }
                         else {
+                            Toast.makeText(getApplicationContext(), "Signing in...", Toast.LENGTH_LONG);
                             gotoWelcome();
                         }
                     }
@@ -353,4 +356,24 @@ public class LoginPage extends AppCompatActivity {
 //    private void TestDatabaseUtils20() {
 //        FirebaseUtils.updateCourseNumCompleted("234118", 2, this.mDatabase.getReference());
 //    }
+//        private Task<String> addMessage(String text){
+//            // Create the arguments to the callable function.
+//            Map<String, Object> data = new HashMap<>();
+//            data.put("text", "rate;amit;234247;p");
+//            data.put("push", true);
+//
+//            return mFunctions
+//                    .getHttpsCallable("addMessage")
+//                    .call(data)
+//                    .continueWith(new Continuation<HttpsCallableResult, String>() {
+//                        @Override
+//                        public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+//                            // This continuation runs on either success or failure, but if the task
+//                            // has failed then getResult() will throw an Exception which will be
+//                            // propagated down.
+//                            String result = (String) task.getResult().getData();
+//                            return result;
+//                        }
+//                    });
+//        }
 }
