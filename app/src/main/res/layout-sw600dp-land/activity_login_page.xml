@@ -8,6 +8,22 @@
     android:background="@color/colorBackgroundBase"
     tools:context=".LoginPage">
 
+    <ImageView
+        android:id="@+id/buttonViewAbout"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:contentDescription="@string/aboutButtonDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.991"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_info_details" />
+
     <Button
         android:id="@+id/buttonEmailSign"
         style="@style/SignupPageButtons"

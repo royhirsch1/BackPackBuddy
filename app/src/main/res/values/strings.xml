@@ -26,6 +26,8 @@
     <string name="badPasswordTooShort">Password is too short!</string>
     <string name="badEmailNotValid">E-mail address is not valid!</string>
     <string name="badLoginInfo">Email or password were incorrect.</string>
+    <string name="aboutButtonDesc">Credits</string>
+    <string name="aboutContentList">https://icons8.com/\nhttp://www.ourclipart.com/\nhttps://www.freepik.com/\nde.hdodenhof\n</string>
     <string name="title_activity_course_view">Course View</string>
     <string name="course_name">Algorithms 1</string>
     <string name="course_credit">3.0</string>
@@ -39,7 +41,5 @@
     <string name="title_activity_courseview">Course Info</string>
     <string name="partner_switch_label">I\'m Looking For A Partner</string>
     <string name="title_activity_ugview">UG Website</string>
-
->>>>>>> 56e1591d79163cf6620b81c1ae2bc16246768d82
 </resources>
 
