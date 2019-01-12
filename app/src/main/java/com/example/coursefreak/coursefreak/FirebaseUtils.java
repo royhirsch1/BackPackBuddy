@@ -1,5 +1,6 @@
 package com.example.coursefreak.coursefreak;
 
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -17,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
 public final class FirebaseUtils {
     /*
         This class is for different database utils for
@@ -396,8 +396,10 @@ public final class FirebaseUtils {
 
     public static void addNewUserData(String uid, String name, DatabaseReference mDB) {
         Log.d("user", "In add new user");
-        User u = new User(uid, name);
-        mDB.child("users").child(uid).setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+        Map<String, Object> user_data = new HashMap<>();
+        user_data.put("name", name);
+        user_data.put("uid", uid);
+        mDB.child("users").child(uid).setValue(user_data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {
@@ -435,6 +437,32 @@ public final class FirebaseUtils {
                     Log.d("user", "ERROR");
                 } else {
                     Log.d("user", "success");
+                }
+            }
+        });
+    }
+
+    public static void updateCourseNumLikes(String courseID, Integer u, DatabaseReference mDB) {
+        mDB.child("courses").child(courseID).child("numLikes").setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(!task.isSuccessful()) {
+                    Log.d("course", "Connection Error");
+                } else {
+                    Log.d("course", "updated 1!");
+                }
+            }
+        });
+    }
+
+    public static void updateCourseNumCompleted(String courseID, Integer u, DatabaseReference mDB) {
+        mDB.child("courses").child(courseID).child("numCompleted").setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(!task.isSuccessful()) {
+                    Log.d("course", "Database Connection Error");
+                } else {
+                    Log.d("course", "updated 2!");
                 }
             }
         });

@@ -1,6 +1,7 @@
 package com.example.coursefreak.coursefreak;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,9 +26,9 @@ public final class User {
     public User(String uid, String name) {
         this.uid = uid;
         this.name = name;
-        this.imagePath = null;
-        this.friendsList = null;
-        this.related_courses = null;
+        this.imagePath = "";
+        this.friendsList = new HashMap<>();
+        this.related_courses = new HashMap<>();
     }
 
     public User(String uid, String name, Map<String, UserRelatedCourse> relevantCourses) {
@@ -73,6 +74,9 @@ public final class User {
     }
 
     public Map<String, UserRelatedCourse> getRelated_courses() {
+        if(this.related_courses == null) {
+            this.related_courses = new HashMap<>();
+        }
         return this.related_courses;
     }
 

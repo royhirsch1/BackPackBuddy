@@ -34,6 +34,15 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
         this.mAuth = FirebaseAuth.getInstance();
         this.mDatabase = FirebaseDatabase.getInstance();
+
+        //If user is already signed in:
+        if(mAuth.getCurrentUser() != null) {
+            //Welcome immediately without wait
+            gotoWelcome();
+        }
+
+        //If not signed up, we can start setting up all other buttons and objects.
+
         Button go_to_signup = (Button)findViewById(R.id.buttonEmailSign);
         go_to_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,11 +78,7 @@ public class LoginPage extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), R.string.badLoginInfo, Toast.LENGTH_LONG );
                         }
                         else {
-//                            Intent intent = new Intent(catalouge.class);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                            startActivity(intent);
-//                            Go to main page activity
+                            gotoWelcome();
                         }
                     }
                 });
@@ -109,7 +114,17 @@ public class LoginPage extends AppCompatActivity {
         //TestDatabaseUtils15();
         //TestDatabaseUtils16();
         //TestDatabaseUtils18();
+        //TestDatabaseUtils19();
+        //TestDatabaseUtils20();
         //ActivatePredictionsTest();
+    }
+
+    public void gotoWelcome() {
+        Intent intent = new Intent(this, Courses.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 //    private class GetAllCourses extends AsyncTask<DatabaseReference, Integer, Long> {
 //        public List<String> arr;
@@ -171,7 +186,7 @@ public class LoginPage extends AppCompatActivity {
 //        };
 //        Matrix A = new DenseMatrix(4,4);
 //        /*
-//            Courses:
+//            catalog:
 //            Operating Systems, Computer Architecture, Algorithms, Data Structures
 //            Alice:
 //                Likes Operating Systems, Comp Arch,
@@ -236,13 +251,14 @@ public class LoginPage extends AppCompatActivity {
 //        Log.d("Courses", "Back from allCourses!");
 //    }
 //
-//    private void TestDatabasUtils2() {
-//        Log.d("Rate", "Hello there.");
-//        FirebaseUtils.userAddPositiveRating(mAuth.getUid(),
-//                "234218",
-//                mDatabase.getReference());
-//        Log.d("Rate", "Right after userAddPositiveRating");
-//    }
+    private void TestDatabasUtils2() {
+        Log.d("Rate", "Hello there.");
+        FirebaseUtils.userAddPositiveRating(
+                "rfZdLx1CxJM5lCCQ0po7JmG4UMn1",
+                "234218",
+                mDatabase.getReference());
+        Log.d("Rate", "Right after userAddPositiveRating");
+    }
 //
 //    private void TestDatabaseUtils3() {
 //        Log.d("RemRate", "Hello again.");
@@ -308,8 +324,8 @@ public class LoginPage extends AppCompatActivity {
 //        FirebaseUtils.removeUserFromPartners("dum2", "234218", this.mDatabase.getReference());
 //    }
 //    private void TestDatabaseUtils14() {
-//        Log.d("user", "adding dum1");
-//        FirebaseUtils.addNewUserData("dum1", "Dummy 1", this.mDatabase.getReference());
+//        Log.d("user", "adding dum3");
+//        FirebaseUtils.addNewUserData("dum3", "Dummy 1", this.mDatabase.getReference());
 //    }
 
 //    private void TestDatabaseUtils15() {
@@ -330,5 +346,11 @@ public class LoginPage extends AppCompatActivity {
 //    private void TestDatabaseUtils18() {
 //        Log.d("recoms", "getting recommendations...");
 //        FirebaseUtils.recGetNewUserRecommendations("dum2", this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils19() {
+//        FirebaseUtils.updateCourseNumLikes("234118", 1, this.mDatabase.getReference());
+//    }
+//    private void TestDatabaseUtils20() {
+//        FirebaseUtils.updateCourseNumCompleted("234118", 2, this.mDatabase.getReference());
 //    }
 }
