@@ -48,5 +48,6 @@
         <item>de.hdodenhof</item>
         <item>https://github.com/ShantanuDeshpande/MF-Based-Recommendation</item>
     </string-array>
+    <string name="logoutTitle">Logout</string>
 </resources>
 
