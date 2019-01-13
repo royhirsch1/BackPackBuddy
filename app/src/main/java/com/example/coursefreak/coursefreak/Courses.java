@@ -1,5 +1,6 @@
 package com.example.coursefreak.coursefreak;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -43,11 +44,14 @@ public class Courses extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("denis", FirebaseAuth.getInstance().getCurrentUser().getUid());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
+        this.mAuth = FirebaseAuth.getInstance();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -86,6 +90,15 @@ public class Courses extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        else if(id == R.id.logoutAction) {
+            this.mAuth.signOut();
+            Intent logoutIntent = new Intent(getApplicationContext(), LoginPage.class);
+            logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(logoutIntent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
