@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.coursefreak.coursefreak.fragment.FragmentTabsCatalog;
-import com.example.coursefreak.coursefreak.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class TabsCoursesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tabs_text_icon);
+        setContentView(R.layout.activity_tabs_courses_activity);
 
         initComponent();
         initToolbar();
