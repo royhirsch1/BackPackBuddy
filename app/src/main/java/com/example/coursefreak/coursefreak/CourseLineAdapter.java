@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,11 +76,18 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
             }
         });
 
+        final TextView courseID = (TextView) ret.findViewById(R.id.textViewCourseID);
+
         final ImageButton bookmarkButton = ret.findViewById(R.id.bookmarkBtn);
-        bookmarkButton.setTag(R.drawable.bookmark_outline);
+        bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
+        bookmarkButton.setColorFilter(contex.getResources().getColor(R.color.colorFacebook));
+        bookmarkButton.setTag(R.drawable.ic_bookmark_border);
 
         final ImageButton likeButton = ret.findViewById(R.id.likeCourseButton);
-        likeButton.setTag(R.drawable.heart_outline);
+        likeButton.setImageResource(R.drawable.ic_love_empty);
+        likeButton.setColorFilter(contex.getResources().getColor(R.color.colorFacebook));
+        likeButton.setTag(R.drawable.ic_love_empty);
+
 
         this.mAuth = FirebaseAuth.getInstance();
 
@@ -104,26 +112,26 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                 else {
                     if(u.getRelated_courses().containsKey(course.getCourseID())){
                         if(u.getRelated_courses().get(course.getCourseID()).getLiked()){
-                            likeButton.setImageResource(R.drawable.heart_filled);
-                            likeButton.setTag(R.drawable.heart_filled);
+                            likeButton.setImageResource(R.drawable.ic_love);
+                            likeButton.setTag(R.drawable.ic_love);
                             //Log.d("wtf", "wtf like");
                         } else {
-                            likeButton.setBackgroundResource(R.drawable.heart_outline);
-                            likeButton.setTag(R.drawable.heart_outline);
+                            likeButton.setBackgroundResource(R.drawable.ic_love_empty);
+                            likeButton.setTag(R.drawable.ic_love_empty);
                         }
 
                         if(u.getRelated_courses().get(course.getCourseID()).getInterested()) {
-                            bookmarkButton.setImageResource(R.drawable.bookmark_ribbon);
-                            bookmarkButton.setTag(R.drawable.bookmark_ribbon);
+                            bookmarkButton.setImageResource(R.drawable.ic_bookmark);
+                            bookmarkButton.setTag(R.drawable.ic_bookmark);
                         } else {
-                            bookmarkButton.setImageResource(R.drawable.bookmark_outline);
-                            bookmarkButton.setTag(R.drawable.bookmark_outline);
+                            bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
+                            bookmarkButton.setTag(R.drawable.ic_bookmark_border);
                         }
                     } else{
-                        bookmarkButton.setImageResource(R.drawable.bookmark_outline);
-                        bookmarkButton.setTag(R.drawable.bookmark_outline);
-                        likeButton.setImageResource(R.drawable.heart_outline);
-                        likeButton.setTag(R.drawable.heart_outline);
+                        bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
+                        bookmarkButton.setTag(R.drawable.ic_bookmark_border);
+                        likeButton.setImageResource(R.drawable.ic_love_empty);
+                        likeButton.setTag(R.drawable.ic_love_empty);
                     }
                 }
             }
@@ -137,7 +145,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
             public void onClick(View v) {
                 Log.d("wtf", "wtf1");
                 Log.d("wtf", "wtf11");
-                if (likeButton.getTag().equals(R.drawable.heart_outline)) {
+                if (likeButton.getTag().equals(R.drawable.ic_love_empty)) {
                     Log.d("wtf", "wtf111");
 
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(contex);
@@ -174,8 +182,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                                         true);
                                                 FirebaseUtils.addUserRelatedCourse(uid ,course.getCourseID(), data ,myRef);
                                                 recommendFragment.reloadRecommended();
-                                                likeButton.setImageResource(R.drawable.heart_filled);
-                                                likeButton.setTag(R.drawable.heart_filled);
+                                                likeButton.setImageResource(R.drawable.ic_love);
+                                                likeButton.setTag(R.drawable.ic_love);
                                             }
                                         }
                                         else{
@@ -189,8 +197,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                                 recommendFragment.reloadRecommended();
                                             } else {
                                                // If did not actually complete the course, just set hearts to "unclick"
-                                                likeButton.setImageResource(R.drawable.heart_outline);
-                                                likeButton.setTag(R.drawable.heart_outline);
+                                                likeButton.setImageResource(R.drawable.ic_love_empty);
+                                                likeButton.setTag(R.drawable.ic_love_empty);
                                             }
 
                                         }
@@ -275,8 +283,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                 });
                 builderSingle.show();
                     Log.d("wtf", "wtf22222");
-                    likeButton.setImageResource(R.drawable.heart_outline);
-                    likeButton.setTag(R.drawable.heart_outline);
+                    likeButton.setImageResource(R.drawable.ic_love_empty);
+                    likeButton.setTag(R.drawable.ic_love_empty);
                 }
             }
         });
@@ -293,7 +301,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                             Log.d("user", "ERROR");
 
                         else {
-                            if (bookmarkButton.getTag().equals(R.drawable.bookmark_outline)) {
+                            if (bookmarkButton.getTag().equals(R.drawable.ic_bookmark_border)) {
                                 if (u.getRelated_courses().containsKey(course.getCourseID())) {
                                     u.getRelated_courses().get(course.getCourseID()).setInterested(true);
                                     UserRelatedCourse uc = new UserRelatedCourse(true, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
@@ -304,8 +312,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                     u.relateNewCourse(course.getCourseID(), data);
                                     FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
                                 }
-                                bookmarkButton.setImageResource(R.drawable.bookmark_ribbon);
-                                bookmarkButton.setTag(R.drawable.bookmark_ribbon);
+                                bookmarkButton.setImageResource(R.drawable.ic_bookmark);
+                                bookmarkButton.setTag(R.drawable.ic_bookmark);
                                 recommendFragment.updateBookmarkedCourse(course.getCourseID());
                             } else{
                                 u.getRelated_courses().get(course.getCourseID()).setInterested(false);
@@ -319,8 +327,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                     FirebaseUtils.userRemoveExistingRating(uid,course.getCourseID(),myRef);
                                     FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
                                 }
-                                bookmarkButton.setImageResource(R.drawable.bookmark_outline);
-                                bookmarkButton.setTag(R.drawable.bookmark_outline);
+                                bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
+                                bookmarkButton.setTag(R.drawable.ic_bookmark_border);
                                 recommendFragment.removeBookmarkedCourse(course.getCourseID());
                             }
                         }
@@ -333,13 +341,16 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
             }
         });
 
-        String name = course.getCourseID().concat(" - ").concat(course.getName());
+        String name = course.getName();
         if(name.length() > 50) {
             name = name.substring(0, 50);
             name.concat("...");
         }
 
         courseName.setText(name);
+
+        courseID.setText(course.getCourseID());
+
 
         return ret;
     }

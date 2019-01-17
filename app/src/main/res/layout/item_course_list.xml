@@ -24,7 +24,7 @@
             android:layout_height="@dimen/spacing_mxlarge"
             android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
-            android:tint="@color/grey_40"
+            android:tint="@color/colorFacebook"
             app:srcCompat="@drawable/ic_love_empty" />
 
         <View
@@ -79,11 +79,12 @@
                 </LinearLayout>
 
                 <ImageButton
-                    android:layout_width="?attr/actionBarSize"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
                     android:background="@android:color/transparent"
-                    android:tint="@color/grey_40"
+                    android:tint="@color/colorFacebook"
                     app:srcCompat="@drawable/ic_bookmark" />
 
             </LinearLayout>

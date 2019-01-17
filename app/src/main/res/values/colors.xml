@@ -5,7 +5,7 @@
     <color name="colorAccent">#d81b60</color>
     <color name="colorBackgroundBase">#efefef</color>
     <color name="colorNotificationBar">#176087</color>
-    <color name="colorFacebook">#3B5998</color>
+    <color name="colorFacebook">#3b5998</color>
     <color name="colorGoogle">#E3554A</color>
     <color name="colorMainButton">#176087</color>
     <color name="colorMinorButton">#0a2239</color>
@@ -13,7 +13,7 @@
     <color name="colorLightTabBackground">#53A2BE</color>
     <color name="colorNumberReviews">#D4E0FF</color>
     <color name="colorReviewPositive">#45A73D</color>
-    <color name="colorReviewNegative">#E31E1E</color>
+    <color name="colorReviewNegative">#e31e1e</color>
     <color name="colorReviewNeutral">#176087</color>
     <color name="colorBlueLight">#53a2be</color>
     <color name="colorBlueMid">#1d84b5</color>

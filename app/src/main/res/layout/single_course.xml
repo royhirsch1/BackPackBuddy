@@ -24,8 +24,8 @@
             android:layout_height="@dimen/spacing_mxlarge"
             android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
-            android:tint="@color/grey_40"
-            app:srcCompat="@drawable/ic_love_empty" />
+            android:src="@drawable/ic_love_empty"
+            android:tint="@color/grey_40" />
 
         <View
             android:layout_width="@dimen/spacing_mlarge"
@@ -65,12 +65,12 @@
                         tools:text="Course Name" />
 
                     <TextView
-                        android:id="@+id/brief"
+                        android:id="@+id/textViewCourseID"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_small"
                         android:layout_marginEnd="@dimen/spacing_middle"
                         android:layout_marginRight="@dimen/spacing_middle"
-                        android:layout_marginTop="@dimen/spacing_small"
                         android:maxLines="2"
                         android:text="111111"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -85,7 +85,7 @@
                     android:layout_gravity="center_vertical"
                     android:background="@android:color/transparent"
                     android:tint="@color/grey_40"
-                    app:srcCompat="@drawable/ic_bookmark" />
+                    android:src="@drawable/ic_bookmark_border" />
 
             </LinearLayout>
 
