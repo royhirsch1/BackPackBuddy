@@ -19,7 +19,7 @@
             android:layout_height="0dp" />
 
         <ImageButton
-            android:id="@+id/likeCourseButton"
+            android:id="@+id/love_img"
             android:layout_width="@dimen/spacing_mxlarge"
             android:layout_height="@dimen/spacing_mxlarge"
             android:layout_gravity="center_vertical"
@@ -54,7 +54,7 @@
                     android:paddingTop="@dimen/spacing_middle">
 
                     <TextView
-                        android:id="@+id/textViewCourseName"
+                        android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_middle"
@@ -79,7 +79,6 @@
                 </LinearLayout>
 
                 <ImageButton
-                    android:id="@+id/bookmarkBtn"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_gravity="center_vertical"

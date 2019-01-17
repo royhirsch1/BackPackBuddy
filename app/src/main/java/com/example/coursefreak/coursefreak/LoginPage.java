@@ -123,7 +123,7 @@ public class LoginPage extends AppCompatActivity {
     }
 
     public void gotoWelcome() {
-        Intent intent = new Intent(this, Courses.class);
+        Intent intent = new Intent(this, TabsCoursesActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

@@ -20,7 +20,7 @@
         <activity
             android:name=".Courses"
             android:label="@string/title_activity_courses"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".CourseView"
             android:exported="true"
@@ -40,7 +40,10 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".UGView"
-            android:label="@string/title_activity_ugview"></activity>
+            android:label="@string/title_activity_ugview" />
+        <activity android:name=".TabsCoursesActivity"
+            android:exported="true"
+            ></activity>
     </application>
 
 </manifest>
