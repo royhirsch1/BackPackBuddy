@@ -17,8 +17,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,7 +47,7 @@ public class LoginPage extends AppCompatActivity {
 
         //If not signed up, we can start setting up all other buttons and objects.
 
-        Button go_to_signup = (Button)findViewById(R.id.buttonEmailSign);
+        TextView go_to_signup = (TextView)findViewById(R.id.buttonEmailSign);
         go_to_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,29 +61,46 @@ public class LoginPage extends AppCompatActivity {
         String[] credits = getResources().getStringArray(R.array.app_credits);
         String message = TextUtils.join("\n", credits);
         this.builder.setMessage(message);
-        ImageView seeAbout = (ImageView) findViewById(R.id.buttonViewAbout);
+/*        ImageView seeAbout = (ImageView) findViewById(R.id.buttonViewAbout);
         if(seeAbout != null)
             seeAbout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     builder.show();
                 }
-            });
+            });*/
 
         Button sign_in_button = (Button)findViewById(R.id.buttonLogin);
         sign_in_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user_email = ((EditText)findViewById(R.id.emailTextBox)).getText().toString();
-                String user_password = ((EditText)findViewById(R.id.passwordTextBox)).getText().toString();
+                android.text.Editable emailInput = ((EditText)findViewById(R.id.emailTextBox)).getText();
+                android.text.Editable passInput = ((EditText)findViewById(R.id.passwordTextBox)).getText();
+                if(emailInput.length() < 1 || passInput.length() < 1){
+                    Toast.makeText(getApplicationContext(), "Please Enter Username and password", Toast.LENGTH_LONG ).show();
+                    return;
+                }
+                String user_email = emailInput.toString();
+                String user_password = passInput.toString();
                 mAuth.signInWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), R.string.badLoginInfo, Toast.LENGTH_LONG );
+                            Log.d("AuthComplete","Exception:"+task.getException().getMessage());
+                            try{
+                                throw task.getException();
+                            }catch (FirebaseAuthInvalidUserException e){
+                                Toast.makeText(getApplicationContext(), "E-mail Invalid ", Toast.LENGTH_LONG ).show();
+                            } catch (FirebaseAuthInvalidCredentialsException e){
+                                Toast.makeText(getApplicationContext(),"Password Invalid ", Toast.LENGTH_LONG ).show();
+                            } catch (FirebaseNetworkException e){
+                                Toast.makeText(getApplicationContext(),"No Network Connection", Toast.LENGTH_LONG ).show();
+                            } catch (Exception e){
+                            }
                         }
                         else {
-                            Toast.makeText(getApplicationContext(), "Signing in...", Toast.LENGTH_LONG);
+                            Log.d("AuthComplete", "AuthRequestSuccess");
+                            Toast.makeText(getApplicationContext(), "Welcome Back", Toast.LENGTH_SHORT ).show();
                             gotoWelcome();
                         }
                     }

@@ -161,14 +161,21 @@ public class TabsCoursesActivity extends AppCompatActivity {
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(final MenuItem item) {
-                if(item.getTitle().equals("Log Out")){
-                    FirebaseAuth.getInstance().signOut();
-                    Intent logoutIntent = new Intent(getApplicationContext(), LoginPage.class);
-                    logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(logoutIntent);
-                    finish();
+                Intent nextActivity = new Intent();
+                switch (item.getTitle().toString()){
+                    case "Log Out":
+                        FirebaseAuth.getInstance().signOut();
+                        nextActivity = new Intent(getApplicationContext(), LoginPage.class);
+                        break;
+                    case "About":
+                        nextActivity = new Intent(getApplicationContext(), AboutActivity.class);
+                        break;
                 }
+                    nextActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    nextActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(nextActivity);
+                    finish();
+
                 Toast.makeText(getApplicationContext(), item.getTitle() + " Selected", Toast.LENGTH_SHORT).show();
                 actionBar.setTitle(item.getTitle());
                 drawer.closeDrawers();

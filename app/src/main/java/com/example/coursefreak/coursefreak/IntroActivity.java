@@ -17,20 +17,23 @@ public class IntroActivity extends AwesomeSplash {
         /* you don't have to override every property */
 
         //Customize Circular Reveal
-        configSplash.setBackgroundColor(R.color.colorBackgroundBase); //any color you want form colors.xml
+        configSplash.setBackgroundColor(android.R.color.white); //any color you want form colors.xml
         configSplash.setAnimCircularRevealDuration(1500); //int ms
-        configSplash.setRevealFlagX(Flags.REVEAL_RIGHT);  //or Flags.REVEAL_LEFT
+        configSplash.setRevealFlagX(Flags.REVEAL_LEFT);  //or Flags.REVEAL_LEFT
         configSplash.setRevealFlagY(Flags.REVEAL_TOP); //or Flags.REVEAL_TOP
 
         configSplash.setTitleSplash("Course Freak");
         configSplash.setTitleTextColor(R.color.colorFacebook);
-        configSplash.setTitleTextSize(70f); //float value
+        configSplash.setTitleTextSize(35f); //float value
         configSplash.setAnimTitleDuration(1000);
         configSplash.setAnimTitleTechnique(Techniques.FadeIn);
-        configSplash.setTitleFont("fonts/Teko-Regular.ttf"); //provide string to your font located in assets/fonts/
+        configSplash.setTitleFont("fonts/ArimaMadurai-Bold.ttf"); //provide string to your font located in assets/fonts/
+
 
         //Customize Logo
-        configSplash.setLogoSplash(R.mipmap.logo2); //or any other drawable
+        configSplash.setLogoSplash(R.drawable.logo); //or any other drawable
+        configSplash.setOriginalWidth((int)(configSplash.getOriginalWidth()*0.8));
+        configSplash.setOriginalHeight((int)(configSplash.getOriginalHeight()*0.8));
         configSplash.setAnimLogoSplashDuration(1000); //int ms
         configSplash.setAnimLogoSplashTechnique(Techniques.FadeInDown); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)
 

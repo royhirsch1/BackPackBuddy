@@ -36,11 +36,11 @@ public class WalkthroughActivity extends AppCompatActivity {
             "Get Recommendations"
     };
     private String about_description_array[] = {
-            "Let us show you what Course Freak has to offer.",
-            "Select a course. Read up-to-date information and reviews.\nGet all your questions answered.",
+            "Let us show you what \nCourse Freak has to offer.",
+            "Select a course. Read information and reviews.\nGet all your questions answered.",
             "See who else is looking for a partner. Send a request.\n Voilà!",
             "Write reviews, update courses information and help other students by doing so.",
-            "Rank the courses you liked.\nGet instant recommendations on courses you might like as well."
+            "Rank the courses you liked.\nGet instant recommendations on courses we think you might like as well."
     };
     private int about_images_array[] = {
             R.drawable.img_welcome,

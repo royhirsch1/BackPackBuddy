@@ -33,8 +33,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_quest_mark" />
-                            <entry key="sourceFile" value="C:\Users\Roy" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_github" />
+                            <entry key="sourceFile" value="C:\Users\Roy\Downloads\github.svg" />
                           </map>
                         </option>
                       </PersistentState>

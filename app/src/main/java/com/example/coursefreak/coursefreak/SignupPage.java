@@ -34,37 +34,39 @@ public class SignupPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_page);
         this.mAuth = FirebaseAuth.getInstance();
-        errorTextNotify = findViewById(R.id.mismatchErrorTitle);
 
         // ----- Setup signup button
         Button sign_up_button = findViewById(R.id.buttonEmailSign);
         sign_up_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String user_email = ((EditText)findViewById(R.id.emailTextBox)).getText().toString();
-                String user_password = ((EditText)findViewById(R.id.passwordTextBox)).getText().toString();
-                String confirm_password = ((EditText)findViewById(R.id.confirmPasswordBox)).getText().toString();
+                android.text.Editable emailInput = ((EditText)findViewById(R.id.emailTextBox_SU)).getText();
+                android.text.Editable passInput = ((EditText)findViewById(R.id.passwordTextBox_SU)).getText();
+                android.text.Editable passConfInput = ((EditText)findViewById(R.id.confirmPasswordBox)).getText();
+                if(emailInput.length() < 1 || passInput.length() < 1 || passConfInput.length() < 1){
+                    Toast.makeText(getApplicationContext(), "Please Enter Username and password", Toast.LENGTH_LONG ).show();
+                    return;
+                }
+                final String user_email = emailInput.toString();
+                String user_password = passInput.toString();
+                String confirm_password = passConfInput.toString();
                 if(user_password.equals(confirm_password) == false) {
-                    errorTextNotify.setText(R.string.badPasswordMatchString);
-                    errorTextNotify.setVisibility(View.VISIBLE);
+                    Toast.makeText(getApplicationContext(), R.string.badPasswordMatchString, Toast.LENGTH_LONG ).show();
                     return;
                 }
                 else if(!isEmailValid(user_email)) {
-                    errorTextNotify.setText(R.string.badEmailNotValid);
-                    errorTextNotify.setVisibility(View.VISIBLE);
+                    Toast.makeText(getApplicationContext(), R.string.badEmailNotValid, Toast.LENGTH_LONG ).show();
+
                     return;
                 }
-                else if(user_password.length() < 8) {
-                    errorTextNotify.setText(R.string.badPasswordTooShort);
-                    errorTextNotify.setVisibility(View.VISIBLE);
-                    return;
-                }
+                //password length is already verified by firebase. minimal length: 6
                 else {
                     mAuth.createUserWithEmailAndPassword(user_email, user_password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()) {
+                                        Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_SHORT ).show();
                                         final FirebaseUser user = mAuth.getCurrentUser();
                                         DatabaseReference mDB = FirebaseDatabase.getInstance().getReference();
                                         if(mDB == null)
@@ -93,7 +95,6 @@ public class SignupPage extends AppCompatActivity {
                                 }
                             });
 
-                    errorTextNotify.setVisibility(View.GONE);
 //                    Toast.makeText(SignupPage.this,
 //                        "Welcome ".concat(user_email),
 //                        Toast.LENGTH_SHORT).show();
@@ -106,7 +107,7 @@ public class SignupPage extends AppCompatActivity {
 
 
     public void gotoWelcome() {
-        Intent intent = new Intent(this, Courses.class);
+        Intent intent = new Intent(this, WalkthroughActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
