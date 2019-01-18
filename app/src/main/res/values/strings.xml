@@ -53,6 +53,7 @@
     //Walkthrough
     <string name="NEXT">NEXT</string>
     <string name="GOT_IT">GOT IT</string>
+    <string name="START">START TOUR</string>
 
     //Menu
     <string name="navigation_drawer_open">Open navigation drawer</string>

@@ -23,25 +23,27 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class WalkthroughActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    private static final int MAX_STEP = 4;
+    private static final int MAX_STEP = 5;
 
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     private Button btnNext;
     private String about_title_array[] = {
+            "Thanks For Joining!",
             "See all CS Courses",
             "Partner up",
             "Help Our Community",
             "Get Recommendations"
     };
     private String about_description_array[] = {
+            "Let us show you what Course Freak has to offer.",
             "Select a course. Read up-to-date information and reviews.\nGet all your questions answered.",
             "See who else is looking for a partner. Send a request.\n Voilà!",
-            "Write reviews, update course information and help other students by doing so.",
+            "Write reviews, update courses information and help other students by doing so.",
             "Rank the courses you liked.\nGet instant recommendations on courses you might like as well."
     };
     private int about_images_array[] = {
+            R.drawable.img_welcome,
             R.drawable.img_number_verification,
             R.drawable.img_no_friend,
             R.drawable.img_no_feed,
@@ -52,16 +54,6 @@ public class WalkthroughActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walkthrough);
-        this.mAuth = FirebaseAuth.getInstance();
-        //If user is already signed in:
-        if(mAuth.getCurrentUser() != null) {
-            //Welcome immediately without wait
-            Intent intent = new Intent(this, TabsCoursesActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        }
         initComponent();
         Tools.setSystemBarColor(this, R.color.grey_5);
         Tools.setSystemBarLight(this);
@@ -85,7 +77,7 @@ public class WalkthroughActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    gotoLogin();
+                    gotoCourses();
                 }
             }
         });
@@ -93,14 +85,14 @@ public class WalkthroughActivity extends AppCompatActivity {
         ((ImageButton)findViewById(R.id.bt_close)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gotoLogin();
+                gotoCourses();
             }
         });
 
     }
 
-    private void gotoLogin(){
-        Intent intent = new Intent(this, LoginPage.class);
+    private void gotoCourses(){
+        Intent intent = new Intent(this, TabsCoursesActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -142,6 +134,10 @@ public class WalkthroughActivity extends AppCompatActivity {
                 btnNext.setBackgroundColor(getResources().getColor(R.color.colorFacebook));
                 btnNext.setTextColor(Color.WHITE);
 
+            } else if (position == 0){
+                btnNext.setText(getString(R.string.START));
+                btnNext.setBackgroundColor(getResources().getColor(R.color.colorFacebook));
+                btnNext.setTextColor(Color.WHITE);
             } else {
                 btnNext.setText(getString(R.string.NEXT));
                 btnNext.setBackgroundColor(getResources().getColor(R.color.grey_10));

@@ -39,7 +39,7 @@ public class LoginPage extends AppCompatActivity {
         //If user is already signed in:
         if(mAuth.getCurrentUser() != null) {
             //Welcome immediately without wait
-            gotoWelcome();
+            gotoCourses();
         }
 
         //If not signed up, we can start setting up all other buttons and objects.
@@ -123,6 +123,14 @@ public class LoginPage extends AppCompatActivity {
     }
 
     public void gotoWelcome() {
+        Intent intent = new Intent(this, WalkthroughActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    public void gotoCourses() {
         Intent intent = new Intent(this, TabsCoursesActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
