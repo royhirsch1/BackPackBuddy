@@ -84,8 +84,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         bookmarkButton.setTag(R.drawable.ic_bookmark_border);
 
         final ImageButton likeButton = ret.findViewById(R.id.likeCourseButton);
-        likeButton.setImageResource(R.drawable.ic_love_empty);
-        likeButton.setColorFilter(contex.getResources().getColor(R.color.colorFacebook));
+        likeButton.setImageResource(R.drawable.ic_love);
+        likeButton.setColorFilter(contex.getResources().getColor(R.color.colorError));
         likeButton.setTag(R.drawable.ic_love_empty);
 
 

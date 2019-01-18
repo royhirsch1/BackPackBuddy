@@ -49,5 +49,13 @@
         <item>https://github.com/ShantanuDeshpande/MF-Based-Recommendation</item>
     </string-array>
     <string name="logoutTitle">Logout</string>
+
+    //Walkthrough
+    <string name="NEXT">NEXT</string>
+    <string name="GOT_IT">GOT IT</string>
+
+    //Menu
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
 
