@@ -37,8 +37,8 @@ public class FragmentTabsCatalog extends Fragment {
                 4, 6, 80.9, "cate",
                 "hw"));
         final ListView lv = root.findViewById(R.id.catalogCoursesListView);
-        CourseLineAdapter cla = new CourseLineAdapter(getContext(), res, null);
-        lv.setAdapter(cla);
+//        CourseLineAdapter cla = new CourseLineAdapter(getContext(), res, null);
+//        lv.setAdapter(cla);
 
 
         return root;

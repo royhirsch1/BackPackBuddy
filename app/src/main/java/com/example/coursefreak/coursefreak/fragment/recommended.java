@@ -1,20 +1,13 @@
-package com.example.coursefreak.coursefreak;
+package com.example.coursefreak.coursefreak.fragment;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -23,6 +16,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.coursefreak.coursefreak.Course;
+import com.example.coursefreak.coursefreak.CourseLineAdapter;
+import com.example.coursefreak.coursefreak.R;
+import com.example.coursefreak.coursefreak.Recommender;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,21 +45,31 @@ public class recommended extends Fragment {
 
     final ArrayList<Course> res = new ArrayList<>();
 
-    private recommended recommendedFragment;
     private interested interestedFragment;
     private catalog catalogFragment;
+
     private Context ctx;
 
-    public recommended() {
-        this.recommendedFragment = this;
+    public recommended() { }
+
+    public void setCatalogFragment(catalog catalogFragment) {
+        this.catalogFragment = catalogFragment;
+    }
+
+    public void setInterestedFragment(interested interestedFragment) {
+        this.interestedFragment = interestedFragment;
     }
 
     public void updateBookmarkedCourse(String courseID) {
+        if(this.recomList == null)
+            return;
+        Log.d("bkmrk", "lilili");
         for(int i = 0; i < this.recomList.getAdapter().getCount(); i++) {
             View v = this.recomList.getChildAt(i);
             if(v == null)
                 continue;
-            String text = ((TextView)v.findViewById(R.id.textViewCourseName)).getText().toString();
+            String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
+            Log.d("bkmrk", text);
             if(text.contains(courseID)) {
                 ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
                 bookmarkView.setImageResource(R.drawable.bookmark_ribbon);
@@ -73,12 +80,17 @@ public class recommended extends Fragment {
     }
 
     public void removeBookmarkedCourse(String courseID) {
+        Log.d("bkmrk", "lalala");
+        if(this.recomList == null)
+            return;
         for(int i = 0; i < this.recomList.getAdapter().getCount(); i++) {
             View v = this.recomList.getChildAt(i);
             if(v == null)
                 continue;
-            String text = ((TextView)v.findViewById(R.id.textViewCourseName)).getText().toString();
+            String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
+            Log.d("bkmrk", text);
             if(text.contains(courseID)) {
+                Log.d("bkmrk", "lalala");
                 ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
                 bookmarkView.setImageResource(R.drawable.bookmark_outline);
                 bookmarkView.setTag(R.drawable.bookmark_outline);
@@ -216,7 +228,10 @@ public class recommended extends Fragment {
                                     res.add(c);
                                 }
                             }
-                            CourseLineAdapter cla = new CourseLineAdapter(recomList.getContext(), res, recommendedFragment);
+                            CourseLineAdapter cla = new CourseLineAdapter(recomList.getContext(), res,
+                                    recommended.this.catalogFragment,
+                                    recommended.this,
+                                    recommended.this.interestedFragment);
                             recomList.setAdapter(cla);
                             cla.notifyDataSetChanged();
                         }
