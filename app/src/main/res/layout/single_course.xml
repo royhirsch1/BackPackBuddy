@@ -46,12 +46,13 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/course_item"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/spacing_middle"
-                    android:paddingTop="@dimen/spacing_middle">
+                    android:paddingTop="@dimen/spacing_middle"
+                    android:paddingBottom="@dimen/spacing_middle">
 
                     <TextView
                         android:id="@+id/textViewCourseName"
