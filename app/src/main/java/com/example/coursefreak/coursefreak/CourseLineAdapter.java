@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.coursefreak.coursefreak.fragment.catalog;
 import com.example.coursefreak.coursefreak.fragment.interested;
@@ -40,6 +41,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
 
     private ArrayList<Course> tabCourses;
 
+    private Boolean messageShown;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
 
@@ -55,6 +58,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         this.recommendFragment = recommendFragment;
         this.catalogFragment = catalogFragment;
         this.interestedFragment = interestedFragment;
+        this.messageShown = false;
     }
 
     @Override
@@ -141,11 +145,16 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                             likeButton.setTag(R.drawable.ic_love_empty);
                         }
                     }
+                    if(!CourseLineAdapter.this.messageShown) {
+                        Toast.makeText(getContext(), "User data loaded.", Toast.LENGTH_SHORT).show();
+                        CourseLineAdapter.this.messageShown = true;
+                    }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.d("Courses", "Database Error");
+                    Toast.makeText(getContext(), "User data could not be loaded.", Toast.LENGTH_LONG).show();
                 }
             });
         } else {
@@ -180,6 +189,10 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
             public void onClick(View v) {
                 Log.d("wtf", "wtf1");
                 Log.d("wtf", "wtf11");
+                if(CourseLineAdapter.this.currentUser == null) {
+                    Toast.makeText(getContext(), "Loading data, please wait a moment...", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 if (likeButton.getTag().equals(R.drawable.ic_love_empty)) {
                     Log.d("wtf", "wtf111");
 
@@ -314,6 +327,10 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
             @Override
             public void onClick(View v) {
                 Log.d("wtf", "wtf2");
+                if(CourseLineAdapter.this.currentUser == null) {
+                    Toast.makeText(getContext(), "Loading data, please wait a moment...", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 User u = CourseLineAdapter.this.currentUser;
                 if (u == null) {
                     Log.d("user", "ERROR");
@@ -335,14 +352,20 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                         recommendFragment.updateBookmarkedCourse(course.getCourseID());
                         interestedFragment.updateBookmarkedCourse(course);
                     } else {
-                        u.getRelated_courses().get(course.getCourseID()).setInterested(false);
-                        if (u.getRelated_courses().get(course.getCourseID()).getCompleted() == false) {
+                        if(u.getRelated_courses().keySet().contains(course.getCourseID())) {
+                            u.getRelated_courses().get(course.getCourseID()).setInterested(false);
+                            UserRelatedCourse uc = null;
+                            if (u.getRelated_courses().get(course.getCourseID()).getCompleted() != false) {
+                                uc = new UserRelatedCourse(false, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
+                            } else {
+                                uc = new UserRelatedCourse(false, false, false);
+                            }
                             u.getRelated_courses().remove(course.getCourseID());
-                            UserRelatedCourse uc = new UserRelatedCourse(false, false, false);
                             FirebaseUtils.userRemoveExistingRating(uid, course.getCourseID(), myRef);
                             FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
+
                         } else {
-                            UserRelatedCourse uc = new UserRelatedCourse(false, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
+                            UserRelatedCourse uc = new UserRelatedCourse(false, false, false);
                             FirebaseUtils.userRemoveExistingRating(uid, course.getCourseID(), myRef);
                             FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
                         }
