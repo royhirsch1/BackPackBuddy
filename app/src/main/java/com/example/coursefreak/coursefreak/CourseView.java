@@ -153,7 +153,7 @@ public class CourseView extends AppCompatActivity {
 
         //Get reviews from DB
 
-        Log.d("getRevs", "In getCourseReviewsOrdered");
+//        Log.d("getRevs", "In getCourseReviewsOrdered");
         final ArrayList<Review> reviewList = new ArrayList<>();
         mDB.child("course_reviews")
                 .child(course.getCourseID())
@@ -166,11 +166,11 @@ public class CourseView extends AppCompatActivity {
                             reviewList.add(rev);
                         }
                         Collections.reverse(reviewList);
-                        for(Review r : reviewList.subList(0,Math.min(4, reviewList.size()))) {
-                            Log.d("getRevs", "Review by ".concat(r.getUserID())
-                                    .concat(" says that ").concat(r.getReviewText())
-                                    .concat(" and has helped ").concat(r.getNumHelped().toString()));
-                        }
+//                        for(Review r : reviewList.subList(0,Math.min(4, reviewList.size()))) {
+////                            Log.d("getRevs", "Review by ".concat(r.getUserID())
+////                                    .concat(" says that ").concat(r.getReviewText())
+////                                    .concat(" and has helped ").concat(r.getNumHelped().toString()));
+//                        }
 
                         // Construct the data source
                         CourseViewReviewAdapter review_adapter = new CourseViewReviewAdapter(getBaseContext(), reviewList);
@@ -183,7 +183,7 @@ public class CourseView extends AppCompatActivity {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         reviewList.clear();
-                        Log.d("getRevs", "Database Cancel Error!");
+//                        Log.d("getRevs", "Database Cancel Error!");
                     }
                 });
 

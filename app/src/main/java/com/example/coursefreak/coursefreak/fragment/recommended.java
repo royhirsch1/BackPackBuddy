@@ -63,13 +63,13 @@ public class recommended extends Fragment {
     public void updateBookmarkedCourse(String courseID) {
         if(this.recomList == null)
             return;
-        Log.d("bkmrk", "lilili");
+//        Log.d("bkmrk", "lilili");
         for(int i = 0; i < this.recomList.getAdapter().getCount(); i++) {
             View v = this.recomList.getChildAt(i);
             if(v == null)
                 continue;
             String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
-            Log.d("bkmrk", text);
+//            Log.d("bkmrk", text);
             if(text.contains(courseID)) {
                 ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
                 bookmarkView.setImageResource(R.drawable.bookmark_ribbon);
@@ -80,7 +80,7 @@ public class recommended extends Fragment {
     }
 
     public void removeBookmarkedCourse(String courseID) {
-        Log.d("bkmrk", "lalala");
+//        Log.d("bkmrk", "lalala");
         if(this.recomList == null)
             return;
         for(int i = 0; i < this.recomList.getAdapter().getCount(); i++) {
@@ -88,9 +88,9 @@ public class recommended extends Fragment {
             if(v == null)
                 continue;
             String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
-            Log.d("bkmrk", text);
+//            Log.d("bkmrk", text);
             if(text.contains(courseID)) {
-                Log.d("bkmrk", "lalala");
+//                Log.d("bkmrk", "lalala");
                 ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
                 bookmarkView.setImageResource(R.drawable.bookmark_outline);
                 bookmarkView.setTag(R.drawable.bookmark_outline);
@@ -207,25 +207,25 @@ public class recommended extends Fragment {
                         i = usersIndex.get(u_id);
                         j = coursesIndex.get(course);
                         double d = predictions[i][j] * 2;
-                        Log.d("Completion", "A^["+Integer.toString(i)+"]["+Integer.toString(j)+"] = "+Double.toString(d));
+//                        Log.d("Completion", "A^["+Integer.toString(i)+"]["+Integer.toString(j)+"] = "+Double.toString(d));
                         if (ratingsMatrix[i][j] != 0)
                             d = 1;
                         else if (d < 0.0099)
                             d = 0;
                         predictions[i][j] = ((int) (d * 1000)) / 1000.0;
-                        Log.d("Completion", "A^["+Integer.toString(i)+"]["+Integer.toString(j)+"] = "+Double.toString(predictions[i][j]));
-                        Log.d("Completion", "---");
+//                        Log.d("Completion", "A^["+Integer.toString(i)+"]["+Integer.toString(j)+"] = "+Double.toString(predictions[i][j]));
+//                        Log.d("Completion", "---");
                     }
-                    Log.d("Completion", "------");
+//                    Log.d("Completion", "------");
                 }
 
                 // Collect results into a set of recommended courses
-                Log.d("Completion", "Recommendations for ".concat(uid));
+//                Log.d("Completion", "Recommendations for ".concat(uid));
                 for (int n = 0; n < all_courses.size(); n++) {
-                    Log.d("Completion", Double.toString(predictions[user_index][n]));
+//                    Log.d("Completion", Double.toString(predictions[user_index][n]));
                     if (predictions[user_index][n] != 0.0 && predictions[user_index][n] != 1.0) {
                         nontrivialPredictions.add(coursesReverse.get(n));
-                        Log.d("Completion", "Course: ".concat(coursesReverse.get(n)).concat(" is recommended."));
+//                        Log.d("Completion", "Course: ".concat(coursesReverse.get(n)).concat(" is recommended."));
                     }
                 }
                 myRef.child("courses").addValueEventListener(new ValueEventListener() {
@@ -233,7 +233,7 @@ public class recommended extends Fragment {
                     public void onDataChange (@NonNull DataSnapshot dataSnapshot){
                         res.clear();
                         for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
-                            Log.d("Courses", courseSnap.getKey());
+//                            Log.d("Courses", courseSnap.getKey());
                             Course c = courseSnap.getValue(Course.class);
                             c.parseCatsReqs();
                             for(String s : nontrivialPredictions) {
@@ -249,20 +249,20 @@ public class recommended extends Fragment {
                             cla.notifyDataSetChanged();
                         }
                         for(Course c : res) {
-                            Log.d("Completion", c.getName());
+//                            Log.d("Completion", c.getName());
                         }
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         res.clear();
-                        Log.d("Courses", "Database Error");
+//                        Log.d("Courses", "Database Error");
                     }
                 });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("Matrix", "Cancellation error");
+//                Log.d("Matrix", "Cancellation error");
             }
         });
     }

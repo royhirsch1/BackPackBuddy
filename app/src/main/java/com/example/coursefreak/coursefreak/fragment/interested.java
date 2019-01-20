@@ -118,7 +118,7 @@ public class interested extends Fragment {
         }else{
             uid="0";
         }
-        Log.d("denis", "UID is ".concat(uid));
+//        Log.d("denis", "UID is ".concat(uid));
         myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -128,7 +128,7 @@ public class interested extends Fragment {
                     public void onDataChange (@NonNull DataSnapshot dataSnapshot){
                         res.clear();
                         for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
-                            Log.d("Courses", courseSnap.getKey());
+//                            Log.d("Courses", courseSnap.getKey());
                             Course c = courseSnap.getValue(Course.class);
                             c.parseCatsReqs();
                             if(u.getRelated_courses().containsKey(c.getCourseID()))
@@ -146,7 +146,7 @@ public class interested extends Fragment {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         res.clear();
-                        Log.d("Courses", "Database Error");
+//                        Log.d("Courses", "Database Error");
                     }
                 });
             }

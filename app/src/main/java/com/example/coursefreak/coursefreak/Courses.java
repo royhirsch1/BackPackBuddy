@@ -40,7 +40,7 @@ public class Courses extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("denis", FirebaseAuth.getInstance().getCurrentUser().getUid());
+//        Log.d("denis", FirebaseAuth.getInstance().getCurrentUser().getUid());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
         this.mAuth = FirebaseAuth.getInstance();

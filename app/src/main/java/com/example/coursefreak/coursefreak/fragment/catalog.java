@@ -128,7 +128,7 @@ public class catalog extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 res.clear();
-                Log.d("Courses", "Database Error");
+//                Log.d("Courses", "Database Error");
             }
         });
 

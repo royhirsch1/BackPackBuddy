@@ -68,7 +68,7 @@ public class PartnerView extends AppCompatActivity {
                     if(cp.getUid().equals(me.getUid())){
                         switch_partner.setChecked(true);
                     }
-                    Log.d("partner", "adding ".concat(cp.getName()));
+//                    Log.d("partner", "adding ".concat(cp.getName()));
                     partnersList.add(cp);
                 }
 
@@ -90,9 +90,9 @@ public class PartnerView extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(!task.isSuccessful()) {
-                                                Log.d("addP", "Database Error!");
+//                                                Log.d("addP", "Database Error!");
                                             } else {
-                                                Log.d("addP", "Success adding possible partner");
+//                                                Log.d("addP", "Success adding possible partner");
                                             }
                                         }
                                     });
@@ -105,9 +105,9 @@ public class PartnerView extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if(!task.isSuccessful()) {
-                                                    Log.d("removeP", "Database Error!");
+//                                                    Log.d("removeP", "Database Error!");
                                                 } else {
-                                                    Log.d("removeP", "Success adding possible partner");
+//                                                    Log.d("removeP", "Success adding possible partner");
                                                 }
                                             }
                                         });
@@ -120,7 +120,7 @@ public class PartnerView extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("allP", "Error! Database Cancelled!");
+//                Log.d("allP", "Error! Database Cancelled!");
             }
         });
 

@@ -86,7 +86,7 @@ public class LoginPage extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()) {
-                            Log.d("AuthComplete","Exception:"+task.getException().getMessage());
+//                            Log.d("AuthComplete","Exception:"+task.getException().getMessage());
                             try{
                                 throw task.getException();
                             }catch (FirebaseAuthInvalidUserException e){
@@ -99,7 +99,7 @@ public class LoginPage extends AppCompatActivity {
                             }
                         }
                         else {
-                            Log.d("AuthComplete", "AuthRequestSuccess");
+//                            Log.d("AuthComplete", "AuthRequestSuccess");
                             Toast.makeText(getApplicationContext(), "Welcome Back", Toast.LENGTH_SHORT ).show();
                             gotoWelcome();
                         }
@@ -283,12 +283,12 @@ public class LoginPage extends AppCompatActivity {
 //    }
 //
     private void TestDatabasUtils2() {
-        Log.d("Rate", "Hello there.");
+//        Log.d("Rate", "Hello there.");
         FirebaseUtils.userAddPositiveRating(
                 "rfZdLx1CxJM5lCCQ0po7JmG4UMn1",
                 "234218",
                 mDatabase.getReference());
-        Log.d("Rate", "Right after userAddPositiveRating");
+//        Log.d("Rate", "Right after userAddPositiveRating");
     }
 //
 //    private void TestDatabaseUtils3() {

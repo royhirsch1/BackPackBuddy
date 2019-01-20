@@ -53,11 +53,11 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
     public CourseLineAdapter(Context context, ArrayList<Course> courses, catalog catalogFragment,
                              recommended recommendFragment, interested interestedFragment) {
         super(context, 0, courses);
-        Log.d("wtf", "NULL? ".concat(Boolean.toString(courses == null)));
-        Log.d("wtf", "NULL? ".concat(Boolean.toString(context == null)));
-        Log.d("wtf", "NULL? ".concat(Boolean.toString(catalogFragment == null)));
-        Log.d("wtf", "NULL? ".concat(Boolean.toString(recommendFragment == null)));
-        Log.d("wtf", "NULL? ".concat(Boolean.toString(interestedFragment == null)));
+//        Log.d("wtf", "NULL? ".concat(Boolean.toString(courses == null)));
+//        Log.d("wtf", "NULL? ".concat(Boolean.toString(context == null)));
+//        Log.d("wtf", "NULL? ".concat(Boolean.toString(catalogFragment == null)));
+//        Log.d("wtf", "NULL? ".concat(Boolean.toString(recommendFragment == null)));
+//        Log.d("wtf", "NULL? ".concat(Boolean.toString(interestedFragment == null)));
         this.contex = context;
         this.recommendFragment = recommendFragment;
         this.catalogFragment = catalogFragment;
@@ -123,7 +123,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     User u = dataSnapshot.getValue(User.class);
                     CourseLineAdapter.this.currentUser = u;
                     if (u == null) {
-                        Log.d("user", "ERROR");
+//                        Log.d("user", "ERROR");
                     } else {
                         if (u.getRelated_courses().containsKey(course.getCourseID())) {
                             if (u.getRelated_courses().get(course.getCourseID()).getLiked()) {
@@ -157,7 +157,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.d("Courses", "Database Error");
+//                    Log.d("Courses", "Database Error");
                     Toast.makeText(getContext(), "User data could not be loaded.", Toast.LENGTH_LONG).show();
                 }
             });
@@ -191,14 +191,14 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("wtf", "wtf1");
-                Log.d("wtf", "wtf11");
+//                Log.d("wtf", "wtf1");
+//                Log.d("wtf", "wtf11");
                 if(CourseLineAdapter.this.currentUser == null) {
                     Toast.makeText(getContext(), "Loading data, please wait a moment...", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (likeButton.getTag().equals(R.drawable.ic_love_empty)) {
-                    Log.d("wtf", "wtf111");
+//                    Log.d("wtf", "wtf111");
 
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(contex);
                     builderSingle.setTitle("Did you really complete the course?");
@@ -211,16 +211,16 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                             choice = arrayAdapter.getItem(which);
                             User u = CourseLineAdapter.this.currentUser;
                             if (u == null) {
-                                Log.d("userRates", "ERROR");
+//                                Log.d("userRates", "ERROR");
                             } else {
                                 if (u.getRelated_courses().containsKey(course.getCourseID())) {
-                                    Log.d("wtf", "1");
+//                                    Log.d("wtf", "1");
                                     u.getRelated_courses().get(course.getCourseID()).setCompleted(true);
                                     course.numCompleted++;
                                     FirebaseUtils.updateCourseNumCompleted(course.getCourseID(), course.getNumCompleted(), myRef);
 
                                     if (choice.equals("Yes")) {
-                                        Log.d("wtf", "11");
+//                                        Log.d("wtf", "11");
                                         course.numLikes++;
                                         FirebaseUtils.userAddPositiveRating(uid, course.getCourseID(), myRef);
                                         UserRelatedCourse data = new UserRelatedCourse(
@@ -241,9 +241,9 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                         FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), data, myRef);
                                     }
                                 } else {
-                                    Log.d("wtf", "2");
+//                                    Log.d("wtf", "2");
                                     if (choice.equals("Yes")) {
-                                        Log.d("wtf", "22");
+//                                        Log.d("wtf", "22");
                                         course.numLikes++;
                                         FirebaseUtils.userAddPositiveRating(uid, course.getCourseID(), myRef);
                                         UserRelatedCourse data = new UserRelatedCourse(false, true, true);
@@ -271,7 +271,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     builderSingle.show();
 
                 } else { // Like button was pressed and HEART_FULL
-                    Log.d("wtf", "wtf112");
+//                    Log.d("wtf", "wtf112");
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(contex);
                     builderSingle.setTitle("Did you not like the course?");
                     final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(contex, android.R.layout.select_dialog_singlechoice);
@@ -283,7 +283,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                             choice = arrayAdapter.getItem(which);
                             User u = CourseLineAdapter.this.currentUser;
                             if (u == null) {
-                                Log.d("userRates", "ERROR");
+//                                Log.d("userRates", "ERROR");
                             } else {
                                 UserRelatedCourse urc = null;
                                 if (choice.equals("I did not like it.")) {
@@ -318,7 +318,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                         }
                     });
                     builderSingle.show();
-                    Log.d("wtf", "wtf22222");
+//                    Log.d("wtf", "wtf22222");
                     likeButton.setImageResource(R.drawable.ic_love_empty);
                     likeButton.setTag(R.drawable.ic_love_empty);
                     interestedFragment.updateLikedCourse(course.getCourseID(), R.drawable.ic_love_empty);
@@ -330,14 +330,14 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         bookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("wtf", "wtf2");
+//                Log.d("wtf", "wtf2");
                 if(CourseLineAdapter.this.currentUser == null) {
                     Toast.makeText(getContext(), "Loading data, please wait a moment...", Toast.LENGTH_LONG).show();
                     return;
                 }
                 User u = CourseLineAdapter.this.currentUser;
                 if (u == null) {
-                    Log.d("user", "ERROR");
+//                    Log.d("user", "ERROR");
                 } else {
                     if (bookmarkButton.getTag().equals(R.drawable.ic_bookmark_border)) {
                         if (u.getRelated_courses().containsKey(course.getCourseID())) {

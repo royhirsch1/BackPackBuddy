@@ -30,45 +30,45 @@ public final class FirebaseUtils {
     // Given the reference to the root of the database.
     // Upon error, returns list with 1 course whose name is the error.
     public static void allCourses(DatabaseReference mDB) {
-        Log.d("Courses", "In allCourses");
+//        Log.d("Courses", "In allCourses");
         final List<Course> res = new ArrayList<>();
         mDB.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
-                    Log.d("Courses", courseSnap.getKey());
+//                    Log.d("Courses", courseSnap.getKey());
                     Course c = courseSnap.getValue(Course.class);
                     c.parseCatsReqs();
                     res.add(c);
                 }
-                for(Course c : res) {
-                    if(c == null) {
-                        Log.d("Courses", "ERROR! Null Course");
-                        break;
-                    }
-                    Log.d("Courses",
-                            c.getName()
-                            .concat(c.getCourseID()).concat(" ")
-                            .concat(c.getName()).concat(" ")
-                            .concat(c.getPoints().toString()).concat(" ")
-                            .concat(c.getNumLikes().toString()).concat(" ")
-                            .concat(c.getNumCompleted().toString()).concat(" ")
-                            .concat(c.getAverage().toString()));
-                    Log.d("Courses", "Course Categories:");
-                    for(String s : c.parsedCategories) {
-                        Log.d("Courses", s);
-                    }
-                    Log.d("Courses", "Course Requirements:");
-                    for(String s : c.parsedRequirements) {
-                        Log.d("Courses", s);
-                    }
-                }
+//                for(Course c : res) {
+//                    if(c == null) {
+////                        Log.d("Courses", "ERROR! Null Course");
+//                        break;
+//                    }
+////                    Log.d("Courses",
+////                            c.getName()
+////                            .concat(c.getCourseID()).concat(" ")
+////                            .concat(c.getName()).concat(" ")
+////                            .concat(c.getPoints().toString()).concat(" ")
+////                            .concat(c.getNumLikes().toString()).concat(" ")
+////                            .concat(c.getNumCompleted().toString()).concat(" ")
+////                            .concat(c.getAverage().toString()));
+////                    Log.d("Courses", "Course Categories:");
+//                    for(String s : c.parsedCategories) {
+////                        Log.d("Courses", s);
+//                    }
+////                    Log.d("Courses", "Course Requirements:");
+//                    for(String s : c.parsedRequirements) {
+////                        Log.d("Courses", s);
+//                    }
+//                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 res.clear();
-                Log.d("Courses", "Database Error");
+//                Log.d("Courses", "Database Error");
             }
         });
     }
@@ -78,8 +78,8 @@ public final class FirebaseUtils {
     // Upon error, returns map with one element whose key is the error and value is -1.
     public static void userRatings(String uid, DatabaseReference mDB) {
         final List<String> res = new ArrayList<>();
-        Log.d("UserRates", "In userRatings");
-        Log.d("UserRates", "Ratings for ".concat(uid));
+//        Log.d("UserRates", "In userRatings");
+//        Log.d("UserRates", "Ratings for ".concat(uid));
         mDB.child("user_course_ratings").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -89,19 +89,19 @@ public final class FirebaseUtils {
                         res.add(cid);
                     }
                     else {
-                        Log.d("UserRates", "ERROR: Null");
+//                        Log.d("UserRates", "ERROR: Null");
                         break;
                     }
                 }
                 for(String cid : res) {
-                    Log.d("UserRates", "Liked course: ".concat(cid));
+//                    Log.d("UserRates", "Liked course: ".concat(cid));
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 res.clear();
-                Log.d("AllRate", "ERROR Cancelled");
+//                Log.d("AllRate", "ERROR Cancelled");
             }
         });
 //        Log.d("Ratings", "Ratings for ".concat(uid));
@@ -134,21 +134,21 @@ public final class FirebaseUtils {
             }
         });
         if(resStr.length() > 0) {
-            Log.d("Rate", "Rating ERROR");
+//            Log.d("Rate", "Rating ERROR");
         }
         else {
-            Log.d("Rate", "Rating Success");
+//            Log.d("Rate", "Rating Success");
         }
     }
 
     public static void userRemoveExistingRating(String uid, final String course_name, DatabaseReference mDB) {
         final String resStr = new String();
-        Log.d("RemRate", "We meet again Mr. Anderson");
+//        Log.d("RemRate", "We meet again Mr. Anderson");
         mDB.child("user_course_ratings").child(uid).child(course_name).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {
-                    Log.d("RemRate", "ERROR");
+//                    Log.d("RemRate", "ERROR");
                 }
             }
         });
@@ -174,8 +174,8 @@ public final class FirebaseUtils {
                         allRatings.get(user_id).add(cid);
                     }
                 }
-                Log.d("Matrix", "Participating courses found: ".concat(Integer.toString(all_courses.size())));
-                Log.d("Matrix", "Participating users found: ".concat((Integer.toString(all_users.size()))));
+//                Log.d("Matrix", "Participating courses found: ".concat(Integer.toString(all_courses.size())));
+//                Log.d("Matrix", "Participating users found: ".concat((Integer.toString(all_users.size()))));
                 Map<String, Integer> coursesIndex = new HashMap<>();
                 Map<Integer, String> coursesReverse = new HashMap<>();
                 Map<String, Integer> usersIndex   = new HashMap<>();
@@ -199,26 +199,26 @@ public final class FirebaseUtils {
                     }
                 }
                 for(int m = 0; m < all_users.size(); m++) {
-                    Log.d("Matrix", usersReverse.get(m).concat(" 's course ratings"));
+//                    Log.d("Matrix", usersReverse.get(m).concat(" 's course ratings"));
                     for(int n = 0; n < all_courses.size(); n++) {
-                        Log.d("Matrix", "Rating for "
-                            .concat(coursesReverse.get(n))
-                            .concat(" is ")
-                            .concat(Double.toString(ratingsMatrix[m][n])));
+//                        Log.d("Matrix", "Rating for "
+//                            .concat(coursesReverse.get(n))
+//                            .concat(" is ")
+//                            .concat(Double.toString(ratingsMatrix[m][n])));
                     }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("Matrix", "Cancellation error");
+//                Log.d("Matrix", "Cancellation error");
             }
         });
         return null;
     }
 
     public static void addNewCourseReview(String courseID, String uid, String text, DatabaseReference mDB) {
-        Log.d("addRev", "In addNewCourseReview");
+//        Log.d("addRev", "In addNewCourseReview");
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("reviewText", text);
         data.put("numberHelped", 0);
@@ -230,10 +230,10 @@ public final class FirebaseUtils {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {
-                    Log.d("addRev", "ERROR! No Success!");
+//                    Log.d("addRev", "ERROR! No Success!");
                 }
                 else {
-                    Log.d("addRev", "Review added!");
+//                    Log.d("addRev", "Review added!");
                 }
             }
         });
@@ -241,22 +241,22 @@ public final class FirebaseUtils {
 
     public static void reviewHelpedSomeone(String reviewID, String courseID, Integer curNumberHelped, DatabaseReference mDB) {
         Integer nextNum = curNumberHelped + 1;
-        Log.d("helped", "In reviewHelpedSomeone");
+//        Log.d("helped", "In reviewHelpedSomeone");
         mDB.child("course_reviews").child(courseID).child(reviewID).child("numberHelped").setValue(nextNum).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {
-                    Log.d("helped", "ERROR! review not updated!");
+//                    Log.d("helped", "ERROR! review not updated!");
                 }
                 else {
-                    Log.d("helped", "Review update success!");
+//                    Log.d("helped", "Review update success!");
                 }
             }
         });
     }
 
     public static void getCourseReviewsOrdered(final String courseID, DatabaseReference mDB) {
-        Log.d("getRevs", "In getCourseReviewsOrdered");
+//        Log.d("getRevs", "In getCourseReviewsOrdered");
         final List<Review> reviewList = new ArrayList<>();
         mDB.child("course_reviews")
                 .child(courseID)
@@ -270,22 +270,22 @@ public final class FirebaseUtils {
                 }
                 Collections.reverse(reviewList);
                 for(Review r : reviewList.subList(0,Math.min(4, reviewList.size()))) {
-                    Log.d("getRevs", "Review by ".concat(r.getUserID())
-                            .concat(" says that ").concat(r.getReviewText())
-                            .concat(" and has helped ").concat(r.getNumHelped().toString()));
+//                    Log.d("getRevs", "Review by ".concat(r.getUserID())
+//                            .concat(" says that ").concat(r.getReviewText())
+//                            .concat(" and has helped ").concat(r.getNumHelped().toString()));
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 reviewList.clear();
-                Log.d("getRevs", "Database Cancel Error!");
+//                Log.d("getRevs", "Database Cancel Error!");
             }
         });
     }
 
     public static void addReviewComment(String rid, Integer nC, String txt, String uid, String name, DatabaseReference mDB) {
-        Log.d("addC", "In addReviewComment");
+//        Log.d("addC", "In addReviewComment");
         mDB.child("review_comments")
                 .child(rid)
                 .child(nC.toString())
@@ -293,17 +293,17 @@ public final class FirebaseUtils {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {
-                    Log.d("addC", "ERROR! No success");
+//                    Log.d("addC", "ERROR! No success");
                 } else {
-                    Log.d("addC","Success! Comment added");
+//                    Log.d("addC","Success! Comment added");
                 }
             }
         });
-        Log.d("addC", "Finished addReviewComment");
+//        Log.d("addC", "Finished addReviewComment");
     }
 
     public static void getReviewcomments(String rid, DatabaseReference mDB) {
-        Log.d("getCs", "In getReviewComments");
+//        Log.d("getCs", "In getReviewComments");
         final List<ReviewComment> comments = new ArrayList<>();
         mDB.child("review_comments")
                 .child(rid)
@@ -316,24 +316,24 @@ public final class FirebaseUtils {
                     comments.add(c);
                 }
                 for(ReviewComment c : comments) {
-                    Log.d("getCs", "Review #"
-                            .concat(c.getCommentNumber().toString())
-                            .concat(" says ")
-                            .concat(c.getCommentText())
-                            .concat(" written by ")
-                            .concat(c.getName()));
+//                    Log.d("getCs", "Review #"
+//                            .concat(c.getCommentNumber().toString())
+//                            .concat(" says ")
+//                            .concat(c.getCommentText())
+//                            .concat(" written by ")
+//                            .concat(c.getName()));
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("getCs", "Database Cancel Error!");
+//                Log.d("getCs", "Database Cancel Error!");
             }
         });
     }
 
     public static void addUserToPartners(String uid, String email, String name, String courseID, DatabaseReference mDB) {
-        Log.d("addP", "In addP");
+//        Log.d("addP", "In addP");
         CoursePartner cp = new CoursePartner(uid, name, email);
         mDB.child("course_partners")
                 .child(courseID)
@@ -343,17 +343,17 @@ public final class FirebaseUtils {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {
-                    Log.d("addP", "Database Error!");
+//                    Log.d("addP", "Database Error!");
                 } else {
-                    Log.d("addP", "Success adding possible partner");
+//                    Log.d("addP", "Success adding possible partner");
                 }
             }
         });
-        Log.d("addP","Finished addP");
+//        Log.d("addP","Finished addP");
     }
 
     public static void removeUserFromPartners(String uid, String courseID, DatabaseReference mDB) {
-        Log.d("remP", "In remP");
+//        Log.d("remP", "In remP");
         mDB.child("course_partners")
                 .child(courseID)
                 .child(uid)
@@ -362,17 +362,17 @@ public final class FirebaseUtils {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {
-                    Log.d("remP", "ERROR Partner not removed correctly!");
+//                    Log.d("remP", "ERROR Partner not removed correctly!");
                 } else {
-                    Log.d("remP", "Partner removed successfully!");
+//                    Log.d("remP", "Partner removed successfully!");
                 }
             }
         });
-        Log.d("remP", "finished remP");
+//        Log.d("remP", "finished remP");
     }
 
     public static void getCoursePossiblePartners(String courseID, DatabaseReference mDB) {
-        Log.d("allP", "In allP");
+//        Log.d("allP", "In allP");
         final CoursePartners partners = new CoursePartners(courseID);
         mDB.child("course_partners").child(courseID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -382,20 +382,20 @@ public final class FirebaseUtils {
                     //Log.d("partner", "adding ".concat(uid));
                     partners.addPossiblePartner(cp);
                 }
-                for(CoursePartner s : partners.getPossiblePartners().values()) {
-                    Log.d("allP", "Possible partner: ".concat(s.getName()).concat(" ").concat(s.getEmail()));
-                }
+//                for(CoursePartner s : partners.getPossiblePartners().values()) {
+//                    Log.d("allP", "Possible partner: ".concat(s.getName()).concat(" ").concat(s.getEmail()));
+//                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("allP", "Error! Database Cancelled!");
+//                Log.d("allP", "Error! Database Cancelled!");
             }
         });
     }
 
     public static void addNewUserData(String uid, String name, DatabaseReference mDB) {
-        Log.d("user", "In add new user");
+//        Log.d("user", "In add new user");
         Map<String, Object> user_data = new HashMap<>();
         user_data.put("name", name);
         user_data.put("uid", uid);
@@ -403,9 +403,9 @@ public final class FirebaseUtils {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {
-                    Log.d("user", "ERROR");
+//                    Log.d("user", "ERROR");
                 } else {
-                    Log.d("user", "added new user!");
+//                    Log.d("user", "added new user!");
                 }
             }
         });
@@ -429,14 +429,14 @@ public final class FirebaseUtils {
 //    }
 
     public static void addUserRelatedCourse(String uid, String courseID, UserRelatedCourse data, DatabaseReference mDB) {
-        Log.d("user", "adding course".concat(courseID));
+//        Log.d("user", "adding course".concat(courseID));
         mDB.child("users").child(uid).child("related_courses").child(courseID).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {
-                    Log.d("user", "ERROR");
+//                    Log.d("user", "ERROR");
                 } else {
-                    Log.d("user", "success");
+//                    Log.d("user", "success");
                 }
             }
         });
@@ -447,9 +447,9 @@ public final class FirebaseUtils {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {
-                    Log.d("course", "Connection Error");
+//                    Log.d("course", "Connection Error");
                 } else {
-                    Log.d("course", "updated 1!");
+//                    Log.d("course", "updated 1!");
                 }
             }
         });
@@ -460,37 +460,39 @@ public final class FirebaseUtils {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(!task.isSuccessful()) {
-                    Log.d("course", "Database Connection Error");
+//                    Log.d("course", "Database Connection Error");
                 } else {
-                    Log.d("course", "updated 2!");
+//                    Log.d("course", "updated 2!");
                 }
             }
         });
     }
 
     public static void getUserData(final String uid, DatabaseReference mDB) {
-        Log.d("user", "getting data");
+//        Log.d("user", "getting data");
         mDB.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User u = dataSnapshot.getValue(User.class);
-                if(u == null)
-                    Log.d("user", "ERROR");
-                else {
-                    Log.d("user", u.getUid().concat(u.getName()));
-                    for(Map.Entry<String, UserRelatedCourse> e : u.getRelated_courses().entrySet()) {
-                        Log.d("user", e.getKey());
-                        Log.d("user", "completed".concat(e.getValue().getCompleted().toString())
-                        .concat("interested").concat(e.getValue().getInterested().toString())
-                        .concat("liked").concat(e.getValue().getLiked().toString()));
-                    }
-                }
+//                if(u == null) {
+//
+//                }
+////                    Log.d("user", "ERROR");
+//                else {
+////                    Log.d("user", u.getUid().concat(u.getName()));
+//                    for(Map.Entry<String, UserRelatedCourse> e : u.getRelated_courses().entrySet()) {
+////                        Log.d("user", e.getKey());
+////                        Log.d("user", "completed".concat(e.getValue().getCompleted().toString())
+////                        .concat("interested").concat(e.getValue().getInterested().toString())
+////                        .concat("liked").concat(e.getValue().getLiked().toString()));
+//                    }
+//                }
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("user", "Database ERROR");
+//                Log.d("user", "Database ERROR");
             }
         });
     }
