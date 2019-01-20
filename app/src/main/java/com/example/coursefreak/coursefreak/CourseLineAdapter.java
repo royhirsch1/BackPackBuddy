@@ -38,12 +38,19 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
     private catalog catalogFragment;
     private interested interestedFragment;
 
+    private ArrayList<Course> tabCourses;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
 
     public CourseLineAdapter(Context context, ArrayList<Course> courses, catalog catalogFragment,
                              recommended recommendFragment, interested interestedFragment) {
         super(context, 0, courses);
+        Log.d("wtf", "NULL? ".concat(Boolean.toString(courses == null)));
+        Log.d("wtf", "NULL? ".concat(Boolean.toString(context == null)));
+        Log.d("wtf", "NULL? ".concat(Boolean.toString(catalogFragment == null)));
+        Log.d("wtf", "NULL? ".concat(Boolean.toString(recommendFragment == null)));
+        Log.d("wtf", "NULL? ".concat(Boolean.toString(interestedFragment == null)));
         this.contex = context;
         this.recommendFragment = recommendFragment;
         this.catalogFragment = catalogFragment;
@@ -57,11 +64,11 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         final Course course = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
-        View ret=null;
+        View ret = null;
         if (convertView == null) {
             ret = LayoutInflater.from(getContext()).inflate(R.layout.single_course, null);
-        }else{
-            ret=convertView;
+        } else {
+            ret = convertView;
         }
 
         // Lookup view for data population
@@ -69,8 +76,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         courseName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(contex,CourseView.class);
-                intent.putExtra("course",course);
+                Intent intent = new Intent(contex, CourseView.class);
+                intent.putExtra("course", course);
                 contex.startActivity(intent);
 
             }
@@ -95,25 +102,23 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
 
         final String uid;
 
-        if(currentUser != null){
+        if (currentUser != null) {
             uid = currentUser.getUid();
-        } else{
-            uid="0";
+        } else {
+            uid = "0";
         }
 
-        if(this.currentUser == null) {
+        if (this.currentUser == null) {
             myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User u = dataSnapshot.getValue(User.class);
                     CourseLineAdapter.this.currentUser = u;
-                    if(u == null) {
+                    if (u == null) {
                         Log.d("user", "ERROR");
-                    }
-
-                    else {
-                        if(u.getRelated_courses().containsKey(course.getCourseID())){
-                            if(u.getRelated_courses().get(course.getCourseID()).getLiked()){
+                    } else {
+                        if (u.getRelated_courses().containsKey(course.getCourseID())) {
+                            if (u.getRelated_courses().get(course.getCourseID()).getLiked()) {
                                 likeButton.setImageResource(R.drawable.ic_love);
                                 likeButton.setTag(R.drawable.ic_love);
                                 //Log.d("wtf", "wtf like");
@@ -122,14 +127,14 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                 likeButton.setTag(R.drawable.ic_love_empty);
                             }
 
-                            if(u.getRelated_courses().get(course.getCourseID()).getInterested()) {
+                            if (u.getRelated_courses().get(course.getCourseID()).getInterested()) {
                                 bookmarkButton.setImageResource(R.drawable.ic_bookmark);
                                 bookmarkButton.setTag(R.drawable.ic_bookmark);
                             } else {
                                 bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
                                 bookmarkButton.setTag(R.drawable.ic_bookmark_border);
                             }
-                        } else{
+                        } else {
                             bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
                             bookmarkButton.setTag(R.drawable.ic_bookmark_border);
                             likeButton.setImageResource(R.drawable.ic_love_empty);
@@ -137,6 +142,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                         }
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.d("Courses", "Database Error");
@@ -144,8 +150,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
             });
         } else {
             User u = this.currentUser;
-            if(u.getRelated_courses().containsKey(course.getCourseID())){
-                if(u.getRelated_courses().get(course.getCourseID()).getLiked()){
+            if (u.getRelated_courses().containsKey(course.getCourseID())) {
+                if (u.getRelated_courses().get(course.getCourseID()).getLiked()) {
                     likeButton.setImageResource(R.drawable.ic_love);
                     likeButton.setTag(R.drawable.ic_love);
                     //Log.d("wtf", "wtf like");
@@ -154,14 +160,14 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     likeButton.setTag(R.drawable.ic_love_empty);
                 }
 
-                if(u.getRelated_courses().get(course.getCourseID()).getInterested()) {
+                if (u.getRelated_courses().get(course.getCourseID()).getInterested()) {
                     bookmarkButton.setImageResource(R.drawable.ic_bookmark);
                     bookmarkButton.setTag(R.drawable.ic_bookmark);
                 } else {
                     bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
                     bookmarkButton.setTag(R.drawable.ic_bookmark_border);
                 }
-            } else{
+            } else {
                 bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
                 bookmarkButton.setTag(R.drawable.ic_bookmark_border);
                 likeButton.setImageResource(R.drawable.ic_love_empty);
@@ -187,18 +193,16 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                         public void onClick(DialogInterface dialog, int which) {
                             choice = arrayAdapter.getItem(which);
                             User u = CourseLineAdapter.this.currentUser;
-                            if(u == null) {
+                            if (u == null) {
                                 Log.d("userRates", "ERROR");
-                            }
-
-                            else {
-                                if(u.getRelated_courses().containsKey(course.getCourseID())) {
+                            } else {
+                                if (u.getRelated_courses().containsKey(course.getCourseID())) {
                                     Log.d("wtf", "1");
                                     u.getRelated_courses().get(course.getCourseID()).setCompleted(true);
                                     course.numCompleted++;
-                                    FirebaseUtils.updateCourseNumCompleted(course.getCourseID(),course.getNumCompleted(), myRef);
+                                    FirebaseUtils.updateCourseNumCompleted(course.getCourseID(), course.getNumCompleted(), myRef);
 
-                                    if(choice.equals("Yes")){
+                                    if (choice.equals("Yes")) {
                                         Log.d("wtf", "11");
                                         course.numLikes++;
                                         FirebaseUtils.userAddPositiveRating(uid, course.getCourseID(), myRef);
@@ -206,7 +210,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                                 u.getRelated_courses().get(course.getCourseID()).getInterested(),
                                                 true,
                                                 true);
-                                        FirebaseUtils.addUserRelatedCourse(uid ,course.getCourseID(), data ,myRef);
+                                        FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), data, myRef);
                                         recommendFragment.reloadRecommended();
                                         interestedFragment.updateLikedCourse(course.getCourseID(), R.drawable.ic_love);
                                         catalogFragment.updateLikedCourse(course.getCourseID(), R.drawable.ic_love);
@@ -217,17 +221,16 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                                 u.getRelated_courses().get(course.getCourseID()).getInterested(),
                                                 false,
                                                 false);
-                                        FirebaseUtils.addUserRelatedCourse(uid ,course.getCourseID(), data ,myRef);
+                                        FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), data, myRef);
                                     }
-                                }
-                                else{
+                                } else {
                                     Log.d("wtf", "2");
-                                    if(choice.equals("Yes")){
+                                    if (choice.equals("Yes")) {
                                         Log.d("wtf", "22");
                                         course.numLikes++;
-                                        FirebaseUtils.userAddPositiveRating(uid,course.getCourseID(),myRef);
+                                        FirebaseUtils.userAddPositiveRating(uid, course.getCourseID(), myRef);
                                         UserRelatedCourse data = new UserRelatedCourse(false, true, true);
-                                        FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
+                                        FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), data, myRef);
                                         recommendFragment.reloadRecommended();
                                     } else {
                                         // If did not actually complete the course, just set hearts to "unclick"
@@ -241,7 +244,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                             builderInner.setTitle("Thank you for your contribution!");
                             builderInner.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog,int which) {
+                                public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                 }
                             });
@@ -266,7 +269,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                 Log.d("userRates", "ERROR");
                             } else {
                                 UserRelatedCourse urc = null;
-                                if(choice.equals("I did not like it.")) {
+                                if (choice.equals("I did not like it.")) {
                                     urc = new UserRelatedCourse(
                                             u.getRelated_courses().get(course.getCourseID()).getInterested(),
                                             true,
@@ -290,7 +293,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                             builderInner.setTitle("Thank you for fixing your rating!");
                             builderInner.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog,int which) {
+                                public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                 }
                             });
@@ -324,23 +327,23 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                         } else {
                             UserRelatedCourse data = new UserRelatedCourse(true, false, false);
                             u.relateNewCourse(course.getCourseID(), data);
-                            FirebaseUtils.addUserRelatedCourse(uid,course.getCourseID(),data,myRef);
+                            FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), data, myRef);
                         }
                         bookmarkButton.setImageResource(R.drawable.ic_bookmark);
                         bookmarkButton.setTag(R.drawable.ic_bookmark);
                         catalogFragment.updateBookmarkedCourse(course.getCourseID());
                         recommendFragment.updateBookmarkedCourse(course.getCourseID());
                         interestedFragment.updateBookmarkedCourse(course);
-                    } else{
+                    } else {
                         u.getRelated_courses().get(course.getCourseID()).setInterested(false);
-                        if(u.getRelated_courses().get(course.getCourseID()).getCompleted()==false){
+                        if (u.getRelated_courses().get(course.getCourseID()).getCompleted() == false) {
                             u.getRelated_courses().remove(course.getCourseID());
                             UserRelatedCourse uc = new UserRelatedCourse(false, false, false);
-                            FirebaseUtils.userRemoveExistingRating(uid,course.getCourseID(),myRef);
+                            FirebaseUtils.userRemoveExistingRating(uid, course.getCourseID(), myRef);
                             FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
-                        }else{
+                        } else {
                             UserRelatedCourse uc = new UserRelatedCourse(false, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
-                            FirebaseUtils.userRemoveExistingRating(uid,course.getCourseID(),myRef);
+                            FirebaseUtils.userRemoveExistingRating(uid, course.getCourseID(), myRef);
                             FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
                         }
                         bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
@@ -354,9 +357,9 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         });
 
         String name = course.getName();
-        if(name.length() > 50) {
+        if (name != null && name.length() > 50) {
             name = name.substring(0, 50);
-            name.concat("...");
+            name = name.concat("...");
         }
 
         courseName.setText(name);

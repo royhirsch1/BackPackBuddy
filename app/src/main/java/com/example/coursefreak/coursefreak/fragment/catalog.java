@@ -36,7 +36,8 @@ public class catalog extends Fragment {
     private interested  bookmarkFragment;
 
     private ListView courses_list;
-    public catalog() {}
+    public catalog() {
+    }
 
     public void setRecommendedFragment(recommended recommendedFragment) {
         this.recommendedFragment = recommendedFragment;

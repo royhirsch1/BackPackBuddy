@@ -189,8 +189,16 @@ public class recommended extends Fragment {
                 }
 
                 // Actually running the algorithm
-                Recommender.Pair<double[][], double[][]> pUV = Recommender.myRecommender(ratingsMatrix, 4, 0.5, 0.5);
-                double[][] predictions = Recommender.PredictRating(pUV.getFirst(), pUV.getSecond());
+                int r = Math.min(ratingsMatrix.length,ratingsMatrix[0].length);
+                double[][] U = new double[ratingsMatrix.length][r];
+                double[][] V = new double[ratingsMatrix[0].length][r];
+
+                Recommender.myRecommender(ratingsMatrix, r, 0.5, 0.5, U, V);
+
+                double[][] predictions = new double[ratingsMatrix.length][ratingsMatrix[0].length];
+                Recommender.zeroMatrix(predictions);
+
+                Recommender.PredictRating(U, V, predictions);
 
                 // Setup matrix for easier readability
                 int user_index = usersIndex.get(uid);
@@ -199,17 +207,22 @@ public class recommended extends Fragment {
                         i = usersIndex.get(u_id);
                         j = coursesIndex.get(course);
                         double d = predictions[i][j] * 2;
+                        Log.d("Completion", "A^["+Integer.toString(i)+"]["+Integer.toString(j)+"] = "+Double.toString(d));
                         if (ratingsMatrix[i][j] != 0)
                             d = 1;
                         else if (d < 0.0099)
                             d = 0;
                         predictions[i][j] = ((int) (d * 1000)) / 1000.0;
+                        Log.d("Completion", "A^["+Integer.toString(i)+"]["+Integer.toString(j)+"] = "+Double.toString(predictions[i][j]));
+                        Log.d("Completion", "---");
                     }
+                    Log.d("Completion", "------");
                 }
 
                 // Collect results into a set of recommended courses
                 Log.d("Completion", "Recommendations for ".concat(uid));
                 for (int n = 0; n < all_courses.size(); n++) {
+                    Log.d("Completion", Double.toString(predictions[user_index][n]));
                     if (predictions[user_index][n] != 0.0 && predictions[user_index][n] != 1.0) {
                         nontrivialPredictions.add(coursesReverse.get(n));
                         Log.d("Completion", "Course: ".concat(coursesReverse.get(n)).concat(" is recommended."));
