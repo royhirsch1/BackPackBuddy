@@ -51,6 +51,11 @@ public class TabsCoursesActivity extends AppCompatActivity {
         initToolbar();
         initNavigationMenu();
     }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        actionBar.setTitle("Courses");
+    }
 
 
     private void initToolbar() {
@@ -108,7 +113,7 @@ public class TabsCoursesActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
+        //getMenuInflater().inflate(R.menu.menu_search, menu);
         return true;
     }
 
@@ -193,23 +198,35 @@ public class TabsCoursesActivity extends AppCompatActivity {
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(final MenuItem item) {
-                Intent nextActivity = new Intent();
+                Intent nextActivity = null;
                 switch (item.getTitle().toString()){
                     case "Log Out":
                         FirebaseAuth.getInstance().signOut();
                         nextActivity = new Intent(getApplicationContext(), LoginPage.class);
+                        nextActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        nextActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         break;
                     case "About":
                         nextActivity = new Intent(getApplicationContext(), AboutActivity.class);
                         break;
+                    case "Courses":
+                        //refresh activity
+                        nextActivity = new Intent(getApplicationContext(), TabsCoursesActivity.class);
+                        nextActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        nextActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        break;
+                    default:
+                        Toast.makeText(getApplicationContext(), item.getTitle() + " will be added soon", Toast.LENGTH_SHORT).show();
                 }
-                    nextActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    nextActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    //nextActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //nextActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                if(nextActivity != null){
                     startActivity(nextActivity);
-                    finish();
+                }
+                    //finish();
 
-                Toast.makeText(getApplicationContext(), item.getTitle() + " Selected", Toast.LENGTH_SHORT).show();
-                actionBar.setTitle(item.getTitle());
+
+                //actionBar.setTitle(item.getTitle());
                 drawer.closeDrawers();
                 return true;
             }

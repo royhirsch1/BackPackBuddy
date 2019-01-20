@@ -3,6 +3,7 @@ package com.example.coursefreak.coursefreak.utils;
 import android.app.Activity;
 import android.os.Build;
 import android.support.annotation.ColorRes;
+import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -37,5 +38,14 @@ public class Tools {
             flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             view.setSystemUiVisibility(flags);
         }
+    }
+
+    public static void nestedScrollTo(final NestedScrollView nested, final View targetView) {
+        nested.post(new Runnable() {
+            @Override
+            public void run() {
+                nested.scrollTo(500, targetView.getBottom());
+            }
+        });
     }
 }
