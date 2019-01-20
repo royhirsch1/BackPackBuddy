@@ -23,14 +23,17 @@ public class Recommender {
             public B getSecond() { return this.b; }
         }
 
-        public static Pair<double[][], double[][]> myRecommender(double[][] matrix, int r, double rate, double lambda)
+        public static void myRecommender(double[][] matrix, int r, double rate, double lambda,
+                                                                 double[][] outputU, double[][]outputV)
         {
             int maxIter = 500;
             int n1 = matrix.length;
             int n2 = matrix[0].length;
 
             double[][] U = new double[n1][r];
+            zeroMatrix(U);
             double[][] V = new double[n2][r];
+            zeroMatrix(V);
 
             // Initialize U and V matrix
             Random rand = new Random();
@@ -56,6 +59,7 @@ public class Recommender {
             {
 
                 double[][] prodMatrix = new double[n1][n2];
+                zeroMatrix(prodMatrix);
                 for (int i = 0; i < n1; ++i)
                 {
                     for (int j = 0; j < n2; ++j)
@@ -84,6 +88,7 @@ public class Recommender {
                 }
 
                 double[][] UGrad = new double[n1][r];
+                zeroMatrix(UGrad);
                 for (int i = 0; i < n1; ++i)
                 {
                     for (int j = 0; j < r; ++j)
@@ -96,6 +101,7 @@ public class Recommender {
                 }
 
                 double[][] VGrad = new double[n2][r];
+                zeroMatrix(VGrad);
                 for (int i = 0; i < n2; ++i)
                 {
                     for (int j = 0; j < r; ++j)
@@ -129,26 +135,44 @@ public class Recommender {
                 V = Vn;
             }
 
-            Pair<double[][], double[][]> p = new Pair<>(U,V);
-            return p;
+            for(int i = 0; i < n1; i++)
+                for(int j = 0; j < r; j++)
+                    outputU[i][j] = U[i][j];
+            for(int i = 0; i < n2; i++)
+                for(int j = 0; j < r; j++)
+                    outputV[i][j] = V[i][j];
+
+//            Pair<double[][], double[][]> p = new Pair<>(U,V);
+//            return p;
         }
 
-        public static double[][] PredictRating(double[][] U, double[][] V) {
+        public static void PredictRating(double[][] U, double[][] V, double[][] outputPredictions) {
             int n1 = U.length;
             int n2 = V.length;
             int r = V[0].length;
 
-            double[][] prodMatrix = new double[n1][n2];
+            zeroMatrix(outputPredictions);
+
             for (int i = 0; i < n1; ++i)
             {
                 for (int j = 0; j < n2; ++j)
                 {
                     for (int k = 0; k < r; ++k)
                     {
-                        prodMatrix[i][j] += U[i][k]*V[j][k];
+                        outputPredictions[i][j] += U[i][k]*V[j][k];
                     }
                 }
             }
-            return prodMatrix;
+        }
+
+        public static void zeroMatrix(double[][] matrix) {
+            int len = matrix.length;
+            int wid = matrix[0].length;
+
+            for(int i = 0; i < len; i++) {
+                for(int j = 0; j < wid; j++) {
+                    matrix[i][j] = 0.0;
+                }
+            }
         }
     }

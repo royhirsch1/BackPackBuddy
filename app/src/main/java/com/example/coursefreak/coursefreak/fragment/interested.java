@@ -1,26 +1,24 @@
-package com.example.coursefreak.coursefreak;
+package com.example.coursefreak.coursefreak.fragment;
 
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.coursefreak.coursefreak.Course;
+import com.example.coursefreak.coursefreak.CourseLineAdapter;
+import com.example.coursefreak.coursefreak.R;
+import com.example.coursefreak.coursefreak.User;
+import com.example.coursefreak.coursefreak.fragment.recommended;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class interested extends Fragment {
     private static View rootView;
@@ -38,6 +35,7 @@ public class interested extends Fragment {
     DatabaseReference myRef = database.getReference();
 
     private recommended recommendedFragment;
+    private catalog catalogFragment;
 
     private ListView bookmarkList;
     final ArrayList<Course> bookmarkedCourses = new ArrayList<>();
@@ -46,6 +44,51 @@ public class interested extends Fragment {
 
     public void setRecommendedFragment(recommended recommendedFragment) {
         this.recommendedFragment = recommendedFragment;
+    }
+
+    public void setCatalogFragment(catalog catalogFragment) {
+        this.catalogFragment = catalogFragment;
+    }
+
+    public void updateBookmarkedCourse(Course c) {
+        // Course does not exist in this tab, and so we add it.
+        if(this.bookmarkList == null)
+            return;
+        this.bookmarkedCourses.add(c);
+        ((CourseLineAdapter)this.bookmarkList.getAdapter()).notifyDataSetChanged();
+    }
+
+    public void updateLikedCourse(String courseID, int updatedIcon) {
+        if(this.bookmarkList == null)
+            return;
+        for(int i = 0; i < this.bookmarkList.getAdapter().getCount(); i++) {
+            View v = this.bookmarkList.getChildAt(i);
+            if(v == null)
+                continue;
+            String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
+            if(text.contains(courseID)) {
+                ImageView bookmarkView = v.findViewById(R.id.likeCourseButton);
+                bookmarkView.setImageResource(updatedIcon);
+                bookmarkView.setTag(updatedIcon);
+                break;
+            }
+        }
+    }
+
+    public void removeBookmarkedCourse(String courseID) {
+        if(this.bookmarkList == null)
+            return;
+        for(int i = 0; i < this.bookmarkList.getAdapter().getCount(); i++) {
+            View v = this.bookmarkList.getChildAt(i);
+            if(v == null)
+                continue;
+            String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
+            if(text.contains(courseID)) {
+                this.bookmarkedCourses.remove(i);
+                ((CourseLineAdapter)this.bookmarkList.getAdapter()).notifyDataSetChanged();
+                break;
+            }
+        }
     }
 
     @Override
@@ -92,7 +135,12 @@ public class interested extends Fragment {
                                 if(u.getRelated_courses().get(c.getCourseID()).getInterested() == true)
                                     res.add(c);
                         }
-                        CourseLineAdapter cla = new CourseLineAdapter(getContext(), res, recommendedFragment);
+                        interested.this.bookmarkedCourses.clear();
+                        interested.this.bookmarkedCourses.addAll(res);
+                        CourseLineAdapter cla = new CourseLineAdapter(getContext(), interested.this.bookmarkedCourses,
+                                interested.this.catalogFragment,
+                                interested.this.recommendedFragment,
+                                interested.this);
                         lv.setAdapter(cla);
                     }
                     @Override

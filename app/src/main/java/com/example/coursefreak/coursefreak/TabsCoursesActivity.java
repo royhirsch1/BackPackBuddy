@@ -16,12 +16,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.coursefreak.coursefreak.fragment.FragmentTabsCatalog;
+import com.example.coursefreak.coursefreak.fragment.catalog;
+import com.example.coursefreak.coursefreak.fragment.interested;
+import com.example.coursefreak.coursefreak.fragment.recommended;
 import com.example.coursefreak.coursefreak.utils.Tools;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -101,9 +105,9 @@ public class TabsCoursesActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(FragmentTabsCatalog.newInstance(), "Catalog");    // index 0
-        viewPagerAdapter.addFragment(FragmentTabsCatalog.newInstance(), "Recommended");   // index 1
-        viewPagerAdapter.addFragment(FragmentTabsCatalog.newInstance(), "Bookmarks");    // index 2
+//        viewPagerAdapter.addFragment(FragmentTabsCatalog.newInstance(), "Catalog");    // index 0
+//        viewPagerAdapter.addFragment(FragmentTabsCatalog.newInstance(), "Recommended");   // index 1
+//        viewPagerAdapter.addFragment(FragmentTabsCatalog.newInstance(), "Bookmarks");    // index 2
         viewPager.setAdapter(viewPagerAdapter);
     }
 
@@ -128,8 +132,32 @@ public class TabsCoursesActivity extends AppCompatActivity {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
+        private catalog fullCourses;
+        private recommended recommendedCourses;
+        private interested bookmarkedCourses;
+
         public SectionsPagerAdapter(FragmentManager manager) {
             super(manager);
+
+            this.fullCourses = new catalog();
+            this.recommendedCourses = new recommended();
+            this.bookmarkedCourses = new interested();
+
+            this.fullCourses.setRecommendedFragment(this.recommendedCourses);
+            this.fullCourses.setBookmarkFragment(this.bookmarkedCourses);
+
+            this.recommendedCourses.setCatalogFragment(this.fullCourses);
+            this.recommendedCourses.setInterestedFragment(this.bookmarkedCourses);
+
+            this.bookmarkedCourses.setCatalogFragment(this.fullCourses);
+            this.bookmarkedCourses.setRecommendedFragment(this.recommendedCourses);
+
+            this.mFragmentList.add(this.fullCourses);
+            this.mFragmentTitleList.add("Catalog");
+            this.mFragmentList.add(this.recommendedCourses);
+            this.mFragmentTitleList.add("Recommended");
+            this.mFragmentList.add(this.bookmarkedCourses);
+            this.mFragmentTitleList.add("Bookmarks");
         }
 
         @Override
@@ -151,6 +179,10 @@ public class TabsCoursesActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+
+        public catalog getFullCoursesFragment() { return this.fullCourses; }
+        public recommended getRecommendedCoursesFragment() { return this.recommendedCourses; }
+        public interested getBookmarkedCoursesFragment() { return this.bookmarkedCourses; }
     }
 
     private void initNavigationMenu() {
