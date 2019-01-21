@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundBase"
-    tools:context=".LoginPage">
+    tools:context="com.coursefreak.app.LoginPage">
 
     <ImageView
         android:id="@+id/buttonViewAbout"
