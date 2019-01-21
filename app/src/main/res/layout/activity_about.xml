@@ -18,7 +18,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             android:background="@color/colorFacebook"
             app:popupTheme="@style/PopupOverlay"
-            app:titleTextAppearance="@style/ToolbarTitle"
+            app:titleTextAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             ></android.support.v7.widget.Toolbar>
 
 
