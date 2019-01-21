@@ -71,7 +71,7 @@ public class recommended extends Fragment {
 //            Log.d("bkmrk", text);
             if(text.contains(courseID)) {
                 ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
-                bookmarkView.setImageResource(R.drawable.bookmark_ribbon);
+                bookmarkView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_bookmark));
                 bookmarkView.setTag(R.drawable.bookmark_ribbon);
                 break;
             }
@@ -91,7 +91,7 @@ public class recommended extends Fragment {
             if(text.contains(courseID)) {
 //                Log.d("bkmrk", "lalala");
                 ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
-                bookmarkView.setImageResource(R.drawable.bookmark_outline);
+                bookmarkView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_bookmark_border));
                 bookmarkView.setTag(R.drawable.bookmark_outline);
                 break;
             }

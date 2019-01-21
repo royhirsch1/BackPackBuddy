@@ -53,7 +53,7 @@ public class catalog extends Fragment {
             String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
             if(text.contains(courseID)) {
                 ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
-                bookmarkView.setImageResource(R.drawable.bookmark_ribbon);
+                bookmarkView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_bookmark));
                 bookmarkView.setTag(R.drawable.bookmark_ribbon);
                 break;
             }
@@ -68,7 +68,7 @@ public class catalog extends Fragment {
             String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
             if(text.contains(courseID)) {
                 ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
-                bookmarkView.setImageResource(R.drawable.bookmark_outline);
+                bookmarkView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_bookmark_border));
                 bookmarkView.setTag(R.drawable.bookmark_outline);
                 break;
             }
@@ -85,7 +85,10 @@ public class catalog extends Fragment {
             String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
             if(text.contains(courseID)) {
                 ImageView bookmarkView = v.findViewById(R.id.likeCourseButton);
-                bookmarkView.setImageResource(updatedIcon);
+                if(updatedIcon == R.drawable.ic_love)
+                    bookmarkView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_love));
+                else
+                    bookmarkView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_love_empty));
                 bookmarkView.setTag(updatedIcon);
                 break;
             }

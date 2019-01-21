@@ -1,5 +1,6 @@
 package com.coursefreak.app.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
 import android.support.v4.app.Fragment;
@@ -66,7 +67,10 @@ public class interested extends Fragment {
             String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
             if(text.contains(courseID)) {
                 ImageView bookmarkView = v.findViewById(R.id.likeCourseButton);
-                bookmarkView.setImageResource(updatedIcon);
+                if(updatedIcon == R.drawable.ic_love)
+                    bookmarkView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_love));
+                else
+                    bookmarkView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_love_empty));
                 bookmarkView.setTag(updatedIcon);
                 break;
             }

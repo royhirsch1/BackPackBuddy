@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,11 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
     // Data for the current user.
     private User currentUser;
 
+    private Drawable heart_empty;
+    private Drawable heart_filled;
+    private Drawable bookm_empty;
+    private Drawable bookm_filled;
+
     private recommended recommendFragment;
     private catalog catalogFragment;
     private interested interestedFragment;
@@ -57,6 +63,11 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         this.recommendFragment = recommendFragment;
         this.catalogFragment = catalogFragment;
         this.interestedFragment = interestedFragment;
+
+        this.heart_empty = this.contex.getResources().getDrawable(R.drawable.ic_love_empty);
+        this.heart_filled = this.contex.getResources().getDrawable(R.drawable.ic_love);
+        this.bookm_empty = this.contex.getResources().getDrawable(R.drawable.ic_bookmark_border);
+        this.bookm_filled = this.contex.getResources().getDrawable(R.drawable.ic_bookmark);
     }
 
     @Override
@@ -88,12 +99,12 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
         final TextView courseID = (TextView) ret.findViewById(R.id.textViewCourseID);
 
         final ImageButton bookmarkButton = ret.findViewById(R.id.bookmarkBtn);
-        bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
+        bookmarkButton.setImageDrawable(this.bookm_empty);
         bookmarkButton.setColorFilter(contex.getResources().getColor(R.color.colorFacebook));
         bookmarkButton.setTag(R.drawable.ic_bookmark_border);
 
         final ImageButton likeButton = ret.findViewById(R.id.likeCourseButton);
-        likeButton.setImageResource(R.drawable.ic_love_empty);
+        likeButton.setImageDrawable(this.heart_empty);
         likeButton.setColorFilter(contex.getResources().getColor(R.color.colorError));
         likeButton.setTag(R.drawable.ic_love_empty);
 
@@ -121,25 +132,25 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     } else {
                         if (u.getRelated_courses().containsKey(course.getCourseID())) {
                             if (u.getRelated_courses().get(course.getCourseID()).getLiked()) {
-                                likeButton.setImageResource(R.drawable.ic_love);
+                                likeButton.setImageDrawable(CourseLineAdapter.this.heart_filled);
                                 likeButton.setTag(R.drawable.ic_love);
                                 //Log.d("wtf", "wtf like");
                             } else {
-                                likeButton.setBackgroundResource(R.drawable.ic_love_empty);
+                                likeButton.setImageDrawable(CourseLineAdapter.this.heart_empty);
                                 likeButton.setTag(R.drawable.ic_love_empty);
                             }
 
                             if (u.getRelated_courses().get(course.getCourseID()).getInterested()) {
-                                bookmarkButton.setImageResource(R.drawable.ic_bookmark);
+                                bookmarkButton.setImageDrawable(CourseLineAdapter.this.bookm_filled);
                                 bookmarkButton.setTag(R.drawable.ic_bookmark);
                             } else {
-                                bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
+                                bookmarkButton.setImageDrawable(CourseLineAdapter.this.bookm_empty);
                                 bookmarkButton.setTag(R.drawable.ic_bookmark_border);
                             }
                         } else {
-                            bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
+                            bookmarkButton.setImageDrawable(CourseLineAdapter.this.bookm_empty);
                             bookmarkButton.setTag(R.drawable.ic_bookmark_border);
-                            likeButton.setImageResource(R.drawable.ic_love_empty);
+                            likeButton.setImageDrawable(CourseLineAdapter.this.heart_empty);
                             likeButton.setTag(R.drawable.ic_love_empty);
                         }
                     }
@@ -159,25 +170,25 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
             User u = this.currentUser;
             if (u.getRelated_courses().containsKey(course.getCourseID())) {
                 if (u.getRelated_courses().get(course.getCourseID()).getLiked()) {
-                    likeButton.setImageResource(R.drawable.ic_love);
+                    likeButton.setImageDrawable(CourseLineAdapter.this.heart_filled);
                     likeButton.setTag(R.drawable.ic_love);
                     //Log.d("wtf", "wtf like");
                 } else {
-                    likeButton.setBackgroundResource(R.drawable.ic_love_empty);
+                    likeButton.setImageDrawable(CourseLineAdapter.this.heart_empty);
                     likeButton.setTag(R.drawable.ic_love_empty);
                 }
 
                 if (u.getRelated_courses().get(course.getCourseID()).getInterested()) {
-                    bookmarkButton.setImageResource(R.drawable.ic_bookmark);
+                    bookmarkButton.setImageDrawable(CourseLineAdapter.this.bookm_filled);
                     bookmarkButton.setTag(R.drawable.ic_bookmark);
                 } else {
-                    bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
+                    bookmarkButton.setImageDrawable(CourseLineAdapter.this.bookm_empty);
                     bookmarkButton.setTag(R.drawable.ic_bookmark_border);
                 }
             } else {
-                bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
+                bookmarkButton.setImageDrawable(CourseLineAdapter.this.bookm_empty);
                 bookmarkButton.setTag(R.drawable.ic_bookmark_border);
-                likeButton.setImageResource(R.drawable.ic_love_empty);
+                likeButton.setImageDrawable(CourseLineAdapter.this.heart_empty);
                 likeButton.setTag(R.drawable.ic_love_empty);
             }
         }
@@ -215,6 +226,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
 
                                     if (choice.equals("Yes")) {
 //                                        Log.d("wtf", "11");
+                                        likeButton.setTag(R.drawable.ic_love);
+                                        likeButton.setImageDrawable(CourseLineAdapter.this.heart_filled);
                                         course.numLikes++;
                                         FirebaseUtils.userAddPositiveRating(uid, course.getCourseID(), myRef);
                                         UserRelatedCourse data = new UserRelatedCourse(
@@ -225,8 +238,6 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                         recommendFragment.reloadRecommended();
                                         interestedFragment.updateLikedCourse(course.getCourseID(), R.drawable.ic_love);
                                         catalogFragment.updateLikedCourse(course.getCourseID(), R.drawable.ic_love);
-                                        likeButton.setImageResource(R.drawable.ic_love);
-                                        likeButton.setTag(R.drawable.ic_love);
                                     } else {
                                         UserRelatedCourse data = new UserRelatedCourse(
                                                 u.getRelated_courses().get(course.getCourseID()).getInterested(),
@@ -245,7 +256,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                                         recommendFragment.reloadRecommended();
                                     } else {
                                         // If did not actually complete the course, just set hearts to "unclick"
-                                        likeButton.setImageResource(R.drawable.ic_love_empty);
+                                        likeButton.setImageDrawable(CourseLineAdapter.this.heart_empty);
                                         likeButton.setTag(R.drawable.ic_love_empty);
                                     }
 
@@ -266,6 +277,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
 
                 } else { // Like button was pressed and HEART_FULL
 //                    Log.d("wtf", "wtf112");
+                    likeButton.setTag(R.drawable.ic_love_empty);
+                    likeButton.setImageDrawable(CourseLineAdapter.this.heart_empty);
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(contex);
                     builderSingle.setTitle("Did you not like the course?");
                     final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(contex, android.R.layout.select_dialog_singlechoice);
@@ -313,8 +326,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                     });
                     builderSingle.show();
 //                    Log.d("wtf", "wtf22222");
-                    likeButton.setImageResource(R.drawable.ic_love_empty);
-                    likeButton.setTag(R.drawable.ic_love_empty);
+
                     interestedFragment.updateLikedCourse(course.getCourseID(), R.drawable.ic_love_empty);
                     catalogFragment.updateLikedCourse(course.getCourseID(), R.drawable.ic_love_empty);
                 }
@@ -334,6 +346,8 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
 //                    Log.d("user", "ERROR");
                 } else {
                     if (bookmarkButton.getTag().equals(R.drawable.ic_bookmark_border)) {
+                        bookmarkButton.setImageDrawable(CourseLineAdapter.this.bookm_filled);
+                        bookmarkButton.setTag(R.drawable.ic_bookmark);
                         if (u.getRelated_courses().containsKey(course.getCourseID())) {
                             u.getRelated_courses().get(course.getCourseID()).setInterested(true);
                             UserRelatedCourse uc = new UserRelatedCourse(true, u.getRelated_courses().get(course.getCourseID()).getCompleted(), u.getRelated_courses().get(course.getCourseID()).getLiked());
@@ -344,12 +358,12 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                             u.relateNewCourse(course.getCourseID(), data);
                             FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), data, myRef);
                         }
-                        bookmarkButton.setImageResource(R.drawable.ic_bookmark);
-                        bookmarkButton.setTag(R.drawable.ic_bookmark);
                         catalogFragment.updateBookmarkedCourse(course.getCourseID());
                         recommendFragment.updateBookmarkedCourse(course.getCourseID());
                         interestedFragment.updateBookmarkedCourse(course);
                     } else {
+                        bookmarkButton.setImageDrawable(CourseLineAdapter.this.bookm_empty);
+                        bookmarkButton.setTag(R.drawable.ic_bookmark_border);
                         if(u.getRelated_courses().keySet().contains(course.getCourseID())) {
                             u.getRelated_courses().get(course.getCourseID()).setInterested(false);
                             UserRelatedCourse uc = null;
@@ -367,8 +381,6 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                             FirebaseUtils.userRemoveExistingRating(uid, course.getCourseID(), myRef);
                             FirebaseUtils.addUserRelatedCourse(uid, course.getCourseID(), uc, myRef);
                         }
-                        bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
-                        bookmarkButton.setTag(R.drawable.ic_bookmark_border);
                         catalogFragment.removeBookmarkedCourse(course.getCourseID());
                         recommendFragment.removeBookmarkedCourse(course.getCourseID());
                         interestedFragment.removeBookmarkedCourse(course.getCourseID());
