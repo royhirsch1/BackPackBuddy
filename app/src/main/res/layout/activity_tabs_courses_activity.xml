@@ -30,8 +30,8 @@
                 app:layout_scrollFlags="scroll|enterAlways"
                 android:background="@color/colorFacebook"
                 app:popupTheme="@style/PopupOverlay"
+                app:titleTextAppearance="@style/ToolbarTitle"
                 ></android.support.v7.widget.Toolbar>
-              <!--  app:popupTheme="@style/AppTheme.PopupOverlay" /> -->
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tab_layout"
@@ -42,7 +42,7 @@
                 app:tabIndicatorHeight="3dp"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@android:color/white"
-                app:tabTextAppearance="@style/TextAppearance.Design.Tab"
+                app:tabTextAppearance="@style/NavigationTabTextAppeareance"
                 android:background="@color/colorFacebook"
                 app:tabTextColor="@color/grey_20" />
 
@@ -66,6 +66,7 @@
         app:headerLayout="@layout/include_drawer_header_news"
         app:itemIconTint="@color/grey_40"
         app:itemTextColor="@color/grey_90"
+        app:itemTextAppearance="@style/MenuItemText"
         app:menu="@menu/menu_navigation_drawer_news"
         app:theme="@style/ThemeOverlay.AppCompat.Light"
         />
