@@ -4,10 +4,10 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.coursefreak.coursefreak"
+        applicationId "com.coursefreak.app"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
+        versionCode 3
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

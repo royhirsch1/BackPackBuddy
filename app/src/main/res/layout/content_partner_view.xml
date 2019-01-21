@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundBase"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".PartnerView"
+    tools:context="com.coursefreak.app.PartnerView"
     tools:showIn="@layout/activity_partner_view">
 
     <ImageView

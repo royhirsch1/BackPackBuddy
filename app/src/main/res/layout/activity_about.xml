@@ -331,7 +331,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="copyrights1"
+                            android:text="https://icons8.com/, http://www.ourclipart.com/, de.hdodenhof  "
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/grey_40" />
 
@@ -359,7 +359,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="copyrights2"
+                            android:text="https://www.freepik.com/, github.com/ShantanuDeshpande/MF-Based-Recommendation "
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/grey_40" />
 

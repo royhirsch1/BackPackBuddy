@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.coursefreak.coursefreak">
+    package="com.coursefreak.app">
 
     <application
         android:allowBackup="true"
@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".LoginPage" />
-        <activity android:name=".SignupPage" />
+        <activity android:name="com.coursefreak.app.LoginPage" />
+        <activity android:name="com.coursefreak.app.SignupPage" />
         <activity
-            android:name=".Courses"
+            android:name="com.coursefreak.app.Courses"
             android:label="@string/title_activity_courses"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".CourseView"
+            android:name="com.coursefreak.app.CourseView"
             android:exported="true"
             android:label="@string/title_activity_courseview"
             android:screenOrientation="portrait"
@@ -27,22 +27,22 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".PartnerView"
+            android:name="com.coursefreak.app.PartnerView"
             android:exported="true"
             android:label="@string/title_activity_partner_view"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".UGView"
+            android:name="com.coursefreak.app.UGView"
             android:label="@string/title_activity_ugview" />
         <activity
-            android:name=".TabsCoursesActivity"
+            android:name="com.coursefreak.app.TabsCoursesActivity"
             android:exported="true" />
         <activity
-            android:name=".WalkthroughActivity"
+            android:name="com.coursefreak.app.WalkthroughActivity"
             android:exported="true" />
         <activity
-            android:name=".IntroActivity"
+            android:name="com.coursefreak.app.IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,9 +51,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name="com.coursefreak.app.AboutActivity"
             android:exported="true" />
-        <activity android:name=".CourseDataActivity"
+        <activity android:name="com.coursefreak.app.CourseDataActivity"
             android:exported="true"
             ></activity>
     </application>

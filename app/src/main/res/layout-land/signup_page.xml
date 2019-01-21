@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorBackgroundBase"
-    tools:context=".SignupPage">
+    tools:context="com.coursefreak.app.SignupPage">
 
     <TextView
         android:id="@+id/mismatchErrorTitle"
