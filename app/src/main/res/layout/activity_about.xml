@@ -14,10 +14,13 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorFacebook"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:background="@color/colorFacebook"
+            app:popupTheme="@style/PopupOverlay"
+            app:titleTextAppearance="@style/ToolbarTitle"
+            ></android.support.v7.widget.Toolbar>
+
 
     </android.support.design.widget.AppBarLayout>
 
@@ -86,11 +89,13 @@
                                 android:layout_height="wrap_content"
                                 android:text="CourseFreak"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                android:fontFamily="@font/arima_madurai_bold"
                                 android:textColor="@color/grey_80" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/arima_madurai_bold"
                                 android:text="Android Application and Web Platform"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/grey_40" />
@@ -136,14 +141,15 @@
                                 android:layout_height="wrap_content"
                                 android:text="Version"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_80"
-                                app:fontFamily="sans-serif-medium" />
+                                android:fontFamily="@font/arima_madurai_bold"
+                                android:textColor="@color/grey_80" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="1.2"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:fontFamily="@font/arima_madurai_bold"
                                 android:textColor="@color/grey_40" />
 
                         </LinearLayout>
@@ -188,11 +194,12 @@
                                 android:text="License"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_80"
-                                app:fontFamily="sans-serif-medium" />
+                                app:fontFamily="@font/arima_madurai_bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/arima_madurai_bold"
                                 android:text="Open-Source, Credited"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/grey_40" />
@@ -236,7 +243,7 @@
                         android:text="Authors"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/grey_90"
-                        app:fontFamily="sans-serif-medium" />
+                        app:fontFamily="@font/arima_madurai_bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -267,7 +274,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Open GitHub Project"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="Open GitHub Repository"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/grey_80" />
 
@@ -307,7 +315,7 @@
                         android:text="Credits"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/grey_90"
-                        app:fontFamily="sans-serif-medium" />
+                        app:fontFamily="@font/arima_madurai_bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -331,6 +339,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/arima_madurai_bold"
                             android:text="copyrights1"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/grey_40" />
@@ -359,6 +368,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/arima_madurai_bold"
                             android:text="copyrights2"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/grey_40" />

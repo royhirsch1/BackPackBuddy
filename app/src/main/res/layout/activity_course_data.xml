@@ -16,10 +16,12 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorFacebook"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:background="@color/colorFacebook"
+            app:popupTheme="@style/PopupOverlay"
+            app:titleTextAppearance="@style/ToolbarTitle"
+            ></android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -47,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/arima_madurai_bold"
                 android:paddingTop="25dp"
                 android:paddingBottom="20dp"
                 android:text="Introduction to Computer Science"
@@ -61,14 +64,14 @@
                 tools:layout_editor_absoluteY="104dp">
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/textView_courseID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginRight="2dp"
+                    android:layout_marginRight="16dp"
+                    android:fontFamily="@font/arima_madurai_bold"
                     android:layout_marginBottom="8dp"
-                    android:text="230123"
                     android:textColor="@android:color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -90,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
+                    android:fontFamily="@font/arima_madurai_bold"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="3 AU"
@@ -147,6 +151,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_medium"
+                            android:fontFamily="@font/arima_madurai_bold"
                             android:text="SHARE"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                             android:textColor="@android:color/black" />
@@ -176,6 +181,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_medium"
                             android:text="PARTNERS"
+                            android:fontFamily="@font/arima_madurai_bold"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
@@ -203,6 +209,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_medium"
                             android:text="UG"
+                            android:fontFamily="@font/arima_madurai_bold"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
@@ -230,6 +237,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_medium"
                             android:text="ADD REVIEW"
+                            android:fontFamily="@font/arima_madurai_bold"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
@@ -271,6 +279,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginLeft="8dp"
+                            android:fontFamily="@font/arima_madurai_bold"
                             android:layout_marginEnd="8dp"
                             android:layout_marginRight="8dp"
                             android:text="@string/grade_avg"
@@ -291,6 +300,7 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginEnd="8dp"
                             android:layout_marginRight="8dp"
+                            android:fontFamily="@font/arima_madurai_bold"
                             android:layout_weight="1"
                             android:gravity="right"
                             android:textColor="@color/grey_60"
@@ -324,6 +334,7 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginEnd="8dp"
                             android:layout_marginRight="8dp"
+                            android:fontFamily="@font/arima_madurai_bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:text="@string/label_popularity"
                             android:textColor="@color/grey_60"
@@ -343,6 +354,7 @@
                             android:layout_marginEnd="8dp"
                             android:layout_marginRight="8dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/arima_madurai_bold"
                             android:gravity="right"
                             android:textColor="@color/grey_60"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -407,7 +419,8 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Text"
+                                android:fontFamily="@font/arima_madurai_bold"
+                                android:text="Requirements"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                 android:textColor="@color/grey_80" />
 
@@ -428,12 +441,78 @@
                             android:background="@android:color/white"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="@dimen/spacing_large"
-                                android:text="text"
-                                android:textColor="@color/grey_60" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/spacing_large">
+
+                                    <ImageView
+                                        android:id="@+id/icon_exam"
+                                        android:layout_width="24dp"
+                                        android:layout_height="36dp"
+                                        android:src="@drawable/icon_x"
+                                        android:tint="@color/colorFacebook"
+                                        app:layout_constraintStart_toStartOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/arima_madurai_bold"
+                                        android:text="Exam"
+                                        android:textColor="@color/grey_60" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/spacing_large">
+
+                                    <ImageView
+                                        android:id="@+id/icon_homework"
+                                        android:layout_width="24dp"
+                                        android:layout_height="36dp"
+                                        android:src="@drawable/icon_x"
+                                        android:tint="@color/colorFacebook"
+                                        app:layout_constraintStart_toStartOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/arima_madurai_bold"
+                                        android:text="Homework"
+                                        android:textColor="@color/grey_60" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/spacing_large">
+
+                                    <ImageView
+                                        android:id="@+id/icon_pairwork"
+                                        android:layout_width="24dp"
+                                        android:layout_height="36dp"
+                                        android:src="@drawable/icon_x"
+                                        android:tint="@color/colorFacebook"
+                                        app:layout_constraintStart_toStartOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/arima_madurai_bold"
+                                        android:text="Pair Work"
+                                        android:textColor="@color/grey_60" />
+                                </LinearLayout>
+
+                            </LinearLayout>
 
                             <View
                                 android:layout_width="match_parent"
@@ -452,6 +531,7 @@
                                     style="@style/Widget.AppCompat.Button.Borderless"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="@font/arima_madurai_bold"
                                     android:gravity="center"
                                     android:text="@string/HIDE"
                                     android:textColor="@color/grey_60" />
@@ -497,6 +577,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Input"
+                                android:fontFamily="@font/arima_madurai_bold"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                 android:textColor="@color/grey_80" />
 

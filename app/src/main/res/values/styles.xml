@@ -7,10 +7,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
+
     </style>
 
     <style name="GuestViewer" parent="Theme.AppCompat.Light">
-
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
     </style>
 
     <style name="SignupPageButtons" parent="Widget.Support.CoordinatorLayout">
@@ -18,11 +20,16 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">14dp</item>
         <item name="android:layout_height">43dp</item>
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
     </style>
 
-    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
+    </style>
 
-    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
+    </style>
 
     <style name="CourseViewText" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/arima_madurai_bold</item>
@@ -32,31 +39,51 @@
 
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
         <item name="android:background">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
+    </style>
 
     <style name="RippleStyleWhite">
         <item name="mrl_rippleOverlay">true</item>
         <item name="mrl_rippleColor">#80FFFFFF</item>
         <item name="mrl_rippleHover">true</item>
         <item name="mrl_rippleAlpha">0.2</item>
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
     </style>
     <style name="RippleStyleBlack" parent="RippleStyleWhite">
         <item name="mrl_rippleColor">#8096989A</item>
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
     </style>
 
     <style name="EditText.Grey" parent="@style/AppTheme">
         <item name="colorControlActivated">@color/grey_60</item>
         <item name="colorControlHighlight">@color/grey_60</item>
         <item name="colorControlNormal">@color/grey_40</item>
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
     </style>
 
     <style name="EditText.Blue" parent="@style/AppTheme">
         <item name="colorControlActivated">@color/colorFacebook</item>
         <item name="colorControlHighlight">@color/colorBlueDark</item>
         <item name="colorControlNormal">@color/colorFacebook</item>
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
+    </style>
+
+
+    <style name="NavigationTabTextAppeareance" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
+    </style>
+
+    <style name="MenuItemText" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
+    </style>
+
+    <style name="ToolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/arima_madurai_bold</item>
     </style>
 
 </resources>

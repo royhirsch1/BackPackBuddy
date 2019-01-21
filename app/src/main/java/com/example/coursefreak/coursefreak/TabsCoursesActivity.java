@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coursefreak.coursefreak.fragment.FragmentTabsCatalog;
@@ -188,9 +189,12 @@ public class TabsCoursesActivity extends AppCompatActivity {
     private void initNavigationMenu() {
         NavigationView nav_view = (NavigationView) findViewById(R.id.nav_view);
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                final TextView emailTextView = (TextView) findViewById(R.id.menuEmailTextView);
+                emailTextView.setText(mAuth.getCurrentUser().getEmail());
             }
         };
         drawer.setDrawerListener(toggle);
