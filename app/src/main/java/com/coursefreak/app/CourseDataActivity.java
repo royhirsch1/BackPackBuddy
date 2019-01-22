@@ -10,13 +10,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -58,6 +62,9 @@ public class CourseDataActivity extends AppCompatActivity {
     private String courseID;
 
     private FirebaseDatabase mDatabase;
+
+    private TextView txt_no_item;
+    private ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -253,7 +260,7 @@ public class CourseDataActivity extends AppCompatActivity {
         bt_write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(parent_view, "Will be added soon", Snackbar.LENGTH_SHORT).show();
+                showReviewDialog();
             }
         });
         bt_more.setOnClickListener(new View.OnClickListener() {
@@ -327,7 +334,7 @@ public class CourseDataActivity extends AppCompatActivity {
         fabPartners.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showCustomDialog();
+                showPartnersDialog();
             }
         });
 
@@ -342,7 +349,7 @@ public class CourseDataActivity extends AppCompatActivity {
         });
 
         FloatingActionButton fabShare = findViewById(R.id.fab_share);
-        fabPartners.setOnClickListener(new View.OnClickListener() {
+        fabShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Will be added soon", Toast.LENGTH_SHORT).show();
@@ -351,10 +358,10 @@ public class CourseDataActivity extends AppCompatActivity {
         });
 
         FloatingActionButton fabReview = findViewById(R.id.fab_review);
-        fabPartners.setOnClickListener(new View.OnClickListener() {
+        fabReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Will be added soon", Toast.LENGTH_SHORT).show();
+                showReviewDialog();
 
             }
         });
@@ -365,7 +372,7 @@ public class CourseDataActivity extends AppCompatActivity {
 
 
 
-    private void showCustomDialog() {
+    private void showPartnersDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
         dialog.setContentView(R.layout.dialog_partners);
@@ -502,6 +509,48 @@ public class CourseDataActivity extends AppCompatActivity {
                 });
 
 
+    }
+
+    private void showReviewDialog() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.setContentView(R.layout.dialog_add_review);
+        dialog.setCancelable(true);
+        TextView writer = dialog.findViewById(R.id.writer_name);
+        writer.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        final EditText et_post = (EditText) dialog.findViewById(R.id.et_post);
+        ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String review = et_post.getText().toString().trim();
+                if (review.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please fill review text", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Will be added soon", Toast.LENGTH_SHORT).show();
+                }
+//                if (!adapter.isEmpty()) {
+//                }
+                dialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Submitted", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
     }
 
 

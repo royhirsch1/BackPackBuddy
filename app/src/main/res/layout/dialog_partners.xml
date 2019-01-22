@@ -67,8 +67,9 @@
             android:checked="false"
             android:fontFamily="@font/arima_madurai_bold"
             android:textColor="@color/grey_60"
-            android:textOff="Off"
-            android:textOn="On" />
+            android:thumbTint="@color/colorFacebook"
+            />
+
 
     </LinearLayout>
 

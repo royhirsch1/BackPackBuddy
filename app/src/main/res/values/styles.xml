@@ -33,7 +33,7 @@
 
     <style name="CourseViewText" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/arima_madurai_bold</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/grey_60</item>
         <item name="android:textSize">20sp</item>
     </style>
 
@@ -85,5 +85,10 @@
     <style name="ToolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:fontFamily">@font/arima_madurai_bold</item>
     </style>
+
+    <style name="Button.Accent.Borderless" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
 
 </resources>
