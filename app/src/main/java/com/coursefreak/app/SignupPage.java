@@ -33,15 +33,17 @@ public class SignupPage extends AppCompatActivity {
         this.mAuth = FirebaseAuth.getInstance();
 
         // ----- Setup signup button
-        Button sign_up_button = findViewById(R.id.buttonEmailSign);
+        final Button sign_up_button = findViewById(R.id.buttonEmailSign);
         sign_up_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sign_up_button.setEnabled(false);
                 android.text.Editable emailInput = ((EditText)findViewById(R.id.emailTextBox_SU)).getText();
                 android.text.Editable passInput = ((EditText)findViewById(R.id.passwordTextBox_SU)).getText();
                 android.text.Editable passConfInput = ((EditText)findViewById(R.id.confirmPasswordBox)).getText();
                 if(emailInput.length() < 1 || passInput.length() < 1 || passConfInput.length() < 1){
                     Toast.makeText(getApplicationContext(), "Please Enter Username and password", Toast.LENGTH_LONG ).show();
+                    sign_up_button.setEnabled(true);
                     return;
                 }
                 final String user_email = emailInput.toString();
@@ -49,15 +51,17 @@ public class SignupPage extends AppCompatActivity {
                 String confirm_password = passConfInput.toString();
                 if(user_password.equals(confirm_password) == false) {
                     Toast.makeText(getApplicationContext(), R.string.badPasswordMatchString, Toast.LENGTH_LONG ).show();
+                    sign_up_button.setEnabled(true);
                     return;
                 }
                 else if(!isEmailValid(user_email)) {
                     Toast.makeText(getApplicationContext(), R.string.badEmailNotValid, Toast.LENGTH_LONG ).show();
-
+                    sign_up_button.setEnabled(true);
                     return;
                 }
                 //password length is already verified by firebase. minimal length: 6
                 else {
+                    Toast.makeText(getApplicationContext(), "Connecting...", Toast.LENGTH_SHORT ).show();
                     mAuth.createUserWithEmailAndPassword(user_email, user_password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -88,6 +92,7 @@ public class SignupPage extends AppCompatActivity {
                                         Toast.makeText(SignupPage.this,
                                                 task.getException().getMessage(),
                                                 Toast.LENGTH_SHORT).show();
+                                        sign_up_button.setEnabled(true);
                                     }
                                 }
                             });

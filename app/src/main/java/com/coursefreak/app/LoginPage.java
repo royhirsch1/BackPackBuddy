@@ -66,18 +66,21 @@ public class LoginPage extends AppCompatActivity {
                 }
             });*/
 
-        Button sign_in_button = (Button)findViewById(R.id.buttonLogin);
+        final Button sign_in_button = (Button)findViewById(R.id.buttonLogin);
         sign_in_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sign_in_button.setEnabled(false);
                 android.text.Editable emailInput = ((EditText)findViewById(R.id.emailTextBox)).getText();
                 android.text.Editable passInput = ((EditText)findViewById(R.id.passwordTextBox)).getText();
                 if(emailInput.length() < 1 || passInput.length() < 1){
                     Toast.makeText(getApplicationContext(), "Please Enter Username and password", Toast.LENGTH_LONG ).show();
+                    sign_in_button.setEnabled(true);
                     return;
                 }
                 String user_email = emailInput.toString();
                 String user_password = passInput.toString();
+                Toast.makeText(getApplicationContext(), "Connecting...", Toast.LENGTH_SHORT ).show();
                 mAuth.signInWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -93,6 +96,7 @@ public class LoginPage extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"No Network Connection", Toast.LENGTH_LONG ).show();
                             } catch (Exception e){
                             }
+                            sign_in_button.setEnabled(true);
                         }
                         else {
 //                            Log.d("AuthComplete", "AuthRequestSuccess");

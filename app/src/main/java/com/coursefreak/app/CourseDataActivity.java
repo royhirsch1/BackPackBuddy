@@ -217,7 +217,7 @@ public class CourseDataActivity extends AppCompatActivity {
 
         // req section
         bt_toggle_req = (ImageButton) findViewById(R.id.bt_toggle_text);
-        bt_hide_req = (Button) findViewById(R.id.bt_write);
+        bt_hide_req = (Button) findViewById(R.id.bt_hide_req);
         lyt_expand_req = (View) findViewById(R.id.lyt_expand_text);
         lyt_expand_req.setVisibility(View.GONE);
 
