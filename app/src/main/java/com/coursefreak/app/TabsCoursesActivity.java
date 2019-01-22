@@ -102,9 +102,6 @@ public class TabsCoursesActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-//        viewPagerAdapter.addFragment(FragmentTabsCatalog.newInstance(), "Catalog");    // index 0
-//        viewPagerAdapter.addFragment(FragmentTabsCatalog.newInstance(), "Recommended");   // index 1
-//        viewPagerAdapter.addFragment(FragmentTabsCatalog.newInstance(), "Bookmarks");    // index 2
         viewPager.setAdapter(viewPagerAdapter);
     }
 
@@ -211,9 +208,9 @@ public class TabsCoursesActivity extends AppCompatActivity {
                         break;
                     case "Courses":
                         //refresh activity
-                        nextActivity = new Intent(getApplicationContext(), TabsCoursesActivity.class);
-                        nextActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        nextActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        nextActivity = new Intent(getApplicationContext(), TabsCoursesActivity.class);
+//                        nextActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        nextActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         break;
                     default:
                         Toast.makeText(getApplicationContext(), item.getTitle() + " will be added soon", Toast.LENGTH_SHORT).show();

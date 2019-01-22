@@ -16,7 +16,7 @@
     <color name="colorReviewNegative">#e31e1e</color>
     <color name="colorReviewNeutral">#176087</color>
     <color name="colorBlueLight">#53a2be</color>
-    <color name="colorBlueMid">#1d84b5</color>
+    <color name="colorBlueMid">#dfe5f3</color>
     <color name="colorBlueDark">#132e32</color>
     <color name="colorSignupText">#0A2239</color>
     <color name="colorError">#B00020</color>
@@ -32,4 +32,5 @@
     <color name="grey_90">#263238</color>
     <color name="grey_95">#1a1a1a</color>
     <color name="grey_100_">#0d0d0d</color>
+    <color name="facebook_darker">#335293</color>
 </resources>

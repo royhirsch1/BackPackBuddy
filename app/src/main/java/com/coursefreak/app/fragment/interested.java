@@ -139,6 +139,7 @@ public class interested extends Fragment {
                         }
                         interested.this.bookmarkedCourses.clear();
                         interested.this.bookmarkedCourses.addAll(res);
+                        res.remove(null);
                         CourseLineAdapter cla = new CourseLineAdapter(getContext(), interested.this.bookmarkedCourses,
                                 interested.this.catalogFragment,
                                 interested.this.recommendedFragment,

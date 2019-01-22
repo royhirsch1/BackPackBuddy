@@ -240,6 +240,7 @@ public class recommended extends Fragment {
                                     res.add(c);
                                 }
                             }
+                            res.remove(null);
                             CourseLineAdapter cla = new CourseLineAdapter(recomList.getContext(), res,
                                     recommended.this.catalogFragment,
                                     recommended.this,

@@ -5,29 +5,38 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.coursefreak.app.utils.Tools;
 import com.coursefreak.app.utils.ViewAnimation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CourseDataActivity extends AppCompatActivity {
@@ -35,9 +44,9 @@ public class CourseDataActivity extends AppCompatActivity {
     private View parent_view;
 
     private NestedScrollView nested_scroll_view;
-    private ImageButton bt_toggle_text, bt_toggle_input;
-    private Button bt_hide_text, bt_save_input, bt_hide_input;
-    private View lyt_expand_text, lyt_expand_input;
+    private ImageButton bt_toggle_req, bt_toggle_rev;
+    private Button bt_more, bt_write, bt_hide_req, bt_hide_rev;
+    private View lyt_expand_req, lyt_expand_reviews;
 
     private int mProgressStatus_avg = 0;
     private int mProgressStatus_pop = 0;
@@ -46,17 +55,22 @@ public class CourseDataActivity extends AppCompatActivity {
     private TextView textViewAverage;
     private TextView textViewPopularity;
     private Course course;
+    private String courseID;
+
+    private FirebaseDatabase mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_data);
         parent_view = findViewById(android.R.id.content);
+        this.mDatabase = FirebaseDatabase.getInstance();
 
         initCourseData();
         initToolbar();
         initButtonListeners();
         initDropDowns();
+        initReviews();
     }
 
     private void initCourseData(){
@@ -66,6 +80,7 @@ public class CourseDataActivity extends AppCompatActivity {
         if(intent != null && intent.getSerializableExtra("course") != null){
             course = (Course)intent.getSerializableExtra("course");
         }
+        courseID=course.getCourseID();
 
 
         //Update Title & Number & AUs
@@ -193,52 +208,58 @@ public class CourseDataActivity extends AppCompatActivity {
 
     private void initDropDowns() {
 
-        // text section
-        bt_toggle_text = (ImageButton) findViewById(R.id.bt_toggle_text);
-        bt_hide_text = (Button) findViewById(R.id.bt_hide_text);
-        lyt_expand_text = (View) findViewById(R.id.lyt_expand_text);
-        lyt_expand_text.setVisibility(View.GONE);
+        // req section
+        bt_toggle_req = (ImageButton) findViewById(R.id.bt_toggle_text);
+        bt_hide_req = (Button) findViewById(R.id.bt_write);
+        lyt_expand_req = (View) findViewById(R.id.lyt_expand_text);
+        lyt_expand_req.setVisibility(View.GONE);
 
-        bt_toggle_text.setOnClickListener(new View.OnClickListener() {
+        bt_toggle_req.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleSectionText(bt_toggle_text);
+                toggleSectionText(bt_toggle_req);
             }
         });
 
-        bt_hide_text.setOnClickListener(new View.OnClickListener() {
+        bt_hide_req.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleSectionText(bt_toggle_text);
+                toggleSectionText(bt_toggle_req);
             }
         });
 
-        // input section
-        bt_toggle_input = (ImageButton) findViewById(R.id.bt_toggle_input);
-        bt_hide_input = (Button) findViewById(R.id.bt_hide_input);
-        bt_save_input = (Button) findViewById(R.id.bt_save_input);
-        lyt_expand_input = (View) findViewById(R.id.lyt_expand_input);
-        lyt_expand_input.setVisibility(View.GONE);
+        // rev section
+        bt_toggle_rev = (ImageButton) findViewById(R.id.bt_toggle_input);
+        bt_hide_rev = (Button) findViewById(R.id.bt_hide_rev);
+        bt_more = (Button) findViewById(R.id.bt_more);
+        bt_write = (Button) findViewById(R.id.bt_write);
+        lyt_expand_reviews = (View) findViewById(R.id.lyt_expand_input);
+        lyt_expand_reviews.setVisibility(View.GONE);
 
-        bt_toggle_input.setOnClickListener(new View.OnClickListener() {
+        bt_toggle_rev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleSectionInput(bt_toggle_input);
+                toggleSectionInput(bt_toggle_rev);
             }
         });
 
-        bt_hide_input.setOnClickListener(new View.OnClickListener() {
+        bt_hide_rev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleSectionInput(bt_toggle_input);
+                toggleSectionInput(bt_toggle_rev);
             }
         });
 
-        bt_save_input.setOnClickListener(new View.OnClickListener() {
+        bt_write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(parent_view, "Data saved", Snackbar.LENGTH_SHORT).show();
-                toggleSectionInput(bt_toggle_input);
+                Snackbar.make(parent_view, "Will be added soon", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        bt_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(parent_view, "Will be added soon", Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -249,28 +270,28 @@ public class CourseDataActivity extends AppCompatActivity {
     private void toggleSectionText(View view) {
         boolean show = toggleArrow(view);
         if (show) {
-            ViewAnimation.expand(lyt_expand_text, new ViewAnimation.AnimListener() {
+            ViewAnimation.expand(lyt_expand_req, new ViewAnimation.AnimListener() {
                 @Override
                 public void onFinish() {
-                    Tools.nestedScrollTo(nested_scroll_view, lyt_expand_text);
+                    Tools.nestedScrollTo(nested_scroll_view, lyt_expand_req);
                 }
             });
         } else {
-            ViewAnimation.collapse(lyt_expand_text);
+            ViewAnimation.collapse(lyt_expand_req);
         }
     }
 
     private void toggleSectionInput(View view) {
         boolean show = toggleArrow(view);
         if (show) {
-            ViewAnimation.expand(lyt_expand_input, new ViewAnimation.AnimListener() {
+            ViewAnimation.expand(lyt_expand_reviews, new ViewAnimation.AnimListener() {
                 @Override
                 public void onFinish() {
-                    Tools.nestedScrollTo(nested_scroll_view, lyt_expand_input);
+                    Tools.nestedScrollTo(nested_scroll_view, lyt_expand_reviews);
                 }
             });
         } else {
-            ViewAnimation.collapse(lyt_expand_input);
+            ViewAnimation.collapse(lyt_expand_reviews);
         }
     }
 
@@ -303,13 +324,43 @@ public class CourseDataActivity extends AppCompatActivity {
     private void initButtonListeners(){
 
         FloatingActionButton fabPartners = findViewById(R.id.fab_partners);
-
         fabPartners.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showCustomDialog();
             }
         });
+
+        FloatingActionButton fabUG = findViewById(R.id.fab_UG);
+        fabUG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent nextActivity = new Intent(getApplicationContext(), UGView.class);
+                nextActivity.putExtra("course_id",course.getCourseID());
+                startActivity(nextActivity);
+            }
+        });
+
+        FloatingActionButton fabShare = findViewById(R.id.fab_share);
+        fabPartners.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Will be added soon", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        FloatingActionButton fabReview = findViewById(R.id.fab_review);
+        fabPartners.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Will be added soon", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
     }
 
 
@@ -332,7 +383,126 @@ public class CourseDataActivity extends AppCompatActivity {
             }
         });
 
+
+        final Switch switch_partner = dialog.findViewById(R.id.switch_partner);
+        final ListView listView = dialog.findViewById(R.id.list_partners);
+        final ArrayList<CoursePartner> partnersList = new ArrayList<>();
+        final String myUid = FirebaseAuth.getInstance().getUid();
+        final String myEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        final DatabaseReference mDB = mDatabase.getReference();
+
+        mDB.child("course_partners").child(courseID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot partnerSnapshot : dataSnapshot.getChildren()) {
+                    CoursePartner cp = partnerSnapshot.getValue(CoursePartner.class);
+                    if(cp.getUid().equals(myUid)){
+                        switch_partner.setChecked(true);
+                    }
+//                    Log.d("partner", "adding ".concat(cp.getName()));
+                    partnersList.add(cp);
+                }
+
+                partnersList.remove(null);
+                PartnerListAdapter partner_adapter = new PartnerListAdapter(getBaseContext(), partnersList);
+                listView.setAdapter(partner_adapter);
+
+                switch_partner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        CoursePartner me = new CoursePartner(myUid,"unknown",myEmail);
+                        Snackbar.make(parent_view, "Request Accepted", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        if(isChecked){
+                            mDB.child("course_partners")
+                                    .child(courseID)
+                                    .child(myUid)
+                                    .setValue(me)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(!task.isSuccessful()) {
+//                                                Log.d("addP", "Database Error!");
+                                            } else {
+//                                                Log.d("addP", "Success adding possible partner");
+                                            }
+                                        }
+                                    });
+                        }else{
+                            mDB.child("course_partners")
+                                    .child(courseID)
+                                    .child(myUid)
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(!task.isSuccessful()) {
+//                                                    Log.d("removeP", "Database Error!");
+                                            } else {
+//                                                    Log.d("removeP", "Success adding possible partner");
+                                            }
+                                        }
+                                    });
+
+                        }
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.d("allP", "Error! Database Cancelled!");
+            }
+        });
+
         dialog.show();
         dialog.getWindow().setAttributes(lp);
+
+
     }
+    private void initReviews(){
+
+        //Get reviews from DB
+
+//        Log.d("getRevs", "In getCourseReviewsOrdered");
+        final ArrayList<Review> reviewList = new ArrayList<>();
+        final DatabaseReference mDB = mDatabase.getReference();
+        mDB.child("course_reviews")
+                .child(course.getCourseID())
+                .orderByChild("numberHelped")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot courseReview : dataSnapshot.getChildren()) {
+                            Review rev = courseReview.getValue(Review.class);
+                            reviewList.add(rev);
+                        }
+                        Collections.reverse(reviewList);
+//                        for(Review r : reviewList.subList(0,Math.min(4, reviewList.size()))) {
+////                            Log.d("getRevs", "Review by ".concat(r.getUserID())
+////                                    .concat(" says that ").concat(r.getReviewText())
+////                                    .concat(" and has helped ").concat(r.getNumHelped().toString()));
+//                        }
+
+                        // Construct the data source
+                        CourseViewReviewAdapter review_adapter = new CourseViewReviewAdapter(getBaseContext(), reviewList);
+
+                        ListView listView = (ListView) findViewById(R.id.listView_review);
+                        listView.setAdapter(review_adapter);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        reviewList.clear();
+//                        Log.d("getRevs", "Database Cancel Error!");
+                    }
+                });
+
+
+    }
+
+
 }

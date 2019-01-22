@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CourseFreak</string>
+    <string name="app_name">Course Freak</string>
     <string name="facebookLoginString">Continue with Facebook</string>
     <string name="googleLoginString">Continue with Google</string>
     <string name="hintEmailBox">E-mail</string>
@@ -32,7 +32,7 @@
     <string name="course_name">Algorithms 1</string>
     <string name="course_credit">3.0</string>
     <string name="courseView_spinner_title">Catalog categories</string>
-    <string name="grade_avg">Grade Average</string>
+    <string name="grade_avg">Average Grade</string>
     <string name="label_popularity">Popularity</string>
     <string name="label_exam">Exam</string>
     <string name="label_HW">Homework</string>

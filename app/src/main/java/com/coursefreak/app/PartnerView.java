@@ -92,20 +92,20 @@ public class PartnerView extends AppCompatActivity {
                                         }
                                     });
                         }else{
-                                mDB.child("course_partners")
-                                        .child(courseID)
-                                        .child(me.getUid())
-                                        .removeValue()
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if(!task.isSuccessful()) {
+                            mDB.child("course_partners")
+                                    .child(courseID)
+                                    .child(me.getUid())
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(!task.isSuccessful()) {
 //                                                    Log.d("removeP", "Database Error!");
-                                                } else {
+                                            } else {
 //                                                    Log.d("removeP", "Success adding possible partner");
-                                                }
                                             }
-                                        });
+                                        }
+                                    });
 
                         }
 
@@ -119,7 +119,7 @@ public class PartnerView extends AppCompatActivity {
             }
         });
 
-                //End of get data from DB
+        //End of get data from DB
 
     }
 

@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
+
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey_10"
+        android:background="@color/grey_3"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
@@ -26,24 +27,23 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorFacebook"
                 app:contentInsetStartWithNavigation="0dp"
                 app:layout_scrollFlags="scroll|enterAlways"
-                android:background="@color/colorFacebook"
                 app:popupTheme="@style/PopupOverlay"
-                app:titleTextAppearance="@style/ToolbarTitle"
-                ></android.support.v7.widget.Toolbar>
+                app:titleTextAppearance="@style/ToolbarTitle"></android.support.v7.widget.Toolbar>
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorFacebook"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@android:color/white"
                 app:tabIndicatorHeight="3dp"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@android:color/white"
                 app:tabTextAppearance="@style/NavigationTabTextAppeareance"
-                android:background="@color/colorFacebook"
                 app:tabTextColor="@color/grey_20" />
 
         </android.support.design.widget.AppBarLayout>

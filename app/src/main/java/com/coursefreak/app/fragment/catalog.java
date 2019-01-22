@@ -119,7 +119,7 @@ public class catalog extends Fragment {
                     c.parseCatsReqs();
                     res.add(c);
                 }
-
+                res.remove(null);
                 CourseLineAdapter cla = new CourseLineAdapter(getContext(), res,
                         catalog.this,
                         catalog.this.recommendedFragment,

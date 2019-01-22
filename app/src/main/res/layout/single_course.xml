@@ -63,7 +63,7 @@
                         android:fontFamily="@font/arima_madurai_bold"
                         android:text="Category Name"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/grey_40"
+                        android:textColor="@color/grey_60"
                         tools:text="Course Name" />
 
                     <TextView
@@ -73,10 +73,11 @@
                         android:layout_marginTop="@dimen/spacing_small"
                         android:layout_marginEnd="@dimen/spacing_middle"
                         android:layout_marginRight="@dimen/spacing_middle"
+                        android:fontFamily="@font/arima_madurai_bold"
                         android:maxLines="2"
                         android:text="111111"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/grey_40" />
+                        android:textColor="@color/grey_60" />
 
                 </LinearLayout>
 
