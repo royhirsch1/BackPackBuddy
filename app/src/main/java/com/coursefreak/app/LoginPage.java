@@ -37,11 +37,9 @@ public class LoginPage extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "notifs";
+            CharSequence name = "com.google.firebase.messaging.default_notification_channel_id";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("notifications", name, importance);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
+            NotificationChannel channel = new NotificationChannel("default_channel_id", name, importance);
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }

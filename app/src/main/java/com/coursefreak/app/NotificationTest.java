@@ -49,7 +49,6 @@ public class NotificationTest extends AppCompatActivity {
         });
 
         messageManager = FirebaseMessaging.getInstance();
-        FirebaseInstanceId.getInstance().getInstanceId();
         messageManager.subscribeToTopic("NEW_TOPIC").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -58,7 +57,6 @@ public class NotificationTest extends AppCompatActivity {
                     msg = "sub failed";
                 }
                 Log.d("notif", msg);
-                Toast.makeText(NotificationTest.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
 
