@@ -9,19 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name="com.coursefreak.app.LoginPage" />
+        <activity android:name="com.coursefreak.app.SignupPage" />
         <activity
-            android:name=".NotificationTest"
-            android:label="@string/title_activity_notification_test"
-            android:exported="true"
-            ></activity>
-        <activity android:name=".LoginPage" />
-        <activity android:name=".SignupPage" />
-        <activity
-            android:name=".Courses"
+            android:name="com.coursefreak.app.Courses"
             android:label="@string/title_activity_courses"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".CourseView"
+            android:name="com.coursefreak.app.CourseView"
             android:exported="true"
             android:label="@string/title_activity_courseview"
             android:screenOrientation="portrait"
@@ -32,22 +27,22 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".PartnerView"
+            android:name="com.coursefreak.app.PartnerView"
             android:exported="true"
             android:label="@string/title_activity_partner_view"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".UGView"
+            android:name="com.coursefreak.app.UGView"
             android:label="@string/title_activity_ugview" />
         <activity
-            android:name=".TabsCoursesActivity"
+            android:name="com.coursefreak.app.TabsCoursesActivity"
             android:exported="true" />
         <activity
-            android:name=".WalkthroughActivity"
+            android:name="com.coursefreak.app.WalkthroughActivity"
             android:exported="true" />
         <activity
-            android:name=".IntroActivity"
+            android:name="com.coursefreak.app.IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,29 +51,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name="com.coursefreak.app.AboutActivity"
             android:exported="true" />
-        <activity
-            android:name=".CourseDataActivity"
-            android:exported="true" />
-
-        <service android:name=".notifications">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="default_channel_id" />
-
-
+        <activity android:name="com.coursefreak.app.CourseDataActivity"
+            android:exported="true"
+            ></activity>
     </application>
-
-
 
 </manifest>

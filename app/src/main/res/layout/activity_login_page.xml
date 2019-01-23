@@ -122,7 +122,8 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_60"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <View
                 android:layout_width="0dp"
@@ -186,9 +187,25 @@
                     android:layout_weight="1"
                     android:background="@color/grey_60" />
 
+
             </LinearLayout>
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom|center"
+            android:layout_marginTop="218dp"
+            android:layout_marginBottom="273dp"
+            android:background="@drawable/loading"
+            android:outlineAmbientShadowColor="@color/colorFacebook"
+            android:outlineSpotShadowColor="@color/colorFacebook" />
 
     </RelativeLayout>
 
