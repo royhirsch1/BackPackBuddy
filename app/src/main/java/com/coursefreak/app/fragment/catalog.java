@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.coursefreak.app.Course;
@@ -34,6 +35,7 @@ public class catalog extends Fragment {
     private interested  bookmarkFragment;
 
     private ListView courses_list;
+
     public catalog() {
     }
 
@@ -110,6 +112,7 @@ public class catalog extends Fragment {
         }
         final ListView lv = rootView.findViewById(R.id.catalogCoursesListView);
         this.courses_list = lv;
+
         myRef.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (@NonNull DataSnapshot dataSnapshot){
