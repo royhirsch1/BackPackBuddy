@@ -11,16 +11,6 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name="com.coursefreak.app.LoginPage" />
         <activity android:name="com.coursefreak.app.SignupPage" />
-        <activity
-            android:name="com.coursefreak.app.Courses"
-            android:label="@string/title_activity_courses"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="com.coursefreak.app.CourseView"
-            android:exported="true"
-            android:label="@string/title_activity_courseview"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"
