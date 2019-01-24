@@ -9,10 +9,6 @@ The app was built with [Android Studio](https://developer.android.com/studio/) (
 
 <a style="margin-bottom: 0;" href='https://play.google.com/store/apps/details?id=com.coursefreak.app'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width="200px"/></a>
 
-```
-console.log("You can try yourself by editing this text");
-```
-
 Team Members
 =======
 [Amit Sdeor](https://github.com/amso100)
