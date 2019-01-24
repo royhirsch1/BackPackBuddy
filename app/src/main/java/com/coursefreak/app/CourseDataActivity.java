@@ -72,6 +72,7 @@ public class CourseDataActivity extends AppCompatActivity {
     private TextView textViewPopularity;
     private Course course;
     private String courseID;
+    private int totalRankers;
 
     private FirebaseDatabase mDatabase;
 
@@ -93,7 +94,6 @@ public class CourseDataActivity extends AppCompatActivity {
     }
 
     private void initCourseData() {
-        course = new Course("234218", "Example Course", 2.8, 6, 8, 76.8, "no", "hw;pairs");
 
         Intent intent = getIntent();
         if (intent != null && intent.getSerializableExtra("course") != null) {
@@ -144,7 +144,6 @@ public class CourseDataActivity extends AppCompatActivity {
 
     private void runProgressBars() {
 
-        final int popularity_rate = course.getNumCompleted() > 0 ? (course.getNumLikes()) * 100 / (course.getNumCompleted()) : 0;
         final int course_avg = course.getAverage().intValue();
 
         // -- Progress Bar Average -- //
@@ -183,48 +182,69 @@ public class CourseDataActivity extends AppCompatActivity {
         }).start();
         // -- End Of Progress Bar Average -- //
 
-        // -- Progress Bar Popularity -- //
+        totalRankers = 0;
 
-        final ProgressBar progressbar_pop = (ProgressBar) findViewById(R.id.progressBar_pop);
-        textViewPopularity = findViewById(R.id.textView_popularity_number);
-
-        //set bar style features
-        int barColor_pop = getResources().getColor(R.color.colorFacebook);
-        Drawable progressDrawable_pop = progressbar_pop.getProgressDrawable().mutate();
-        progressDrawable_pop.setColorFilter(barColor_pop, android.graphics.PorterDuff.Mode.SRC_IN);
-        progressbar_pop.setProgressDrawable(progressDrawable_pop);
-
-        new Thread(new Runnable() {
+        mDatabase.getReference().child("user_course_ratings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void run() {
-                while (mProgressStatus_pop < popularity_rate) {
-                    mProgressStatus_pop++;
-                    android.os.SystemClock.sleep(25);
-                    mBarHandler_pop.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressbar_pop.setProgress(mProgressStatus_pop);
-                        }
-                    });
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snap: dataSnapshot.getChildren()) {
+                    totalRankers ++;
                 }
-                mBarHandler_pop.post(new Runnable() {
+                Log.d("count_children",Integer.toString(totalRankers));
+                final int popularity_rate = totalRankers > 0 ? (course.getNumLikes()) * 100 / (totalRankers) : 0;
+                // -- Progress Bar Popularity -- //
+
+                final ProgressBar progressbar_pop = (ProgressBar) findViewById(R.id.progressBar_pop);
+                textViewPopularity = findViewById(R.id.textView_popularity_number);
+
+                //set bar style features
+                int barColor_pop = getResources().getColor(R.color.colorFacebook);
+                Drawable progressDrawable_pop = progressbar_pop.getProgressDrawable().mutate();
+                progressDrawable_pop.setColorFilter(barColor_pop, android.graphics.PorterDuff.Mode.SRC_IN);
+                progressbar_pop.setProgressDrawable(progressDrawable_pop);
+
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if (popularity_rate > 0) {
-                            textViewPopularity.setText(Integer.toString(((int) popularity_rate)) + "%");
-                        } else {
-                            textViewPopularity.setText("No Data");
+                        while (mProgressStatus_pop < popularity_rate) {
+                            mProgressStatus_pop++;
+                            android.os.SystemClock.sleep(25);
+                            mBarHandler_pop.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressbar_pop.setProgress(mProgressStatus_pop);
+                                }
+                            });
                         }
+                        mBarHandler_pop.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (popularity_rate > 0) {
+                                    textViewPopularity.setText(Integer.toString(((int) popularity_rate)) + "%");
+                                } else {
+                                    textViewPopularity.setText("No Data");
+                                }
 
-                        textViewPopularity.setVisibility(View.VISIBLE);
+                                textViewPopularity.setVisibility(View.VISIBLE);
+                            }
+                        });
+
                     }
-                });
+                }).start();
+
+
+                // -- End Of Progress Bar Popularity -- //
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
-        }).start();
+        });
 
 
-        // -- End Of Progress Bar Popularity -- //
+
+
     }
 
     private void initToolbar() {
