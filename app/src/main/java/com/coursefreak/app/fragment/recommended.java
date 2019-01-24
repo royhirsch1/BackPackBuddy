@@ -54,7 +54,8 @@ public class recommended extends Fragment {
 
     private Context ctx;
 
-    public recommended() { }
+    public recommended() {
+    }
 
     public void setCatalogFragment(catalog catalogFragment) {
         this.catalogFragment = catalogFragment;
@@ -65,16 +66,16 @@ public class recommended extends Fragment {
     }
 
     public void updateBookmarkedCourse(String courseID) {
-        if(this.recomList == null)
+        if (this.recomList == null)
             return;
 //        Log.d("bkmrk", "lilili");
-        for(int i = 0; i < this.recomList.getAdapter().getCount(); i++) {
+        for (int i = 0; i < this.recomList.getAdapter().getCount(); i++) {
             View v = this.recomList.getChildAt(i);
-            if(v == null)
+            if (v == null)
                 continue;
-            String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
+            String text = ((TextView) v.findViewById(R.id.textViewCourseID)).getText().toString();
 //            Log.d("bkmrk", text);
-            if(text.contains(courseID)) {
+            if (text.contains(courseID)) {
                 ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
                 bookmarkView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_bookmark));
                 bookmarkView.setTag(R.drawable.bookmark_ribbon);
@@ -85,15 +86,15 @@ public class recommended extends Fragment {
 
     public void removeBookmarkedCourse(String courseID) {
 //        Log.d("bkmrk", "lalala");
-        if(this.recomList == null)
+        if (this.recomList == null)
             return;
-        for(int i = 0; i < this.recomList.getAdapter().getCount(); i++) {
+        for (int i = 0; i < this.recomList.getAdapter().getCount(); i++) {
             View v = this.recomList.getChildAt(i);
-            if(v == null)
+            if (v == null)
                 continue;
-            String text = ((TextView)v.findViewById(R.id.textViewCourseID)).getText().toString();
+            String text = ((TextView) v.findViewById(R.id.textViewCourseID)).getText().toString();
 //            Log.d("bkmrk", text);
-            if(text.contains(courseID)) {
+            if (text.contains(courseID)) {
 //                Log.d("bkmrk", "lalala");
                 ImageView bookmarkView = v.findViewById(R.id.bookmarkBtn);
                 bookmarkView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_bookmark_border));
@@ -117,7 +118,7 @@ public class recommended extends Fragment {
             /* map is already there, just return view as it is */
         }
         final Set<String> nontrivialPredictions = new TreeSet<>();
-        if(rootView.getParent()!=null){
+        if (rootView.getParent() != null) {
             ViewGroup parent = (ViewGroup) rootView.getParent();
             parent.removeAllViews();
         }
@@ -193,7 +194,7 @@ public class recommended extends Fragment {
                 }
 
                 // Actually running the algorithm
-                int r = Math.min(ratingsMatrix.length,ratingsMatrix[0].length);
+                int r = Math.min(ratingsMatrix.length, ratingsMatrix[0].length);
                 double[][] U = new double[ratingsMatrix.length][r];
                 double[][] V = new double[ratingsMatrix[0].length][r];
 
@@ -234,13 +235,13 @@ public class recommended extends Fragment {
                 }
                 myRef.child("courses").addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange (@NonNull DataSnapshot dataSnapshot){
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         res.clear();
                         for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
 //                            Log.d("Courses", courseSnap.getKey());
                             Course c = courseSnap.getValue(Course.class);
                             c.parseCatsReqs();
-                            for(String s : nontrivialPredictions) {
+                            for (String s : nontrivialPredictions) {
                                 if (c.getCourseID().equals(s)) {
                                     res.add(c);
                                 }
@@ -255,12 +256,13 @@ public class recommended extends Fragment {
                             cla.notifyDataSetChanged();
                         }
                         LinearLayout ly = rootView.findViewById(R.id.no_rec);
-                        if(!res.isEmpty()){
+                        if (!res.isEmpty()) {
                             ly.setVisibility(GONE);
-                        }else{
+                        } else {
                             ly.setVisibility(VISIBLE);
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         res.clear();

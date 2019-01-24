@@ -449,11 +449,13 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:orientation="vertical">
+                                android:layout_gravity="center_horizontal"
+                                android:orientation="horizontal">
 
                                 <LinearLayout
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:orientation="vertical"
                                     android:padding="@dimen/spacing_large">
 
@@ -461,6 +463,7 @@
                                         android:id="@+id/icon_exam"
                                         android:layout_width="24dp"
                                         android:layout_height="36dp"
+                                        android:layout_gravity="center_horizontal"
                                         android:src="@drawable/icon_x"
                                         android:tint="@color/colorFacebook"
                                         app:layout_constraintStart_toStartOf="parent" />
@@ -468,14 +471,16 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
                                         android:fontFamily="@font/arima_madurai_bold"
                                         android:text="Exam"
                                         android:textColor="@color/grey_60" />
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:orientation="vertical"
                                     android:padding="@dimen/spacing_large">
 
@@ -483,6 +488,7 @@
                                         android:id="@+id/icon_homework"
                                         android:layout_width="24dp"
                                         android:layout_height="36dp"
+                                        android:layout_gravity="center_horizontal"
                                         android:src="@drawable/icon_x"
                                         android:tint="@color/colorFacebook"
                                         app:layout_constraintStart_toStartOf="parent" />
@@ -490,14 +496,16 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
                                         android:fontFamily="@font/arima_madurai_bold"
                                         android:text="Homework"
                                         android:textColor="@color/grey_60" />
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:orientation="vertical"
                                     android:padding="@dimen/spacing_large">
 
@@ -505,6 +513,7 @@
                                         android:id="@+id/icon_pairwork"
                                         android:layout_width="24dp"
                                         android:layout_height="36dp"
+                                        android:layout_gravity="center_horizontal"
                                         android:src="@drawable/icon_x"
                                         android:tint="@color/colorFacebook"
                                         app:layout_constraintStart_toStartOf="parent" />
@@ -512,6 +521,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
                                         android:fontFamily="@font/arima_madurai_bold"
                                         android:text="Pair Work"
                                         android:textColor="@color/grey_60" />
@@ -647,7 +657,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/arima_madurai_bold"
                                     android:gravity="center"
-                                    android:text="WRITE REVIEW"
+                                    android:text="write a review"
                                     android:textColor="@color/colorFacebook" />
 
                             </LinearLayout>

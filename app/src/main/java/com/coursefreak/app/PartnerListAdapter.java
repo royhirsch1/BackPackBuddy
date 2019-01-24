@@ -1,6 +1,7 @@
 package com.coursefreak.app;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ public class PartnerListAdapter extends ArrayAdapter<CoursePartner> {
 
         //TODO reverse order and show name once we add this field
         email.setText(partner.getEmail());
+        Typeface face=Typeface.createFromAsset(getContext().getAssets(), "fonts/ArimaMadurai-Bold.ttf");
+        email.setTypeface(face);
         //email.setText(partner.getEmail());
 
         de.hdodenhof.circleimageview.CircleImageView partnerImg = convertView.findViewById(R.id.partner_img);
@@ -40,7 +43,10 @@ public class PartnerListAdapter extends ArrayAdapter<CoursePartner> {
 
         int idx = rand.nextInt(3);
         int[] img_res = {
-                R.drawable.icon_fox, R.drawable.icon_panda, R.drawable.icon_monkey
+                R.drawable.avataaars0, R.drawable.avataaars1, R.drawable.avataaars2,
+                R.drawable.avataaars3, R.drawable.avataaars4, R.drawable.avataaars5,
+                R.drawable.avataaars6, R.drawable.avataaars7, R.drawable.avataaars8,
+                R.drawable.avataaars9
         };
         partnerImg.setImageResource(img_res[idx]);
 

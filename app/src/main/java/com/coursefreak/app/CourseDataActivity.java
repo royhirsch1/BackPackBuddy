@@ -29,6 +29,7 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.coursefreak.app.utils.Tools;
 import com.coursefreak.app.utils.ViewAnimation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -91,14 +92,14 @@ public class CourseDataActivity extends AppCompatActivity {
         initReviews();
     }
 
-    private void initCourseData(){
-        course = new Course("234218","Example Course",2.8,6,8,76.8,"no","hw;pairs");
+    private void initCourseData() {
+        course = new Course("234218", "Example Course", 2.8, 6, 8, 76.8, "no", "hw;pairs");
 
         Intent intent = getIntent();
-        if(intent != null && intent.getSerializableExtra("course") != null){
-            course = (Course)intent.getSerializableExtra("course");
+        if (intent != null && intent.getSerializableExtra("course") != null) {
+            course = (Course) intent.getSerializableExtra("course");
         }
-        courseID=course.getCourseID();
+        courseID = course.getCourseID();
 
 
         //Update Title & Number & AUs
@@ -107,7 +108,7 @@ public class CourseDataActivity extends AppCompatActivity {
         final TextView textViewID = findViewById(R.id.textView_courseID);
         textViewID.setText(course.getCourseID());
         final TextView textViewCredit = findViewById(R.id.textView_creditAU);
-        textViewCredit.setText(course.getPoints().toString()+" AU");
+        textViewCredit.setText(course.getPoints().toString() + " AU");
 
         //Update Average & Popularity
         runProgressBars();
@@ -119,20 +120,20 @@ public class CourseDataActivity extends AppCompatActivity {
         ImageView pairwork_img = findViewById(R.id.icon_pairwork);
 
         List<String> req_list = course.getParsedRequirements();
-        if(!req_list.isEmpty()){
-            if(req_list.contains("hw")){
+        if (!req_list.isEmpty()) {
+            if (req_list.contains("hw")) {
                 homework_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_v));
-            }else{
+            } else {
                 homework_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_x));
             }
-            if(req_list.contains("exam")){
+            if (req_list.contains("exam")) {
                 exam_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_v));
-            }else{
+            } else {
                 exam_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_x));
             }
-            if(req_list.contains("pairs")){
+            if (req_list.contains("pairs")) {
                 pairwork_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_v));
-            }else{
+            } else {
                 pairwork_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_x));
             }
         }
@@ -141,9 +142,9 @@ public class CourseDataActivity extends AppCompatActivity {
         //End Of Requirements//
     }
 
-    private void runProgressBars(){
+    private void runProgressBars() {
 
-        final int popularity_rate = course.getNumCompleted() > 0 ? (course.getNumLikes())*100/(course.getNumCompleted()) : 0;
+        final int popularity_rate = course.getNumCompleted() > 0 ? (course.getNumLikes()) * 100 / (course.getNumCompleted()) : 0;
         final int course_avg = course.getAverage().intValue();
 
         // -- Progress Bar Average -- //
@@ -160,7 +161,7 @@ public class CourseDataActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (mProgressStatus_avg < course_avg){
+                while (mProgressStatus_avg < course_avg) {
                     mProgressStatus_avg++;
                     android.os.SystemClock.sleep(25);
                     mBarHandler_avg.post(new Runnable() {
@@ -196,7 +197,7 @@ public class CourseDataActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (mProgressStatus_pop < popularity_rate){
+                while (mProgressStatus_pop < popularity_rate) {
                     mProgressStatus_pop++;
                     android.os.SystemClock.sleep(25);
                     mBarHandler_pop.post(new Runnable() {
@@ -209,9 +210,9 @@ public class CourseDataActivity extends AppCompatActivity {
                 mBarHandler_pop.post(new Runnable() {
                     @Override
                     public void run() {
-                        if(popularity_rate>0){
-                            textViewPopularity.setText(Integer.toString(((int)popularity_rate))+"%");
-                        }else{
+                        if (popularity_rate > 0) {
+                            textViewPopularity.setText(Integer.toString(((int) popularity_rate)) + "%");
+                        } else {
                             textViewPopularity.setText("No Data");
                         }
 
@@ -229,7 +230,7 @@ public class CourseDataActivity extends AppCompatActivity {
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Course Info: "+course.getCourseID());
+        getSupportActionBar().setTitle("Course Info");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -287,7 +288,7 @@ public class CourseDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent nextActivity = new Intent(getApplicationContext(), ReviewsActivity.class);
-                nextActivity.putExtra("course_id",course.getCourseID());
+                nextActivity.putExtra("course_id", course.getCourseID());
                 startActivity(nextActivity);
             }
         });
@@ -350,7 +351,7 @@ public class CourseDataActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initButtonListeners(){
+    private void initButtonListeners() {
 
         FloatingActionButton fabPartners = findViewById(R.id.fab_partners);
         fabPartners.setOnClickListener(new View.OnClickListener() {
@@ -365,7 +366,7 @@ public class CourseDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent nextActivity = new Intent(getApplicationContext(), UGView.class);
-                nextActivity.putExtra("course_id",course.getCourseID());
+                nextActivity.putExtra("course_id", course.getCourseID());
                 startActivity(nextActivity);
             }
         });
@@ -389,9 +390,7 @@ public class CourseDataActivity extends AppCompatActivity {
         });
 
 
-
     }
-
 
 
     private void showPartnersDialog() {
@@ -424,9 +423,9 @@ public class CourseDataActivity extends AppCompatActivity {
         mDB.child("course_partners").child(courseID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot partnerSnapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot partnerSnapshot : dataSnapshot.getChildren()) {
                     CoursePartner cp = partnerSnapshot.getValue(CoursePartner.class);
-                    if(cp.getUid().equals(myUid)){
+                    if (cp.getUid().equals(myUid)) {
                         switch_partner.setChecked(true);
                     }
 //                    Log.d("partner", "adding ".concat(cp.getName()));
@@ -440,16 +439,16 @@ public class CourseDataActivity extends AppCompatActivity {
                 switch_partner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        CoursePartner me = new CoursePartner(myUid,"unknown",myEmail);
+                        CoursePartner me = new CoursePartner(myUid, "unknown", myEmail);
                         Toast.makeText(getApplicationContext(), "Updating..", Toast.LENGTH_SHORT).show();
-                        if(isChecked){
+                        if (isChecked) {
                             //http request to cloud function
                             mFunctions = FirebaseFunctions.getInstance();
 
                             JSONObject data = new JSONObject();
-                            try{
+                            try {
                                 data.put("data", courseID);
-                            } catch(JSONException e){
+                            } catch (JSONException e) {
                             }
                             mFunctions.getHttpsCallable("handleRequest")
                                     .call(data);
@@ -474,14 +473,14 @@ public class CourseDataActivity extends AppCompatActivity {
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            if(!task.isSuccessful()) {
+                                            if (!task.isSuccessful()) {
 //                                                Log.d("addP", "Database Error!");
                                             } else {
 //                                                Log.d("addP", "Success adding possible partner");
                                             }
                                         }
                                     });
-                        }else{
+                        } else {
                             //unsubscribe from topic
                             messageManager = FirebaseMessaging.getInstance();
                             messageManager.unsubscribeFromTopic(courseID).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -503,7 +502,7 @@ public class CourseDataActivity extends AppCompatActivity {
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            if(!task.isSuccessful()) {
+                                            if (!task.isSuccessful()) {
 //                                                    Log.d("removeP", "Database Error!");
                                             } else {
 //                                                    Log.d("removeP", "Success adding possible partner");
@@ -528,7 +527,8 @@ public class CourseDataActivity extends AppCompatActivity {
 
 
     }
-    private void initReviews(){
+
+    private void initReviews() {
 
         //Get reviews from DB
 
@@ -541,7 +541,7 @@ public class CourseDataActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot courseReview : dataSnapshot.getChildren()) {
+                        for (DataSnapshot courseReview : dataSnapshot.getChildren()) {
                             Review rev = courseReview.getValue(Review.class);
                             reviewList.add(rev);
                         }
@@ -600,7 +600,8 @@ public class CourseDataActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please fill review text", Toast.LENGTH_SHORT).show();
                 } else {
                     String my_uid = FirebaseAuth.getInstance().getUid();
-                    FirebaseUtils.addNewCourseReview(course.getCourseID(),my_uid,review,mDatabase.getReference());
+                    String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                    FirebaseUtils.addNewCourseReview(courseID,my_email,review,mDatabase.getReference());
                 }
 //                if (!adapter.isEmpty()) {
 //                }
