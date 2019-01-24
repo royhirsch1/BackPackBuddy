@@ -188,12 +188,9 @@ public class CourseDataActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 totalRankers = dataSnapshot.getChildrenCount();
-                for (DataSnapshot snap: dataSnapshot.getChildren()) {
-                    totalRankers ++;
-                }
-                Log.d("count_children",Long.toString(totalRankers));
+                //Log.d("count_children",Long.toString(totalRankers));
                 final double popularity_rate = (totalRankers > 0 && course.getNumLikes() > 0) ? (course.getNumLikes()) * 100 / (totalRankers) : 0;
-                Log.d("count_children", "Popularity is " + Double.toString(popularity_rate));
+                //Log.d("count_children", "Popularity is " + Double.toString(popularity_rate));
                 // -- Progress Bar Popularity -- //
 
                 final ProgressBar progressbar_pop = (ProgressBar) findViewById(R.id.progressBar_pop);
