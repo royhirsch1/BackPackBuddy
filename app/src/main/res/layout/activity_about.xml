@@ -200,7 +200,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/arima_madurai_bold"
-                                android:text="Open-Source, Credited"
+                                android:text="Apache License, Version 2.0"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/grey_40" />
 
@@ -275,7 +275,79 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/arima_madurai_bold"
-                            android:text="Open GitHub Repository"
+                            android:text="Amit Sde-Or"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_80" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/spacing_xxlarge"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/spacing_medium"
+                        android:paddingRight="@dimen/spacing_medium">
+
+                        <View
+                            android:layout_width="@dimen/spacing_mlarge"
+                            android:layout_height="wrap_content" />
+
+                        <ImageButton
+                            android:layout_width="@dimen/spacing_xmlarge"
+                            android:layout_height="@dimen/spacing_xmlarge"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_github"
+                            android:tint="@color/grey_40" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_mlarge"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="Roy Hirsch"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_80" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/spacing_xxlarge"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/spacing_medium"
+                        android:paddingRight="@dimen/spacing_medium">
+
+                        <View
+                            android:layout_width="@dimen/spacing_mlarge"
+                            android:layout_height="wrap_content" />
+
+                        <ImageButton
+                            android:layout_width="@dimen/spacing_xmlarge"
+                            android:layout_height="@dimen/spacing_xmlarge"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_github"
+                            android:tint="@color/grey_40" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_mlarge"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="Dennis Nastic"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/grey_80" />
 
@@ -399,6 +471,35 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/arima_madurai_bold"
                             android:text="MaterialX"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_40" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/spacing_xxlarge"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/spacing_medium"
+                        android:paddingRight="@dimen/spacing_medium">
+
+                        <View
+                            android:layout_width="@dimen/spacing_mlarge"
+                            android:layout_height="wrap_content" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_mlarge"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="getavataaars.com"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/grey_40" />
 

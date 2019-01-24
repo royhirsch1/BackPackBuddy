@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:minHeight="?attr/actionBarSize"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <View
             android:layout_width="@dimen/spacing_mlarge"
@@ -20,20 +22,12 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_img"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="6dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="6dip"
-            android:src="@drawable/icon_fox"
-            app:civ_border_color="@color/colorPrimaryDark"
-            app:civ_border_width="1dp" />
-
+            app:civ_border_color="@color/grey_40"
+            app:civ_border_width="2dp"
+            app:srcCompat="@drawable/avataaars0" />
         <View
             android:layout_width="@dimen/spacing_mlarge"
             android:layout_height="0dp" />
@@ -62,6 +56,20 @@
                     android:paddingBottom="@dimen/spacing_middle">
 
                     <TextView
+                        android:id="@+id/user_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginEnd="@dimen/spacing_middle"
+                        android:layout_marginRight="@dimen/spacing_middle"
+                        android:fontFamily="@font/arima_madurai_bold"
+                        android:text="Category Name"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/grey_60"
+                        android:textSize="12sp"
+                        tools:text="Email" />
+
+                    <TextView
                         android:id="@+id/review_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -73,20 +81,6 @@
                         android:textColor="@color/grey_60"
                         tools:text="Text" />
 
-                    <TextView
-                        android:id="@+id/user_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginEnd="@dimen/spacing_middle"
-                        android:layout_marginRight="@dimen/spacing_middle"
-                        android:fontFamily="@font/arima_madurai_bold"
-                        android:text="Category Name"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/grey_60"
-                        android:textSize="12sp"
-                        android:visibility="gone"
-                        tools:text="Email" />
 
                 </LinearLayout>
 

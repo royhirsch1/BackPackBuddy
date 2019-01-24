@@ -56,6 +56,9 @@
         <activity android:name="com.coursefreak.app.CourseDataActivity"
             android:exported="true"
             ></activity>
+        <activity android:name="com.coursefreak.app.ReviewsActivity"
+            android:exported="true"
+            ></activity>
     </application>
 
 </manifest>

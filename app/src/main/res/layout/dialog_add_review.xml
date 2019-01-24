@@ -66,8 +66,8 @@
             android:background="@color/grey_3"
             android:fontFamily="@font/arima_madurai_bold"
             android:gravity="top"
-            android:hint="Write review ..."
-            android:lines="4"
+            android:hint="Write a review ..."
+            android:lines="7"
             android:padding="@dimen/spacing_middle"
             android:textColor="@color/grey_60"
             android:textColorHint="@color/grey_60" />

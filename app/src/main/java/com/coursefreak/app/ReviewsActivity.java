@@ -147,7 +147,8 @@ public class ReviewsActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please fill review text", Toast.LENGTH_SHORT).show();
                 } else {
                     String my_uid = FirebaseAuth.getInstance().getUid();
-                    FirebaseUtils.addNewCourseReview(courseID,my_uid,review,mDatabase.getReference());
+                    String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                    FirebaseUtils.addNewCourseReview(courseID,my_email,review,mDatabase.getReference());
                 }
 //                if (!adapter.isEmpty()) {
 //                }

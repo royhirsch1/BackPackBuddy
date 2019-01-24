@@ -107,9 +107,9 @@ public class LoginPage extends AppCompatActivity {
                             try{
                                 throw task.getException();
                             }catch (FirebaseAuthInvalidUserException e){
-                                Toast.makeText(getApplicationContext(), "E-mail Invalid ", Toast.LENGTH_LONG ).show();
+                                Toast.makeText(getApplicationContext(), "No Such Account ", Toast.LENGTH_LONG ).show();
                             } catch (FirebaseAuthInvalidCredentialsException e){
-                                Toast.makeText(getApplicationContext(),"Password Invalid ", Toast.LENGTH_LONG ).show();
+                                Toast.makeText(getApplicationContext(),"Wrong Password ", Toast.LENGTH_LONG ).show();
                             } catch (FirebaseNetworkException e){
                                 Toast.makeText(getApplicationContext(),"No Network Connection", Toast.LENGTH_LONG ).show();
                             } catch (Exception e){

@@ -1,6 +1,7 @@
 package com.coursefreak.app;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,17 +33,22 @@ public class CourseViewReviewAdapter extends ArrayAdapter<Review> {
         // Populate the data into the template view using the data object
         //TODO slice text - whole words only
         String edited_str = review.getReviewText().length()>30? review.getReviewText().substring(0,29)+"..." : review.getReviewText();
-        reviewContent.setTextColor(convertView.getResources().getColor(R.color.colorError));
+        Typeface face=Typeface.createFromAsset(getContext().getAssets(), "fonts/ArimaMadurai-Bold.ttf");
+        reviewContent.setTypeface(face);
         reviewContent.setText(edited_str);
         // TODO change to email
-        //reviewerEmail.setText(review.getUserID());
+        reviewerEmail.setText(review.getUserID());
+        reviewerEmail.setTypeface(face);
 
         //Random index TODO replace with real image data
         Random rand = new Random();
 
-        int idx = rand.nextInt(3);
+        int idx = rand.nextInt(10);
         int[] img_res = {
-                R.drawable.icon_fox, R.drawable.icon_panda, R.drawable.icon_monkey
+                R.drawable.avataaars0, R.drawable.avataaars1, R.drawable.avataaars2,
+                R.drawable.avataaars3, R.drawable.avataaars4, R.drawable.avataaars5,
+                R.drawable.avataaars6, R.drawable.avataaars7, R.drawable.avataaars8,
+                R.drawable.avataaars9
         };
         userImg.setImageResource(img_res[idx]);
         // Return the completed view to render on screen
