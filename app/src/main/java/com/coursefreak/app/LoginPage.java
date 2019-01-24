@@ -1,6 +1,9 @@
 package com.coursefreak.app;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +38,15 @@ public class LoginPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "com.google.firebase.messaging.default_notification_channel_id";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("default_channel_id", name, importance);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
         setContentView(R.layout.activity_login_page);
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
         spinner.setVisibility(GONE);
@@ -148,6 +160,10 @@ public class LoginPage extends AppCompatActivity {
         //TestDatabaseUtils20();
         //ActivatePredictionsTest();
     }
+
+
+
+
 
     public void gotoWelcome() {
         Intent intent = new Intent(this, WalkthroughActivity.class);

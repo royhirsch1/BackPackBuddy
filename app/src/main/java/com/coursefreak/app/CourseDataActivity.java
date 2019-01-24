@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -38,12 +39,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CourseDataActivity extends AppCompatActivity {
+    private FirebaseMessaging messageManager;
+    private FirebaseFunctions mFunctions;
+
 
     private View parent_view;
 
@@ -432,6 +443,30 @@ public class CourseDataActivity extends AppCompatActivity {
                         CoursePartner me = new CoursePartner(myUid,"unknown",myEmail);
                         Toast.makeText(getApplicationContext(), "Updating..", Toast.LENGTH_SHORT).show();
                         if(isChecked){
+                            //http request to cloud function
+                            mFunctions = FirebaseFunctions.getInstance();
+
+                            JSONObject data = new JSONObject();
+                            try{
+                                data.put("data", courseID);
+                            } catch(JSONException e){
+                            }
+                            mFunctions.getHttpsCallable("handleRequest")
+                                    .call(data);
+
+                            //subscribe to topic
+                            messageManager = FirebaseMessaging.getInstance();
+                            messageManager.subscribeToTopic(courseID).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    String msg = "subscribing";
+                                    if (!task.isSuccessful()) {
+                                        msg = "sub failed";
+                                    }
+                                    Log.d("notif", msg);
+                                }
+                            });
+
                             mDB.child("course_partners")
                                     .child(courseID)
                                     .child(myUid)
@@ -447,6 +482,20 @@ public class CourseDataActivity extends AppCompatActivity {
                                         }
                                     });
                         }else{
+                            //unsubscribe from topic
+                            messageManager = FirebaseMessaging.getInstance();
+                            messageManager.unsubscribeFromTopic(courseID).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    String msg = "unsubscribing";
+                                    if (!task.isSuccessful()) {
+                                        msg = "unsub failed";
+                                    }
+                                    Log.d("notif", msg);
+                                }
+                            });
+
+
                             mDB.child("course_partners")
                                     .child(courseID)
                                     .child(myUid)
