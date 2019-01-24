@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class interested extends Fragment {
     private static View rootView;
@@ -94,7 +95,7 @@ public class interested extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView != null) {
             ViewGroup parent = (ViewGroup) rootView.getParent();
@@ -106,6 +107,8 @@ public class interested extends Fragment {
         } catch (InflateException e) {
             /* map is already there, just return view as it is */
         }
+        if(rootView == null)
+            return null;
         if(rootView.getParent()!=null){
             ViewGroup parent = (ViewGroup) rootView.getParent();
             parent.removeAllViews();
@@ -118,28 +121,33 @@ public class interested extends Fragment {
         if(currentUser != null){
             uid = currentUser.getUid();
         }else{
-            uid="0";
+            uid = "0";
         }
-//        Log.d("denis", "UID is ".concat(uid));
+
         myRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final User u = dataSnapshot.getValue(User.class);
+                if(u == null)
+                    return;
                 myRef.child("courses").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange (@NonNull DataSnapshot dataSnapshot){
                         res.clear();
                         for (DataSnapshot courseSnap : dataSnapshot.getChildren()) {
-//                            Log.d("Courses", courseSnap.getKey());
                             Course c = courseSnap.getValue(Course.class);
+                            if(c == null)
+                                continue;
                             c.parseCatsReqs();
                             if(u.getRelated_courses().containsKey(c.getCourseID()))
-                                if(u.getRelated_courses().get(c.getCourseID()).getInterested() == true)
+                                if(u.getRelated_courses().keySet().contains(c.getCourseID())
+                                        && u.getRelated_courses().get(c.getCourseID()) != null
+                                        && u.getRelated_courses().get(c.getCourseID()).getInterested())
                                     res.add(c);
                         }
                         interested.this.bookmarkedCourses.clear();
                         interested.this.bookmarkedCourses.addAll(res);
-                        res.remove(null);
+                        res.removeAll(Collections.singleton(null));
                         CourseLineAdapter cla = new CourseLineAdapter(getContext(), interested.this.bookmarkedCourses,
                                 interested.this.catalogFragment,
                                 interested.this.recommendedFragment,
@@ -149,7 +157,6 @@ public class interested extends Fragment {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         res.clear();
-//                        Log.d("Courses", "Database Error");
                     }
                 });
             }
