@@ -42,6 +42,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -443,8 +446,11 @@ public class CourseDataActivity extends AppCompatActivity {
                             //http request to cloud function
                             mFunctions = FirebaseFunctions.getInstance();
 
-                            Map<String,String> data = new HashMap<>();
-                            data.put("courseID",courseID);
+                            JSONObject data = new JSONObject();
+                            try{
+                                data.put("data", courseID);
+                            } catch(JSONException e){
+                            }
                             mFunctions.getHttpsCallable("handleRequest")
                                     .call(data);
 
@@ -476,6 +482,20 @@ public class CourseDataActivity extends AppCompatActivity {
                                         }
                                     });
                         }else{
+                            //unsubscribe from topic
+                            messageManager = FirebaseMessaging.getInstance();
+                            messageManager.unsubscribeFromTopic(courseID).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    String msg = "unsubscribing";
+                                    if (!task.isSuccessful()) {
+                                        msg = "unsub failed";
+                                    }
+                                    Log.d("notif", msg);
+                                }
+                            });
+
+
                             mDB.child("course_partners")
                                     .child(courseID)
                                     .child(myUid)
