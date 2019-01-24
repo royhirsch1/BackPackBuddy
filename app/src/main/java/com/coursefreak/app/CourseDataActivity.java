@@ -463,7 +463,7 @@ public class CourseDataActivity extends AppCompatActivity {
                                     if (!task.isSuccessful()) {
                                         msg = "sub failed";
                                     }
-                                    Log.d("notif", msg);
+                                   // Log.d("notif", msg);
                                 }
                             });
 
@@ -491,7 +491,7 @@ public class CourseDataActivity extends AppCompatActivity {
                                     if (!task.isSuccessful()) {
                                         msg = "unsub failed";
                                     }
-                                    Log.d("notif", msg);
+                                    //Log.d("notif", msg);
                                 }
                             });
 

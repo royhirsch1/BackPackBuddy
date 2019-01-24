@@ -50,7 +50,7 @@ public class Recommender {
             for (int j = 0; j < U[0].length; ++j)
             {
                 U[i][j] = rand.nextDouble() / (1.0 * r * 1.0);
-                Log.d("Completion", "U0, " +Double.toString(U[i][j]));
+//                Log.d("Completion", "U0, " +Double.toString(U[i][j]));
             }
         }
 
@@ -59,101 +59,12 @@ public class Recommender {
             for (int j = 0; j < V[0].length; ++j)
             {
                 V[i][j] = rand.nextDouble() / (1.0 * r * 1.0);
-                Log.d("Completion", "V0, "+Double.toString(V[i][j]));
+//                Log.d("Completion", "V0, "+Double.toString(V[i][j]));
             }
         }
 
-
-        // Gradient Descent
-//            for (int iter = 0; iter < maxIter; ++iter)
-//            {
-//                double[][] prodMatrix = new double[n1][n2];
-//                zeroMatrix(prodMatrix);
-//                for (int i = 0; i < n1; ++i)
-//                {
-//                    for (int j = 0; j < n2; ++j)
-//                    {
-//                        for (int k = 0; k < r; ++k)
-//                        {
-//                            prodMatrix[i][j] += U[i][k]*V[j][k];
-//                        }
-//                        Log.d("Completion", "Prod, " +Double.toString(prodMatrix[i][j]));
-//                    }
-//                }
-//
-//                double[][] errorMatrix = new double[n1][n2];
-//                for (int i = 0; i < n1; ++i)
-//                {
-//                    for (int j = 0; j < n2; ++j)
-//                    {
-//                        if (matrix[i][j] == -1f)
-//                        {
-//                            errorMatrix[i][j] = 0f;
-//                        }
-//                        else
-//                        {
-//                            errorMatrix[i][j] = matrix[i][j] - prodMatrix[i][j];
-//                        }
-//                        Log.d("Completion", "Err, "+Double.toString(errorMatrix[i][j]));
-//                    }
-//                }
-//
-//                double[][] UGrad = new double[n1][r];
-//                zeroMatrix(UGrad);
-//                for (int i = 0; i < n1; ++i)
-//                {
-//                    for (int j = 0; j < r; ++j)
-//                    {
-//                        for (int k = 0; k < n2; ++k)
-//                        {
-//                            UGrad[i][j] += errorMatrix[i][k]*V[k][j];
-//                            Log.d("Completion", "Ug, "+Double.toString(UGrad[i][j]));
-//                        }
-//                    }
-//                }
-//
-//                double[][] VGrad = new double[n2][r];
-//                zeroMatrix(VGrad);
-//                for (int i = 0; i < n2; ++i)
-//                {
-//                    for (int j = 0; j < r; ++j)
-//                    {
-//                        for (int k = 0; k < n1; ++k)
-//                        {
-//                            VGrad[i][j] += errorMatrix[k][i]*U[k][j];
-//                            Log.d("Completion", "Vg, "+Double.toString(VGrad[i][j]));
-//                        }
-//                    }
-//                }
-//
-//                double[][] Un = new double[n1][r];
-//                for (int i = 0; i < n1; ++i)
-//                {
-//                    for (int j = 0; j < r; ++j)
-//                    {
-//                        Un[i][j] = (1f - rate*lambda)*U[i][j] + rate*UGrad[i][j];
-//                        Log.d("Completion", "Un, "+Double.toString(Un[i][j]));
-//                    }
-//                }
-//
-//                double[][] Vn = new double[n2][r];
-//                for (int i = 0; i < n2; ++i)
-//                {
-//                    for (int j = 0; j < r; ++j)
-//                    {
-//                        Vn[i][j] = (1f - rate*lambda)*V[i][j] + rate*VGrad[i][j];
-//                        Log.d("Completion", "Vn, "+Double.toString(Vn[i][j]));
-//                    }
-//                }
-//
-//                U = Un;
-//                V = Vn;
-//            }
-
         for (int iter = 0; iter < maxIter; ++iter)
         {
-//			System.out.println("Iteration no. " + iter + " / " + maxIter);
-
             double[][] prodMatrix = new double[n1][n2];
             for (int i = 0; i < n1; ++i)
             {
@@ -231,7 +142,7 @@ public class Recommender {
         for(int i = 0; i < n1; i++) {
             for (int j = 0; j < r; j++) {
                 if(Double.isNaN(U[i][j]) || Double.isInfinite(U[i][j])) {
-                    Log.d("Completion", "BAD!!!");
+                   // Log.d("Completion", "BAD!!!");
                     return;
                 }
                 outputU[i][j] = U[i][j];
@@ -243,9 +154,6 @@ public class Recommender {
                 outputV[i][j] = V[i][j];
             }
         }
-
-//            Pair<double[][], double[][]> p = new Pair<>(U,V);
-//            return p;
     }
 
     public static void PredictRating(double[][] U, double[][] V, double[][] outputPredictions) {
