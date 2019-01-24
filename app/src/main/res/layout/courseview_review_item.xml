@@ -69,7 +69,7 @@
                         android:layout_marginRight="@dimen/spacing_middle"
                         android:fontFamily="@font/arima_madurai_bold"
                         android:text="Category Name"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textAppearance="@style/CourseViewText"
                         android:textColor="@color/grey_60"
                         tools:text="Text" />
 

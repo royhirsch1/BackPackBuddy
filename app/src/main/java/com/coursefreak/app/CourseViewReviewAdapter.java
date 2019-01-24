@@ -32,6 +32,7 @@ public class CourseViewReviewAdapter extends ArrayAdapter<Review> {
         // Populate the data into the template view using the data object
         //TODO slice text - whole words only
         String edited_str = review.getReviewText().length()>30? review.getReviewText().substring(0,29)+"..." : review.getReviewText();
+        reviewContent.setTextColor(convertView.getResources().getColor(R.color.colorError));
         reviewContent.setText(edited_str);
         // TODO change to email
         //reviewerEmail.setText(review.getUserID());

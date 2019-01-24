@@ -107,7 +107,7 @@ public class LoginPage extends AppCompatActivity {
                         }
                         else {
 //                            Log.d("AuthComplete", "AuthRequestSuccess");
-                            Toast.makeText(getApplicationContext(), "Welcome Back", Toast.LENGTH_SHORT ).show();
+                            Toast.makeText(getApplicationContext(),"Welcome Back!", Toast.LENGTH_SHORT ).show();
                             gotoWelcome();
                         }
                     }

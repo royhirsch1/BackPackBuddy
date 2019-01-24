@@ -155,7 +155,7 @@ public class CourseLineAdapter extends ArrayAdapter<Course> {
                         }
                     }
                     if(!CourseLineAdapter.messageShown) {
-                        Toast.makeText(getContext(), "User data loaded.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "User data loaded.", Toast.LENGTH_SHORT).show();
                         CourseLineAdapter.messageShown = true;
                     }
                 }

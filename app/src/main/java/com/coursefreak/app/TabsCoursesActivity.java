@@ -1,5 +1,6 @@
 package com.coursefreak.app;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -96,7 +97,6 @@ public class TabsCoursesActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
@@ -231,6 +231,10 @@ public class TabsCoursesActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
+    public void refreshFragments(){
+        view_pager.setAdapter(viewPagerAdapter);
+    }
+
 }

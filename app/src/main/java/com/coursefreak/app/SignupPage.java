@@ -67,7 +67,7 @@ public class SignupPage extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()) {
-                                        Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_SHORT ).show();
+                                        //Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_SHORT ).show();
                                         final FirebaseUser user = mAuth.getCurrentUser();
                                         DatabaseReference mDB = FirebaseDatabase.getInstance().getReference();
                                         if(mDB == null)

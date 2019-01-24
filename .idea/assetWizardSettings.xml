@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_content_copy_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_bookmark_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,11 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_copy" />
+                            <entry key="height" value="128" />
+                            <entry key="outputName" value="bookmark_128" />
+                            <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\Roy" />
+                            <entry key="width" value="128" />
                           </map>
                         </option>
                       </PersistentState>
