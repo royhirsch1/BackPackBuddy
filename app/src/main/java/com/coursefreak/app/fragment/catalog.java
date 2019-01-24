@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static android.view.View.GONE;
 
@@ -124,7 +125,7 @@ public class catalog extends Fragment {
                     c.parseCatsReqs();
                     res.add(c);
                 }
-                res.remove(null);
+                res.removeAll(Collections.singleton(null));
                 CourseLineAdapter cla = new CourseLineAdapter(getContext(), res,
                         catalog.this,
                         catalog.this.recommendedFragment,

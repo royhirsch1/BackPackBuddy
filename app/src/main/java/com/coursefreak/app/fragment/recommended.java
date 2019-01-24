@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -249,11 +250,9 @@ public class recommended extends Fragment {
                                     recommended.this.catalogFragment,
                                     recommended.this,
                                     recommended.this.interestedFragment);
+                            res.removeAll(Collections.singleton(null));
                             recomList.setAdapter(cla);
                             cla.notifyDataSetChanged();
-                        }
-                        for(Course c : res) {
-//                            Log.d("Completion", c.getName());
                         }
                         LinearLayout ly = rootView.findViewById(R.id.no_rec);
                         if(!res.isEmpty()){
