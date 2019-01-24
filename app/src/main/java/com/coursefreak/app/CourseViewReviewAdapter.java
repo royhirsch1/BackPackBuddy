@@ -24,16 +24,18 @@ public class CourseViewReviewAdapter extends ArrayAdapter<Review> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.courseview_review_item, parent, false);
         }
         // Lookup view for data population
-        TextView reviewContent = (TextView) convertView.findViewById(R.id.textView_review);
-        TextView reviewHelpful = (TextView) convertView.findViewById(R.id.partner_email);
+        TextView reviewContent = (TextView) convertView.findViewById(R.id.review_text);
+        TextView reviewerEmail = (TextView) convertView.findViewById(R.id.user_email);
 
-        de.hdodenhof.circleimageview.CircleImageView userImg = convertView.findViewById(R.id.partner_img);
+        de.hdodenhof.circleimageview.CircleImageView userImg = convertView.findViewById(R.id.user_img);
 
         // Populate the data into the template view using the data object
         //TODO slice text - whole words only
         String edited_str = review.getReviewText().length()>30? review.getReviewText().substring(0,29)+"..." : review.getReviewText();
+        reviewContent.setTextColor(convertView.getResources().getColor(R.color.colorError));
         reviewContent.setText(edited_str);
-        reviewHelpful.setText(Integer.toString(review.getNumHelped())+" Likes");
+        // TODO change to email
+        //reviewerEmail.setText(review.getUserID());
 
         //Random index TODO replace with real image data
         Random rand = new Random();

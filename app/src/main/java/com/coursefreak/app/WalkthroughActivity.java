@@ -27,7 +27,7 @@ public class WalkthroughActivity extends AppCompatActivity {
     private MyViewPagerAdapter myViewPagerAdapter;
     private Button btnNext;
     private String about_title_array[] = {
-            "Thanks For Joining!",
+            "",
             "See all CS Courses",
             "Partner up",
             "Help Our Community",
@@ -52,6 +52,7 @@ public class WalkthroughActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walkthrough);
+
         initComponent();
         Tools.setSystemBarColor(this, R.color.grey_5);
         Tools.setSystemBarLight(this);

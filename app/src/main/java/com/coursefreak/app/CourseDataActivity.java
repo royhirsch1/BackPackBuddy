@@ -108,15 +108,24 @@ public class CourseDataActivity extends AppCompatActivity {
         ImageView pairwork_img = findViewById(R.id.icon_pairwork);
 
         List<String> req_list = course.getParsedRequirements();
-        if(req_list.contains("hw")){
-            homework_img.setImageResource(R.drawable.icon_v);
+        if(!req_list.isEmpty()){
+            if(req_list.contains("hw")){
+                homework_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_v));
+            }else{
+                homework_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_x));
+            }
+            if(req_list.contains("exam")){
+                exam_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_v));
+            }else{
+                exam_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_x));
+            }
+            if(req_list.contains("pairs")){
+                pairwork_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_v));
+            }else{
+                pairwork_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_x));
+            }
         }
-        if(req_list.contains("exam")){
-            homework_img.setImageResource(R.drawable.icon_v);
-        }
-        if(req_list.contains("pairs")){
-            homework_img.setImageResource(R.drawable.icon_v);
-        }
+
 
         //End Of Requirements//
     }
@@ -266,7 +275,9 @@ public class CourseDataActivity extends AppCompatActivity {
         bt_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(parent_view, "Will be added soon", Snackbar.LENGTH_SHORT).show();
+                Intent nextActivity = new Intent(getApplicationContext(), ReviewsActivity.class);
+                nextActivity.putExtra("course_id",course.getCourseID());
+                startActivity(nextActivity);
             }
         });
 
@@ -419,8 +430,7 @@ public class CourseDataActivity extends AppCompatActivity {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         CoursePartner me = new CoursePartner(myUid,"unknown",myEmail);
-                        Snackbar.make(parent_view, "Request Accepted", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
+                        Toast.makeText(getApplicationContext(), "Updating..", Toast.LENGTH_SHORT).show();
                         if(isChecked){
                             mDB.child("course_partners")
                                     .child(courseID)
@@ -540,7 +550,8 @@ public class CourseDataActivity extends AppCompatActivity {
                 if (review.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please fill review text", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Will be added soon", Toast.LENGTH_SHORT).show();
+                    String my_uid = FirebaseAuth.getInstance().getUid();
+                    FirebaseUtils.addNewCourseReview(course.getCourseID(),my_uid,review,mDatabase.getReference());
                 }
 //                if (!adapter.isEmpty()) {
 //                }

@@ -61,5 +61,6 @@
 
     <string name="HIDE">HIDE</string>
     <string name="SAVE">SAVE</string>
+    <string name="title_activity_reviews">ReviewsActivity</string>
 </resources>
 

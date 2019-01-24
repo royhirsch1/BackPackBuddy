@@ -23,8 +23,7 @@
             android:layout_width="@dimen/spacing_mxlarge"
             android:layout_height="@dimen/spacing_mxlarge"
             android:layout_gravity="center_vertical"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_love_empty"
+            android:background="@drawable/ic_love_empty"
             android:tint="@color/grey_40" />
 
         <View

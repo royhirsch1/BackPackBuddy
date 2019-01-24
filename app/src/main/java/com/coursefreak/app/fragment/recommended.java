@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class recommended extends Fragment {
     private View rootView;
@@ -249,6 +253,12 @@ public class recommended extends Fragment {
                             res.removeAll(Collections.singleton(null));
                             recomList.setAdapter(cla);
                             cla.notifyDataSetChanged();
+                        }
+                        LinearLayout ly = rootView.findViewById(R.id.no_rec);
+                        if(!res.isEmpty()){
+                            ly.setVisibility(GONE);
+                        }else{
+                            ly.setVisibility(VISIBLE);
                         }
                     }
                     @Override

@@ -1,5 +1,6 @@
 package com.coursefreak.app;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -18,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TabsCoursesActivity extends AppCompatActivity {
+
     private ViewPager view_pager;
     private SectionsPagerAdapter viewPagerAdapter;
     private TabLayout tab_layout;
@@ -94,7 +97,6 @@ public class TabsCoursesActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
@@ -229,6 +231,10 @@ public class TabsCoursesActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
+    public void refreshFragments(){
+        view_pager.setAdapter(viewPagerAdapter);
+    }
+
 }

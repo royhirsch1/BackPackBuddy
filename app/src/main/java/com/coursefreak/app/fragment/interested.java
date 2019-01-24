@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +29,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class interested extends Fragment {
     private static View rootView;
@@ -153,6 +157,12 @@ public class interested extends Fragment {
                                 interested.this.recommendedFragment,
                                 interested.this);
                         lv.setAdapter(cla);
+                        LinearLayout ly = rootView.findViewById(R.id.no_bookmarks);
+                        if(!res.isEmpty()){
+                            ly.setVisibility(GONE);
+                        }else{
+                            ly.setVisibility(VISIBLE);
+                        }
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {

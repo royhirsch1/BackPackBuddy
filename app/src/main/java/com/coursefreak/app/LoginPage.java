@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,16 +23,21 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import static android.view.View.GONE;
+
 public class LoginPage extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
     private AlertDialog.Builder builder;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(GONE);
         this.mAuth = FirebaseAuth.getInstance();
         this.mDatabase = FirebaseDatabase.getInstance();
 
@@ -80,7 +86,7 @@ public class LoginPage extends AppCompatActivity {
                 }
                 String user_email = emailInput.toString();
                 String user_password = passInput.toString();
-                Toast.makeText(getApplicationContext(), "Connecting...", Toast.LENGTH_SHORT ).show();
+                spinner.setVisibility(View.VISIBLE);
                 mAuth.signInWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -97,10 +103,11 @@ public class LoginPage extends AppCompatActivity {
                             } catch (Exception e){
                             }
                             sign_in_button.setEnabled(true);
+                            spinner.setVisibility(GONE);
                         }
                         else {
 //                            Log.d("AuthComplete", "AuthRequestSuccess");
-                            Toast.makeText(getApplicationContext(), "Welcome Back", Toast.LENGTH_SHORT ).show();
+                            Toast.makeText(getApplicationContext(),"Welcome Back!", Toast.LENGTH_SHORT ).show();
                             gotoWelcome();
                         }
                     }

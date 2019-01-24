@@ -76,9 +76,6 @@ public class CourseView extends AppCompatActivity {
                     String my_review = input.getText().toString();
                     String my_uid = FirebaseAuth.getInstance().getUid();
                     FirebaseUtils.addNewCourseReview(course.getCourseID(),my_uid,my_review,mDatabase.getReference());
-
-
-
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
