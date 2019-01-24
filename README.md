@@ -1,8 +1,8 @@
-# Course Freak
+# Course Freak <img align="right" src="https://user-images.githubusercontent.com/38239587/51712293-f6a76880-2036-11e9-9c59-d73f5930cdc2.png" width="80">
 
-<table border="0" align="cetner"><tr><td><img src="https://user-images.githubusercontent.com/38239587/51712293-f6a76880-2036-11e9-9c59-d73f5930cdc2.png" width="80"></td><td><a style="margin-bottom: 0;" href='https://play.google.com/store/apps/details?id=com.coursefreak.app'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width="200px"/></a></td></tr></table>
+<a style="margin-bottom: 0;" href='https://play.google.com/store/apps/details?id=com.coursefreak.app'><img align="right" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width="200px"/></a>
 
-<hr>
+
 CourseFreak is an Android app for students. It is in fact a unified platform for many course-related tasks that can easily be done through the app's interactive environment.
 
 ![screnshot](https://user-images.githubusercontent.com/38239587/51712204-b1833680-2036-11e9-8b59-a50e34b0f3df.png)
