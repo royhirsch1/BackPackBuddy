@@ -19,7 +19,7 @@ Our ML engine is a simple [Collaborative Filter](https://en.wikipedia.org/wiki/C
 
 The app was built with [Android Studio](https://developer.android.com/studio/) (Java) and uses [Firebase](https://firebase.google.com/) for user authentication, database and [FCM](https://firebase.google.com/docs/cloud-messaging/).
 It was designed based on the priciples of [Material Design](https://material.io/design/) and was prototyped with [adobe XD](https://www.adobe.com/products/xd.html) with the [Zeplin](https://zeplin.io/) plugin.
-The course data we used was downloaded and reformatted from Technion CS faculty's [website](http://www.cs.technion.ac.il/courses/all/by-number/) using Google sheet XML scripts and [XPATH Generator](https://chrome.google.com/webstore/detail/xpath-generator/dphfifdfpfabhbkghlmnkkdghbmocfeb) Chrome Extension.
+The course data we used was downloaded and reformatted from Technion CS faculty's [website](http://www.cs.technion.ac.il/courses/all/by-number/) using Google sheet XML scripts, [XPATH Generator](https://chrome.google.com/webstore/detail/xpath-generator/dphfifdfpfabhbkghlmnkkdghbmocfeb) Chrome Extension, and a [CSV to JSON Conveter](http://www.convertcsv.com/csv-to-json.htm) - [here](https://docs.google.com/spreadsheets/d/1qimYzFsw8z3ismoZ1X4F8flZUUgkK94zdu0b2ped7yI/edit?usp=sharing) is an example.
 
 Feel free to contact us if you have any further questions or suggestions.   
 
